@@ -62,9 +62,10 @@
     [self.metricsCell layoutSubviews];
 
     // Get the layout size - we ignore the width - in the fact the width _could_ conceivably be zero.
+    // Note: Using content view is intentional.
     CGSize theSize = [self.metricsCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
 
-    return (theSize.height);
+    return (theSize.height + 1);
     }
 
 - (void)populateCell:(UITableViewCell *)inCell forRowAtIndexPath:(NSIndexPath *)indexPath

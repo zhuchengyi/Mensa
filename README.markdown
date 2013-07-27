@@ -9,3 +9,7 @@ The table view controller keeps a extra 'metrics' cell property that is used to 
 ## View controllers as cell prototypes
 
 Use of UIViewControllers in table view cells and runtime generation of cell classes for specific view controllers
+
+## Requirements
+
+Project uses Xcode 5b3 (specifically the nibs) - but the techniques used work fine on iOS 5.
