@@ -12,4 +12,4 @@ Use of UIViewControllers in table view cells and runtime generation of cell clas
 
 ## Requirements
 
-Project uses Xcode 5b3 (specifically the nibs) - but the techniques used work fine on iOS 5.
+Project uses Xcode 5b3 (specifically the nibs) - but the techniques used work fine on iOS 6+.
