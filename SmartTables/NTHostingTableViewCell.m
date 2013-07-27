@@ -26,7 +26,7 @@
         theNewClass = objc_allocateClassPair(self, [theClassName UTF8String], 0);
         NSParameterAssert(theNewClass != NULL);
 
-        id (^theBlock)(void) = ^(void) { return(inViewControllerClass); };
+        id (^theBlock)(id self) = ^(id self) { return(inViewControllerClass); };
 
         IMP theIMP = imp_implementationWithBlock([theBlock copy]);
         NSParameterAssert(theIMP != NULL);
