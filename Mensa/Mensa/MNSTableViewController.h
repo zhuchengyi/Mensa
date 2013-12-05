@@ -12,4 +12,6 @@
 
 - (void)populateCell:(MNSHostingTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 
+@property (nonatomic, readonly) Class viewControllerClass;
+
 @end

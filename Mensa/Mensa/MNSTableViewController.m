@@ -7,7 +7,6 @@
 //
 
 #import "MNSTableViewController.h"
-#import "MNSNumberViewController.h"
 #import "MNSHostingTableViewCell.h"
 
 @interface MNSTableViewController ()
@@ -18,7 +17,7 @@
 
 @implementation MNSTableViewController
 
-static NSString *cellIdentifier = @"MNSNumberTableViewCell";
+static NSString *cellIdentifier = @"MNSTableViewCell";
 
 - (void)populateCell:(MNSHostingTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -32,7 +31,7 @@ static NSString *cellIdentifier = @"MNSNumberTableViewCell";
     [super viewDidLoad];
 
     // MNSHostingTableViewCell dynamically generates a subclass of itself that automatically hosts a view controller of a specific class.
-    Class class = [MNSHostingTableViewCell subclassWithViewControllerClass:[MNSNumberViewController class]];
+    Class class = [MNSHostingTableViewCell subclassWithViewControllerClass:self.viewControllerClass];
     [self.tableView registerClass:class forCellReuseIdentifier:cellIdentifier];
 
     // Instead of storing a metrics cell we could just dequeue them as needed off of the table view. But due to the way our hosted cells work we can’t do that here

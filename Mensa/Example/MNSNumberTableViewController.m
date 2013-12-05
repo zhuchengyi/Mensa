@@ -25,6 +25,11 @@
     viewController.numberLabel.font = [viewController.numberLabel.font fontWithSize:fontSize];
 }
 
+- (Class)viewControllerClass
+{
+    return [MNSNumberViewController class];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
