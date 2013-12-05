@@ -1,19 +1,19 @@
 //
-//  NTHostingTableViewCell.m
-//  SmartTables
+//  MNSHostingTableViewCell.m
+//  Mensa
 //
 //  Created by Jonathan Wight on 7/18/13.
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
 #import <objc/runtime.h>
-#import "NTHostingTableViewCell.h"
+#import "MNSHostingTableViewCell.h"
 
-@interface NTHostingTableViewCell ()
+@interface MNSHostingTableViewCell ()
 
 @end
 
-@implementation NTHostingTableViewCell
+@implementation MNSHostingTableViewCell
 
 - (void)loadHostedView
 {

@@ -1,4 +1,4 @@
-# SmartTables
+# Mensa: Smart Tables
 
 Shows two simple techniques for modern UITableViews. The two techniques are separate in concept but are combined in this demo project, you can use either independently.
 
