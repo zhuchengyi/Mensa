@@ -7,36 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		45318BF41851012A006F8527 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45318BF21851012A006F8527 /* Main.storyboard */; };
-		45318BFC1851013F006F8527 /* MNSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45318BF61851013F006F8527 /* MNSAppDelegate.m */; };
-		45318BFD1851013F006F8527 /* MNSDemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45318BF81851013F006F8527 /* MNSDemoTableViewController.m */; };
-		45318BFE1851013F006F8527 /* MNSDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45318BFA1851013F006F8527 /* MNSDemoViewController.m */; };
-		45318BFF1851013F006F8527 /* MNSDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45318BFB1851013F006F8527 /* MNSDemoViewController.xib */; };
-		45318C0518510154006F8527 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45318C0218510154006F8527 /* Images.xcassets */; };
-		45318C0618510154006F8527 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45318C0318510154006F8527 /* main.m */; };
-		45318C091851015C006F8527 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45318C071851015C006F8527 /* InfoPlist.strings */; };
-		45318C0C1851016D006F8527 /* MNSHostingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45318C0B1851016D006F8527 /* MNSHostingTableViewCell.m */; };
+		454A191B18511D99001F4296 /* MNSHostingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A191818511D99001F4296 /* MNSHostingTableViewCell.m */; };
+		454A191C18511D99001F4296 /* MNSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A191A18511D99001F4296 /* MNSTableViewController.m */; };
+		454A191E18511DAB001F4296 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 454A191D18511DAB001F4296 /* Images.xcassets */; };
+		454A192118511DB1001F4296 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 454A191F18511DB1001F4296 /* Main.storyboard */; };
+		454A192918511DC4001F4296 /* MNSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A192318511DC4001F4296 /* MNSAppDelegate.m */; };
+		454A192A18511DC4001F4296 /* MNSNumberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A192518511DC4001F4296 /* MNSNumberTableViewController.m */; };
+		454A192B18511DC4001F4296 /* MNSNumberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A192718511DC4001F4296 /* MNSNumberViewController.m */; };
+		454A192C18511DC4001F4296 /* MNSNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 454A192818511DC4001F4296 /* MNSNumberViewController.xib */; };
+		454A193118511DD4001F4296 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A192F18511DD4001F4296 /* main.m */; };
+		454A193418511DDC001F4296 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 454A193218511DDC001F4296 /* InfoPlist.strings */; };
 		454F2FE017A3113800DF45AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FDF17A3113800DF45AB /* Foundation.framework */; };
 		454F2FE217A3113800DF45AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FE117A3113800DF45AB /* CoreGraphics.framework */; };
 		454F2FE417A3113800DF45AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FE317A3113800DF45AB /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		45318BF31851012A006F8527 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Mensa/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		45318BF51851013F006F8527 /* MNSAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSAppDelegate.h; path = Mensa/MNSAppDelegate.h; sourceTree = "<group>"; };
-		45318BF61851013F006F8527 /* MNSAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSAppDelegate.m; path = Mensa/MNSAppDelegate.m; sourceTree = "<group>"; };
-		45318BF71851013F006F8527 /* MNSDemoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSDemoTableViewController.h; path = Mensa/MNSDemoTableViewController.h; sourceTree = "<group>"; };
-		45318BF81851013F006F8527 /* MNSDemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSDemoTableViewController.m; path = Mensa/MNSDemoTableViewController.m; sourceTree = "<group>"; };
-		45318BF91851013F006F8527 /* MNSDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSDemoViewController.h; path = Mensa/MNSDemoViewController.h; sourceTree = "<group>"; };
-		45318BFA1851013F006F8527 /* MNSDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSDemoViewController.m; path = Mensa/MNSDemoViewController.m; sourceTree = "<group>"; };
-		45318BFB1851013F006F8527 /* MNSDemoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MNSDemoViewController.xib; path = Mensa/MNSDemoViewController.xib; sourceTree = "<group>"; };
-		45318C0018510154006F8527 /* Example-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Example-Info.plist"; path = "Mensa/Example-Info.plist"; sourceTree = "<group>"; };
-		45318C0118510154006F8527 /* Example-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Example-Prefix.pch"; path = "Mensa/Example-Prefix.pch"; sourceTree = "<group>"; };
-		45318C0218510154006F8527 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Mensa/Images.xcassets; sourceTree = "<group>"; };
-		45318C0318510154006F8527 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Mensa/main.m; sourceTree = "<group>"; };
-		45318C081851015C006F8527 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Mensa/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		45318C0A1851016D006F8527 /* MNSHostingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSHostingTableViewCell.h; path = Mensa/MNSHostingTableViewCell.h; sourceTree = SOURCE_ROOT; };
-		45318C0B1851016D006F8527 /* MNSHostingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSHostingTableViewCell.m; path = Mensa/MNSHostingTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		454A191718511D99001F4296 /* MNSHostingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSHostingTableViewCell.h; path = Mensa/MNSHostingTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		454A191818511D99001F4296 /* MNSHostingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSHostingTableViewCell.m; path = Mensa/MNSHostingTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		454A191918511D99001F4296 /* MNSTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSTableViewController.h; path = Mensa/MNSTableViewController.h; sourceTree = SOURCE_ROOT; };
+		454A191A18511D99001F4296 /* MNSTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSTableViewController.m; path = Mensa/MNSTableViewController.m; sourceTree = SOURCE_ROOT; };
+		454A191D18511DAB001F4296 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Example/Images.xcassets; sourceTree = "<group>"; };
+		454A192018511DB1001F4296 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Example/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		454A192218511DC4001F4296 /* MNSAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSAppDelegate.h; path = Example/MNSAppDelegate.h; sourceTree = "<group>"; };
+		454A192318511DC4001F4296 /* MNSAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSAppDelegate.m; path = Example/MNSAppDelegate.m; sourceTree = "<group>"; };
+		454A192418511DC4001F4296 /* MNSNumberTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSNumberTableViewController.h; path = Example/MNSNumberTableViewController.h; sourceTree = "<group>"; };
+		454A192518511DC4001F4296 /* MNSNumberTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSNumberTableViewController.m; path = Example/MNSNumberTableViewController.m; sourceTree = "<group>"; };
+		454A192618511DC4001F4296 /* MNSNumberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSNumberViewController.h; path = Example/MNSNumberViewController.h; sourceTree = "<group>"; };
+		454A192718511DC4001F4296 /* MNSNumberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSNumberViewController.m; path = Example/MNSNumberViewController.m; sourceTree = "<group>"; };
+		454A192818511DC4001F4296 /* MNSNumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MNSNumberViewController.xib; path = Example/MNSNumberViewController.xib; sourceTree = "<group>"; };
+		454A192D18511DD4001F4296 /* Example-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Example-Info.plist"; path = "Example/Example-Info.plist"; sourceTree = "<group>"; };
+		454A192E18511DD4001F4296 /* Example-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Example-Prefix.pch"; path = "Example/Example-Prefix.pch"; sourceTree = "<group>"; };
+		454A192F18511DD4001F4296 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Example/main.m; sourceTree = "<group>"; };
+		454A193318511DDC001F4296 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Example/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		454F2FDC17A3113800DF45AB /* Mensa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mensa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		454F2FDF17A3113800DF45AB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		454F2FE117A3113800DF45AB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -61,21 +64,28 @@
 		45318BF11850FB93006F8527 /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				45318BF21851012A006F8527 /* Main.storyboard */,
-				45318BF51851013F006F8527 /* MNSAppDelegate.h */,
-				45318BF61851013F006F8527 /* MNSAppDelegate.m */,
-				45318BF71851013F006F8527 /* MNSDemoTableViewController.h */,
-				45318BF81851013F006F8527 /* MNSDemoTableViewController.m */,
-				45318BF91851013F006F8527 /* MNSDemoViewController.h */,
-				45318BFA1851013F006F8527 /* MNSDemoViewController.m */,
-				45318BFB1851013F006F8527 /* MNSDemoViewController.xib */,
-				45318C0018510154006F8527 /* Example-Info.plist */,
-				45318C0118510154006F8527 /* Example-Prefix.pch */,
-				45318C0218510154006F8527 /* Images.xcassets */,
-				45318C071851015C006F8527 /* InfoPlist.strings */,
-				45318C0318510154006F8527 /* main.m */,
+				454A191D18511DAB001F4296 /* Images.xcassets */,
+				454A191F18511DB1001F4296 /* Main.storyboard */,
+				454A192218511DC4001F4296 /* MNSAppDelegate.h */,
+				454A192318511DC4001F4296 /* MNSAppDelegate.m */,
+				454A192418511DC4001F4296 /* MNSNumberTableViewController.h */,
+				454A192518511DC4001F4296 /* MNSNumberTableViewController.m */,
+				454A192618511DC4001F4296 /* MNSNumberViewController.h */,
+				454A192718511DC4001F4296 /* MNSNumberViewController.m */,
+				454A192818511DC4001F4296 /* MNSNumberViewController.xib */,
 			);
 			name = Example;
+			sourceTree = "<group>";
+		};
+		454A191018511CC6001F4296 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				454A192D18511DD4001F4296 /* Example-Info.plist */,
+				454A192E18511DD4001F4296 /* Example-Prefix.pch */,
+				454A192F18511DD4001F4296 /* main.m */,
+				454A193218511DDC001F4296 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		454F2FD317A3113800DF45AB = {
@@ -83,6 +93,7 @@
 			children = (
 				45318BF11850FB93006F8527 /* Example */,
 				4583626017A3A62C001FB4AE /* Mensa */,
+				454A191018511CC6001F4296 /* Supporting Files */,
 				454F2FDE17A3113800DF45AB /* Frameworks */,
 				454F2FDD17A3113800DF45AB /* Products */,
 			);
@@ -110,8 +121,10 @@
 		4583626017A3A62C001FB4AE /* Mensa */ = {
 			isa = PBXGroup;
 			children = (
-				45318C0A1851016D006F8527 /* MNSHostingTableViewCell.h */,
-				45318C0B1851016D006F8527 /* MNSHostingTableViewCell.m */,
+				454A191718511D99001F4296 /* MNSHostingTableViewCell.h */,
+				454A191818511D99001F4296 /* MNSHostingTableViewCell.m */,
+				454A191918511D99001F4296 /* MNSTableViewController.h */,
+				454A191A18511D99001F4296 /* MNSTableViewController.m */,
 			);
 			name = Mensa;
 			path = SmartTables;
@@ -170,10 +183,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45318C0518510154006F8527 /* Images.xcassets in Resources */,
-				45318BFF1851013F006F8527 /* MNSDemoViewController.xib in Resources */,
-				45318BF41851012A006F8527 /* Main.storyboard in Resources */,
-				45318C091851015C006F8527 /* InfoPlist.strings in Resources */,
+				454A192C18511DC4001F4296 /* MNSNumberViewController.xib in Resources */,
+				454A192118511DB1001F4296 /* Main.storyboard in Resources */,
+				454A191E18511DAB001F4296 /* Images.xcassets in Resources */,
+				454A193418511DDC001F4296 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,29 +197,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45318C0618510154006F8527 /* main.m in Sources */,
-				45318BFC1851013F006F8527 /* MNSAppDelegate.m in Sources */,
-				45318BFD1851013F006F8527 /* MNSDemoTableViewController.m in Sources */,
-				45318C0C1851016D006F8527 /* MNSHostingTableViewCell.m in Sources */,
-				45318BFE1851013F006F8527 /* MNSDemoViewController.m in Sources */,
+				454A191C18511D99001F4296 /* MNSTableViewController.m in Sources */,
+				454A192A18511DC4001F4296 /* MNSNumberTableViewController.m in Sources */,
+				454A192918511DC4001F4296 /* MNSAppDelegate.m in Sources */,
+				454A192B18511DC4001F4296 /* MNSNumberViewController.m in Sources */,
+				454A193118511DD4001F4296 /* main.m in Sources */,
+				454A191B18511D99001F4296 /* MNSHostingTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		45318BF21851012A006F8527 /* Main.storyboard */ = {
+		454A191F18511DB1001F4296 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				45318BF31851012A006F8527 /* Base */,
+				454A192018511DB1001F4296 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		45318C071851015C006F8527 /* InfoPlist.strings */ = {
+		454A193218511DDC001F4296 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				45318C081851015C006F8527 /* en */,
+				454A193318511DDC001F4296 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -288,8 +302,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Mensa/Example-Prefix.pch";
-				INFOPLIST_FILE = "$(SRCROOT)/Mensa/Example-Info.plist";
+				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Example/Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Mensa;
 				WRAPPER_EXTENSION = app;
@@ -302,8 +316,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Mensa/Example-Prefix.pch";
-				INFOPLIST_FILE = "$(SRCROOT)/Mensa/Example-Info.plist";
+				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Example/Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Mensa;
 				WRAPPER_EXTENSION = app;
