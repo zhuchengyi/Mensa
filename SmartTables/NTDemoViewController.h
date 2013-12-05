@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface NTDemoViewController : UIViewController
-@property (readwrite, nonatomic) IBOutlet UILabel *demoLabel;
+
+@property (nonatomic) IBOutlet UILabel *demoLabel;
+
 @end

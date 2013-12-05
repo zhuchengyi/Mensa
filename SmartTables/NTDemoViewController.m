@@ -8,10 +8,6 @@
 
 #import "NTDemoViewController.h"
 
-@interface NTDemoViewController ()
-
-@end
-
 @implementation NTDemoViewController
 
 @end

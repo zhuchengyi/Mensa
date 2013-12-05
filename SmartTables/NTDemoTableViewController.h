@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface NTDemoTableViewController : UITableViewController
 
 @end

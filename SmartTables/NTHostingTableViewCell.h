@@ -6,16 +6,13 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface NTHostingTableViewCell : UITableViewCell
 
-@property (readonly, nonatomic) Class hostedViewControllerClass;
-@property (readonly, nonatomic) UIViewController *hostedViewController;
-@property (readwrite, nonatomic, weak) UIViewController *parentViewController;
-
+- (void)loadHostedView;
 + (Class)subclassWithViewControllerClass:(Class)inViewControllerClass;
 
-- (void)loadHostedView;
+@property (nonatomic, readonly) Class hostedViewControllerClass;
+@property (nonatomic, readonly) UIViewController *hostedViewController;
+@property (nonatomic, weak) UIViewController *parentViewController;
 
 @end

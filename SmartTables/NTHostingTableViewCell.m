@@ -6,80 +6,69 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
+#import <objc/runtime.h>
 #import "NTHostingTableViewCell.h"
 
-#import <objc/runtime.h>
-
 @interface NTHostingTableViewCell ()
+
 @end
 
 @implementation NTHostingTableViewCell
 
-@dynamic hostedViewControllerClass;
+- (void)loadHostedView
+{
+    NSParameterAssert(self.hostedViewController.view.superview == NULL);
+    UIView *hostedView = self.hostedViewController.view;
+    hostedView.frame = self.contentView.bounds;
+    hostedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.contentView addSubview:hostedView];
+}
 
-+ (Class)subclassWithViewControllerClass:(Class)inViewControllerClass
-	{
-	NSString *theClassName = [NSString stringWithFormat:@"%@_%@", NSStringFromClass(self), NSStringFromClass(inViewControllerClass)];
-    Class theNewClass = NSClassFromString(theClassName);
-    if (theNewClass == NULL)
-        {
-        theNewClass = objc_allocateClassPair(self, [theClassName UTF8String], 0);
-        NSParameterAssert(theNewClass != NULL);
-
-        id (^theBlock)(id self) = ^(id self) { return(inViewControllerClass); };
-
-        IMP theIMP = imp_implementationWithBlock([theBlock copy]);
-        NSParameterAssert(theIMP != NULL);
-
++ (Class)subclassWithViewControllerClass:(Class)viewControllerClass
+{
+	NSString *className = [NSString stringWithFormat:@"%@_%@", NSStringFromClass(self), NSStringFromClass(viewControllerClass)];
+    Class class = NSClassFromString(className);
+    if (!class) {
+        class = objc_allocateClassPair(self, [className UTF8String], 0);
+        id (^block)(id) = ^(id self) {
+            return viewControllerClass;
+        };
+        IMP implementation = imp_implementationWithBlock([block copy]);
         // #@: == return a class (#), self (@), cmd selector (:)
-        BOOL theResult = class_addMethod(theNewClass, NSSelectorFromString(@"hostedViewControllerClass"), theIMP, "#@:");
-        NSParameterAssert(theResult == YES);
-
-        objc_registerClassPair(theNewClass);
-        }
-
-	return(theNewClass);
-	}
-
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-    {
-    if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) != NULL)
-        {
-		Class theClass = self.hostedViewControllerClass;
-		_hostedViewController = [[theClass alloc] initWithNibName:NSStringFromClass(theClass) bundle:NULL];
-        }
-    return self;
+        class_addMethod(class, NSSelectorFromString(@"hostedViewControllerClass"), implementation, "#@:");
+        objc_registerClassPair(class);
     }
+	return class;
+}
 
 - (void)setParentViewController:(UIViewController *)parentViewController
-    {
-    if (_parentViewController != parentViewController)
-        {
-        if (_parentViewController != NULL)
-            {
-            [self.hostedViewController willMoveToParentViewController:NULL];
+{
+    if (_parentViewController != parentViewController) {
+        if (_parentViewController) {
+            [self.hostedViewController willMoveToParentViewController:nil];
             [self.hostedViewController.view removeFromSuperview];
             [self.hostedViewController removeFromParentViewController];
-            }
+        }
 
         _parentViewController = parentViewController;
 
-        if (_parentViewController != NULL)
-            {
+        if (_parentViewController) {
             [_parentViewController addChildViewController:self.hostedViewController];
             [self loadHostedView];
             [self.hostedViewController didMoveToParentViewController:_parentViewController];
-            }
         }
     }
+}
 
-- (void)loadHostedView;
-    {
-    NSParameterAssert(self.hostedViewController.view.superview == NULL);
-    UIView *theHostedView = self.hostedViewController.view;
-    theHostedView.frame = self.contentView.bounds;
-    theHostedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.contentView addSubview:theHostedView];
+#pragma mark - UITableViewCell
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+		Class class = self.hostedViewControllerClass;
+		_hostedViewController = [[class alloc] initWithNibName:NSStringFromClass(class) bundle:nil];
     }
+    return self;
+}
 
 @end
