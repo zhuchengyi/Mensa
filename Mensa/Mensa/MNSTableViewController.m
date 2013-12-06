@@ -6,11 +6,13 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
+#import "MNSTableViewSection.h"
 #import "MNSTableViewController.h"
 #import "MNSHostingTableViewCell.h"
 
 @interface MNSTableViewController ()
 
+@property (nonatomic, copy) NSArray *setSections;
 @property (nonatomic) MNSHostingTableViewCell *metricsCell;
 
 @end
@@ -29,6 +31,8 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.setSections = self.sections;
 
     // MNSHostingTableViewCell dynamically generates a subclass of itself that automatically hosts a view controller of a specific class.
     Class class = [MNSHostingTableViewCell subclassWithViewControllerClass:self.viewControllerClass];
@@ -61,6 +65,16 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 }
 
 #pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [self.setSections count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [[self.setSections objectAtIndex:section] count];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

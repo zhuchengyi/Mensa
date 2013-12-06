@@ -6,12 +6,14 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
-@class MNSHostingTableViewCell;
+#import "MNSTableViewSection.h"
+#import "MNSHostingTableViewCell.h"
 
 @interface MNSTableViewController : UITableViewController
 
 - (void)populateCell:(MNSHostingTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 
+@property (nonatomic, readonly) NSArray *sections;
 @property (nonatomic, readonly) Class viewControllerClass;
 
 @end
