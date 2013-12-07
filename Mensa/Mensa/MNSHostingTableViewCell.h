@@ -6,13 +6,15 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
+#import "MNSHostedViewController.h"
+
 @interface MNSHostingTableViewCell : UITableViewCell
 
 - (void)loadHostedView;
 + (Class)subclassWithViewControllerClass:(Class)inViewControllerClass;
 
 @property (nonatomic, readonly) Class hostedViewControllerClass;
-@property (nonatomic, readonly) UIViewController *hostedViewController;
+@property (nonatomic, readonly) MNSHostedViewController *hostedViewController;
 @property (nonatomic, weak) UIViewController *parentViewController;
 
 @end

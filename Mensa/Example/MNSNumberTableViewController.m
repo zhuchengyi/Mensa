@@ -6,40 +6,61 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
-#import "MNSHostingTableViewCell.h"
+#import "MNSNumber.h"
+#import "MNSNumberView.h"
 #import "MNSNumberViewController.h"
 #import "MNSNumberTableViewController.h"
 
-#define NUMBER_OF_ROWS 100
+#define COUNT 100
 #define FONT_SIZE_MAX 105
+
+@interface MNSNumberTableViewController ()
+
+@property (nonatomic) NSMutableArray *numbers;
+
+@end
 
 @implementation MNSNumberTableViewController
 
+- (void)_setupNumbers
+{
+    self.numbers = [NSMutableArray arrayWithCapacity:COUNT];
+    for (NSInteger i = 0; i < COUNT; i++) {
+        MNSNumber *number = [[MNSNumber alloc] initWithValue:i];
+        [self.numbers addObject:number];
+    }
+}
+
+#pragma mark - NSObject
+
++ (void)initialize
+{
+    if (self == [MNSNumberTableViewController class]) {
+        [MNSViewControllerRegistrar registerViewControllerClass:[MNSNumberViewController class] forModelClass:[MNSNumber class]];
+    }
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    if (self = [super initWithCoder:coder]) {
+        [self _setupNumbers];
+    }
+    return self;
+}
+
 #pragma mark - MNSTableViewController
 
-- (void)populateCell:(MNSHostingTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)hostViewController:(UIViewController *)viewController withObject:(MNSNumber *)number
 {
-    CGFloat fontSize = FONT_SIZE_MAX - indexPath.row;
-    MNSNumberViewController *viewController = (MNSNumberViewController *)cell.hostedViewController;
-    viewController.numberLabel.text = [NSString stringWithFormat:@"%d", indexPath.row];
-    viewController.numberLabel.font = [viewController.numberLabel.font fontWithSize:fontSize];
+    CGFloat fontSize = FONT_SIZE_MAX - number.value;
+    MNSNumberView *view = (MNSNumberView *)viewController.view;
+    view.valueLabel.text = [NSString stringWithFormat:@"%d", number.value];
+    view.valueLabel.font = [view.valueLabel.font fontWithSize:fontSize];
 }
 
-- (Class)viewControllerClass
+- (NSArray *)sections
 {
-    return [MNSNumberViewController class];
-}
-
-#pragma mark - UITableViewDataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return NUMBER_OF_ROWS;
+    return @[self.numbers];
 }
 
 @end

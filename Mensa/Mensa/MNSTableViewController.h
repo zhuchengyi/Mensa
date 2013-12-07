@@ -7,11 +7,13 @@
 //
 
 #import "MNSTableViewSection.h"
+#import "MNSHostedViewController.h"
 #import "MNSHostingTableViewCell.h"
+#import "MNSViewControllerRegistrar.h"
 
 @interface MNSTableViewController : UITableViewController
 
-- (void)populateCell:(MNSHostingTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)hostViewController:(MNSHostedViewController *)viewController withObject:(id)object;
 
 @property (nonatomic, readonly) NSArray *sections;
 @property (nonatomic, readonly) Class viewControllerClass;

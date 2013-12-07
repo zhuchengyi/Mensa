@@ -1,0 +1,15 @@
+//
+//  MNSNumber.h
+//  Mensa
+//
+//  Created by Jordan Kay on 12/6/13.
+//  Copyright (c) 2013 toxicsoftware. All rights reserved.
+//
+
+@interface MNSNumber : NSObject
+
+- (instancetype)initWithValue:(NSInteger)value;
+
+@property (nonatomic, readonly) NSInteger value;
+
+@end

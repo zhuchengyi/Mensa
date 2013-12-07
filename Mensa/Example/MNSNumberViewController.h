@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
-@interface MNSNumberViewController : UIViewController
+#import "MNSHostedViewController.h"
 
-@property (nonatomic) IBOutlet UILabel *numberLabel;
+@interface MNSNumberViewController : MNSHostedViewController
 
 @end

@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface MNSTableViewSection : NSObject
 
 + (instancetype)sectionWithObjects:(NSArray *)objects;

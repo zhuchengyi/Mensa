@@ -47,4 +47,11 @@
     return self.objects[idx];
 }
 
+#pragma mark - NSFastEnumeration
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len
+{
+    return [self.objects countByEnumeratingWithState:state objects:buffer count:len];
+}
+
 @end
