@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
+#import "MNSHostingTableViewCell.h"
 #import "MNSHostedViewController.h"
 
 @implementation MNSHostedViewController

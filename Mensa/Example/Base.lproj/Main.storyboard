@@ -5,25 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Number Table View Controller-->
-        <scene sceneID="odd-j0-aDG">
-            <objects>
-                <tableViewController id="EcM-hE-lvA" customClass="MNSNumberTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="d5l-26-x6U">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <connections>
-                            <outlet property="dataSource" destination="EcM-hE-lvA" id="yTV-mo-6nI"/>
-                            <outlet property="delegate" destination="EcM-hE-lvA" id="7dt-Y2-Gy0"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="8aA-IZ-Xzi"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="78s-fr-iRq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="826" y="220"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="FJy-Fe-amQ">
             <objects>
@@ -35,12 +16,31 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="EcM-hE-lvA" kind="relationship" relationship="rootViewController" id="gmP-nn-bsr"/>
+                        <segue destination="VLr-23-cLy" kind="relationship" relationship="rootViewController" id="MGs-LP-L2k"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5yP-RP-rD7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="300" y="220"/>
+        </scene>
+        <!--Number Table View Controller-->
+        <scene sceneID="rlu-pC-2kz">
+            <objects>
+                <tableViewController id="VLr-23-cLy" customClass="MNSNumberTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="eUe-Ny-YoQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="VLr-23-cLy" id="Y0P-Ug-IDq"/>
+                            <outlet property="delegate" destination="VLr-23-cLy" id="Zyg-Th-FIH"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="4Cn-16-Oel"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J74-gG-mlF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="674" y="220"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

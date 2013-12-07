@@ -36,7 +36,9 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
                 Class modelClass = [object class];
                 if (!self.metricsCells[modelClass]) {
                     MNSHostingTableViewCell *metricsCell = [self _metricsCellForModelClass:modelClass];
-                    self.metricsCells[(id<NSCopying>)modelClass] = metricsCell;
+                    if (metricsCell) {
+                        self.metricsCells[(id<NSCopying>)modelClass] = metricsCell;
+                    }
                 }
             }
         }
@@ -50,15 +52,19 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 
 - (MNSHostingTableViewCell *)_metricsCellForModelClass:(Class)modelClass
 {
+    MNSHostingTableViewCell *metricsCell;
+
     // MNSHostingTableViewCell dynamically generates a subclass of itself that automatically hosts a view controller of a specific class.
     Class viewControllerClass = [MNSViewControllerRegistrar viewControllerClassForModelClass:modelClass];
-    Class cellClass = [MNSHostingTableViewCell subclassWithViewControllerClass:viewControllerClass];
-    NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
-    [self.tableView registerClass:cellClass forCellReuseIdentifier:reuseIdentifier];
+    if (viewControllerClass) {
+        Class cellClass = [MNSHostingTableViewCell subclassWithViewControllerClass:viewControllerClass];
+        NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
+        [self.tableView registerClass:cellClass forCellReuseIdentifier:reuseIdentifier];
 
-    // Instead of storing a metrics cell we could just dequeue them as needed off of the table view. But due to the way our hosted cells work we can’t do that here
-    MNSHostingTableViewCell *metricsCell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    [metricsCell loadHostedView];
+        // Instead of storing a metrics cell we could just dequeue them as needed off of the table view. But due to the way our hosted cells work we can’t do that here
+        metricsCell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        [metricsCell loadHostedView];
+    }
 
     return metricsCell;
 }
@@ -78,6 +84,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
     self.backingSections = self.sections;
 }
 
@@ -85,24 +92,29 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    CGFloat height = 0.0f;
     id object = [self _backingObjectForRowAtIndexPath:indexPath];
     MNSHostingTableViewCell *metricsCell = self.metricsCells[[object class]];
 
-    // We need to adjust the metrics cell’s frame to handle table width changes (e.g. rotations)
-    CGRect frame = metricsCell.frame;
-    frame.size.width = self.tableView.bounds.size.width;
-    metricsCell.frame = frame;
+    if (metricsCell) {
+        // We need to adjust the metrics cell’s frame to handle table width changes (e.g. rotations)
+        CGRect frame = metricsCell.frame;
+        frame.size.width = self.tableView.bounds.size.width;
+        metricsCell.frame = frame;
 
-    // Set up the metrics cell using real populated content
-    [self hostViewController:metricsCell.hostedViewController withObject:object];
+        // Set up the metrics cell using real populated content
+        [self hostViewController:metricsCell.hostedViewController withObject:object];
 
-    // Force a layout
-    [metricsCell layoutSubviews];
+        // Force a layout
+        [metricsCell layoutSubviews];
 
-    // Get the layout size; we ignore the width, in fact the width *could* conceivably be zero
-    // Note: Using content view is intentional
-    CGSize size = [metricsCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return size.height + 1.0f;
+        // Get the layout size; we ignore the width, in fact the width *could* conceivably be zero
+        // Note: Using content view is intentional
+        CGSize size = [metricsCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+        height = size.height + 1.0f;
+    }
+
+    return height;
 }
 
 #pragma mark - UITableViewDataSource
@@ -119,13 +131,18 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    MNSHostingTableViewCell *cell;
     id object = [self _backingObjectForRowAtIndexPath:indexPath];
     Class viewControllerClass = [MNSViewControllerRegistrar viewControllerClassForModelClass:[object class]];
-    NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
 
-    MNSHostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-    cell.parentViewController = self;
-    [self hostViewController:cell.hostedViewController withObject:object];
+    if (viewControllerClass) {
+        NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
+        cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
+        cell.parentViewController = self;
+        [self hostViewController:cell.hostedViewController withObject:object];
+    } else {
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    }
 
     return cell;
 }
