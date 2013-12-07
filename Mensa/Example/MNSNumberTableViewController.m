@@ -50,11 +50,13 @@
 
 #pragma mark - MNSTableViewController
 
-- (void)hostViewController:(UIViewController *)viewController withObject:(MNSNumber *)number
+- (void)hostViewController:(MNSHostedViewController *)viewController withObject:(MNSNumber *)number
 {
+    [super hostViewController:viewController withObject:number];
+
+    // Custom font size changing behavior for this table view controller
     CGFloat fontSize = FONT_SIZE_MAX - number.value;
-    MNSNumberView *view = (MNSNumberView *)viewController.view;
-    view.valueLabel.text = [NSString stringWithFormat:@"%d", number.value];
+    MNSNumberView *view = (MNSNumberView *)[viewController viewForObject:number];
     view.valueLabel.font = [view.valueLabel.font fontWithSize:fontSize];
 }
 

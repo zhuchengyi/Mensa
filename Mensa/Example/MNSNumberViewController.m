@@ -6,8 +6,17 @@
 //  Copyright (c) 2013 toxicsoftware. All rights reserved.
 //
 
+#import "MNSNumber.h"
+#import "MNSNumberView.h"
 #import "MNSNumberViewController.h"
 
 @implementation MNSNumberViewController
+
+#pragma mark - MNSHostedViewController
+
+- (void)updateView:(MNSNumberView *)view withObject:(MNSNumber *)number
+{
+    view.valueLabel.text = [NSString stringWithFormat:@"%d", number.value];
+}
 
 @end

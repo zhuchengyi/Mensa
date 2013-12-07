@@ -10,4 +10,14 @@
 
 @implementation MNSHostedViewController
 
+- (void)updateView:(UIView *)view withObject:(id)object
+{
+    // Subclasses implement
+}
+
+- (UIView *)viewForObject:(id)object
+{
+    return self.view;
+}
+
 @end

@@ -23,7 +23,8 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 
 - (void)hostViewController:(MNSHostedViewController *)viewController withObject:(id)object
 {
-    // Subclasses implement
+    UIView *view = [viewController viewForObject:object];
+    [viewController updateView:view withObject:object];
 }
 
 - (void)setBackingSections:(NSArray *)backingSections
