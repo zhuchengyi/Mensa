@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.summary      = 'Smart, modern table views on iOS.'
   s.requires_arc = true
   s.authors = {
-    'Jonathan Wight' => 'schwa@toxicsoftware.com'
+    'Jonathan Wight' => 'schwa@toxicsoftware.com',
     'Jordan Kay' => 'jordanekay@mac.com'
   }
   s.source = {
