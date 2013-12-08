@@ -18,6 +18,7 @@
 - (void)loadHostedView
 {
     NSParameterAssert(self.hostedViewController.view.superview == NULL);
+    // TODO: Support views IBOutletCollection here in MNSHostedTableViewController
     UIView *hostedView = self.hostedViewController.view;
     hostedView.frame = self.contentView.bounds;
     hostedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -46,6 +47,7 @@
     if (_parentViewController != parentViewController) {
         if (_parentViewController) {
             [self.hostedViewController willMoveToParentViewController:nil];
+            // TODO: Support views IBOutletCollection here in MNSHostedTableViewController
             [self.hostedViewController.view removeFromSuperview];
             [self.hostedViewController removeFromParentViewController];
         }
