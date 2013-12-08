@@ -19,4 +19,12 @@
     view.valueLabel.text = [NSString stringWithFormat:@"%d", number.value];
 }
 
+- (void)selectObject:(MNSNumber *)number
+{
+    NSString *factorsString = [number.factors componentsJoinedByString:@", "];
+    NSString *message = [NSString stringWithFormat:@"The factors of %d are %@.", number.value, factorsString];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+    [alertView show];
+}
+
 @end

@@ -27,6 +27,11 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     [viewController updateView:view withObject:object];
 }
 
+- (void)selectObject:(id)object forViewController:(MNSHostedViewController *)viewController
+{
+    [viewController selectObject:object];
+}
+
 - (void)setBackingSections:(NSArray *)backingSections
 {
     if (_backingSections != backingSections) {
@@ -117,6 +122,13 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     return height;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id object = [self _backingObjectForRowAtIndexPath:indexPath];
+    MNSHostingTableViewCell *cell = (MNSHostingTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [self selectObject:object forViewController:cell.hostedViewController];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -139,6 +151,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
         NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
         cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
         cell.parentViewController = self;
+        cell.selectionStyle = [cell.hostedViewController viewForObject:object].userInteractionEnabled ? UITableViewCellSelectionStyleBlue : UITableViewCellEditingStyleNone;
         [self hostViewController:cell.hostedViewController withObject:object];
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];

@@ -27,7 +27,7 @@
 - (void)_setupObjects
 {
     self.objects = [NSMutableArray arrayWithCapacity:COUNT];
-    for (NSInteger i = 0; i < COUNT; i++) {
+    for (NSInteger i = 1; i <= COUNT; i++) {
         MNSNumber *number = [[MNSNumber alloc] initWithValue:i];
         [self.objects addObject:number];
         if (number.isPrime) {
@@ -84,6 +84,14 @@
 - (NSArray *)sections
 {
     return @[self.objects];
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 @end

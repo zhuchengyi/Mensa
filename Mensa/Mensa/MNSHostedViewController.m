@@ -16,6 +16,11 @@
     // Subclasses implement
 }
 
+- (void)selectObject:(id)object
+{
+    // Subclasses implement
+}
+
 - (UIView *)viewForObject:(id)object
 {
     return self.view;

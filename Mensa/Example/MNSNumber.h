@@ -11,6 +11,7 @@
 - (instancetype)initWithValue:(NSInteger)value;
 
 @property (nonatomic, readonly) NSInteger value;
+@property (nonatomic, readonly) NSArray *factors;
 @property (nonatomic, readonly, getter = isPrime) BOOL prime;
 
 @end

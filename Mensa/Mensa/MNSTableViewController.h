@@ -14,6 +14,7 @@
 @interface MNSTableViewController : UITableViewController
 
 - (void)hostViewController:(MNSHostedViewController *)viewController withObject:(id)object;
+- (void)selectObject:(id)object forViewController:(MNSHostedViewController *)viewController;
 
 @property (nonatomic, readonly) NSArray *sections;
 @property (nonatomic, readonly) Class viewControllerClass;

@@ -11,14 +11,12 @@
 @interface MNSNumber ()
 
 @property (nonatomic) NSInteger value;
+@property (nonatomic) NSArray *factors;
 @property (nonatomic, getter = isPrime) BOOL prime;
 
 @end
 
 @implementation MNSNumber
-{
-    BOOL _didDeterminePrime;
-}
 
 - (instancetype)initWithValue:(NSInteger)value
 {
@@ -30,21 +28,22 @@
 
 - (BOOL)isPrime
 {
-    if (!_didDeterminePrime) {
-        _prime = YES;
-        if (self.value < 2) {
-            _prime = NO;
-        } else {
-            for (NSInteger i = 2; i <= self.value / 2; i++) {
-                if (self.value % i == 0) {
-                    _prime = NO;
-                    break;
-                }
+    return [self.factors count] == 2;
+}
+
+- (NSArray *)factors
+{
+    if (!_factors) {
+        NSMutableSet *factors = [NSMutableSet set];
+        for (NSInteger i = 1; i <= sqrt(self.value) + 1; i++) {
+            if (self.value % i == 0) {
+                [factors addObject:@(i)];
+                [factors addObject:@(self.value / i)];
             }
         }
-        _didDeterminePrime = YES;
+        _factors = [[factors allObjects] sortedArrayUsingSelector:@selector(compare:)];
     }
-    return _prime;
+    return _factors;
 }
 
 @end
