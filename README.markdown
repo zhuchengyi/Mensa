@@ -24,7 +24,7 @@ The technique generates at runtime a subclass of `MNSHostingTableViewCell` that 
 
 To populate their table view’s content, `MNSTableViewController` instances define a `sections` array populated with `MNSTableViewSection` (to include a section header or footer) or `NSArray` instances. To display the objects in each section, the table view controller registers a `MNSHostedViewController` subclass to use with each model object class. The view controller references a view (or set of views if needed, to customize the display of the object based on its properties) whose contents are updated based on the model object to display.
 
-This allows developers to consolidate display logic to a separate view controller for a view displaying that object in populating its contents and selecting it in a table view. Table view controller subclasses can customize this behavior further based on their own state or behavior specified wherever necessary.
+This allows developers to consolidate display logic to a separate view controller for a view displaying that object and populating its contents and selecting it in a table view. **More importantly, it provides a simple but robust way to display arbitrary lists of heterogeneous objects in a table view and process user input around them.** Table view controller subclasses can customize this behavior further based on their own state or behavior specified wherever necessary.
 
 ## Example
 
