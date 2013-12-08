@@ -13,6 +13,8 @@
 + (instancetype)sectionWithTitle:(NSString *)title objects:(NSArray *)objects summary:(NSString *)summary;
 
 @property (nonatomic, readonly) NSUInteger count;
+@property (nonatomic, readonly) NSString *title;
+@property (nonatomic, readonly) NSString *summary;
 
 @end
 

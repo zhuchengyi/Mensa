@@ -55,17 +55,6 @@
     return self;
 }
 
-#pragma mark - UIViewController
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-        self.tableView.separatorInset = UIEdgeInsetsZero;
-    }
-}
-
 #pragma mark - MNSTableViewController
 
 - (void)hostViewController:(MNSHostedViewController *)viewController withObject:(id)object
@@ -83,7 +72,7 @@
 
 - (NSArray *)sections
 {
-    return @[self.objects];
+    return @[[MNSTableViewSection sectionWithTitle:@"Numbers and Prime Flags" objects:self.objects]];
 }
 
 #pragma mark - UITableViewDelegate

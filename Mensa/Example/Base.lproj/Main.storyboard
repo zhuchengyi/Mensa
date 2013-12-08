@@ -23,7 +23,7 @@
             </objects>
             <point key="canvasLocation" x="300" y="220"/>
         </scene>
-        <!--Number Table View Controller-->
+        <!--Number Table View Controller - Mensa-->
         <scene sceneID="rlu-pC-2kz">
             <objects>
                 <tableViewController id="VLr-23-cLy" customClass="MNSNumberTableViewController" sceneMemberID="viewController">
@@ -36,7 +36,7 @@
                             <outlet property="delegate" destination="VLr-23-cLy" id="Zyg-Th-FIH"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="4Cn-16-Oel"/>
+                    <navigationItem key="navigationItem" title="Mensa" id="4Cn-16-Oel"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J74-gG-mlF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
