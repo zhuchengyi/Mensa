@@ -17,6 +17,5 @@
 - (void)selectObject:(id)object forViewController:(MNSHostedViewController *)viewController;
 
 @property (nonatomic, readonly) NSArray *sections;
-@property (nonatomic, readonly) Class viewControllerClass;
 
 @end
