@@ -35,8 +35,13 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 - (void)setBackingSections:(NSArray *)backingSections
 {
     if (_backingSections != backingSections) {
-        _backingSections = [backingSections copy];
+        NSMutableArray *sections = [NSMutableArray arrayWithCapacity:[backingSections count]];
         for (id section in backingSections) {
+            if ([section isKindOfClass:[NSArray class]]) {
+                [sections addObject:[MNSTableViewSection sectionWithObjects:section]];
+            } else {
+                [sections addObject:section];
+            }
             for (id object in section) {
                 Class modelClass = [object class];
                 if (!self.metricsCells[modelClass]) {
@@ -47,6 +52,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
                 }
             }
         }
+        _backingSections = [sections copy];
     }
 }
 
