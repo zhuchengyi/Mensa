@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   }
   s.source = {
     :git => 'https://github.com/jordanekay/Mensa.git',
-    :tag => '0.1.0'
+    :tag => '0.2.0'
   }
   s.source_files = 'Mensa/Mensa/*.{h,m}'
 end
