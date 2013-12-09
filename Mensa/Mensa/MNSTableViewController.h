@@ -13,6 +13,7 @@
 
 @interface MNSTableViewController : UITableViewController
 
++ (Class)cellClass;
 - (void)hostViewController:(MNSHostedViewController *)viewController withObject:(id)object;
 - (void)selectObject:(id)object forViewController:(MNSHostedViewController *)viewController;
 

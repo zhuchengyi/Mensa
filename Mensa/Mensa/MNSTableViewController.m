@@ -21,6 +21,11 @@
 
 static NSString *cellIdentifier = @"MNSTableViewCell";
 
++ (Class)cellClass
+{
+    return [MNSHostingTableViewCell class];
+}
+
 - (void)hostViewController:(MNSHostedViewController *)viewController withObject:(id)object
 {
     UIView *view = [viewController viewForObject:object];
@@ -68,7 +73,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     // MNSHostingTableViewCell dynamically generates a subclass of itself that automatically hosts a view controller of a specific class.
     Class viewControllerClass = [MNSViewControllerRegistrar viewControllerClassForModelClass:modelClass];
     if (viewControllerClass) {
-        Class cellClass = [MNSHostingTableViewCell subclassWithViewControllerClass:viewControllerClass];
+        Class cellClass = [[[self class] cellClass] subclassWithViewControllerClass:viewControllerClass];
         NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
         [self.tableView registerClass:cellClass forCellReuseIdentifier:reuseIdentifier];
 
