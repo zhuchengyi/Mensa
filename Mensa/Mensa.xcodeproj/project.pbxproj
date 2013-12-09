@@ -22,6 +22,7 @@
 		454F2FE017A3113800DF45AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FDF17A3113800DF45AB /* Foundation.framework */; };
 		454F2FE217A3113800DF45AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FE117A3113800DF45AB /* CoreGraphics.framework */; };
 		454F2FE417A3113800DF45AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FE317A3113800DF45AB /* UIKit.framework */; };
+		45DFCF621856470B006968EF /* MNSMultilineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DFCF611856470B006968EF /* MNSMultilineLabel.m */; };
 		45F740461852B25700478D29 /* MNSNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F740451852B25700478D29 /* MNSNumberView.m */; };
 		45F7404C1852B3AF00478D29 /* MNSHostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F7404B1852B3AF00478D29 /* MNSHostedViewController.m */; };
 		45F740521853A2D200478D29 /* MNSPrimeFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F740511853A2D200478D29 /* MNSPrimeFlag.m */; };
@@ -59,6 +60,8 @@
 		454F2FE117A3113800DF45AB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		454F2FE317A3113800DF45AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		454F2FFE17A3113800DF45AB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		45DFCF601856470B006968EF /* MNSMultilineLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSMultilineLabel.h; path = Mensa/MNSMultilineLabel.h; sourceTree = SOURCE_ROOT; };
+		45DFCF611856470B006968EF /* MNSMultilineLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSMultilineLabel.m; path = Mensa/MNSMultilineLabel.m; sourceTree = SOURCE_ROOT; };
 		45F740441852B25700478D29 /* MNSNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSNumberView.h; path = Example/MNSNumberView.h; sourceTree = "<group>"; };
 		45F740451852B25700478D29 /* MNSNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSNumberView.m; path = Example/MNSNumberView.m; sourceTree = "<group>"; };
 		45F7404A1852B3AF00478D29 /* MNSHostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSHostedViewController.h; path = Mensa/MNSHostedViewController.h; sourceTree = SOURCE_ROOT; };
@@ -164,6 +167,8 @@
 				45F7404B1852B3AF00478D29 /* MNSHostedViewController.m */,
 				454A191718511D99001F4296 /* MNSHostingTableViewCell.h */,
 				454A191818511D99001F4296 /* MNSHostingTableViewCell.m */,
+				45DFCF601856470B006968EF /* MNSMultilineLabel.h */,
+				45DFCF611856470B006968EF /* MNSMultilineLabel.m */,
 				454A191918511D99001F4296 /* MNSTableViewController.h */,
 				454A191A18511D99001F4296 /* MNSTableViewController.m */,
 				454587F418528B320016E74B /* MNSTableViewSection.h */,
@@ -262,6 +267,7 @@
 				454A192A18511DC4001F4296 /* MNSNumberTableViewController.m in Sources */,
 				45F740561853A2F100478D29 /* MNSPrimeFlagViewController.m in Sources */,
 				45F740461852B25700478D29 /* MNSNumberView.m in Sources */,
+				45DFCF621856470B006968EF /* MNSMultilineLabel.m in Sources */,
 				454A192918511DC4001F4296 /* MNSAppDelegate.m in Sources */,
 				454A192B18511DC4001F4296 /* MNSNumberViewController.m in Sources */,
 				45F740521853A2D200478D29 /* MNSPrimeFlag.m in Sources */,
