@@ -9,10 +9,6 @@
 #import <objc/runtime.h>
 #import "MNSHostingTableViewCell.h"
 
-@interface MNSHostingTableViewCell ()
-
-@end
-
 @implementation MNSHostingTableViewCell
 
 - (void)loadHostedView
@@ -23,6 +19,11 @@
     hostedView.frame = self.contentView.bounds;
     hostedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.contentView addSubview:hostedView];
+}
+
+- (void)useAsMetricsCellInTableView:(UITableView *)tableView
+{
+    // Subclasses implement
 }
 
 + (Class)subclassWithViewControllerClass:(Class)viewControllerClass

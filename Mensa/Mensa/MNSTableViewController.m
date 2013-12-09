@@ -34,7 +34,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 
 - (void)setBackingSections:(NSArray *)backingSections
 {
-    if (_backingSections != backingSections) {
+    if (self.metricsCells && _backingSections != backingSections) {
         NSMutableArray *sections = [NSMutableArray arrayWithCapacity:[backingSections count]];
         for (id section in backingSections) {
             if ([section isKindOfClass:[NSArray class]]) {
@@ -75,6 +75,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
         // Instead of storing a metrics cell we could just dequeue them as needed off of the table view. But due to the way our hosted cells work we can’t do that here
         metricsCell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         [metricsCell loadHostedView];
+        [metricsCell useAsMetricsCellInTableView:self.tableView];
     }
 
     return metricsCell;
@@ -110,14 +111,14 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     if (metricsCell) {
         // We need to adjust the metrics cell’s frame to handle table width changes (e.g. rotations)
         CGRect frame = metricsCell.frame;
-        frame.size.width = self.tableView.bounds.size.width;
+        frame.size.width = self.tableView.bounds.size.width - metricsCell.layoutInsets.left - metricsCell.layoutInsets.right;
         metricsCell.frame = frame;
 
         // Set up the metrics cell using real populated content
         [self hostViewController:metricsCell.hostedViewController withObject:object];
 
         // Force a layout
-        [metricsCell layoutSubviews];
+        [metricsCell layoutIfNeeded];
 
         // Get the layout size; we ignore the width, in fact the width *could* conceivably be zero
         // Note: Using content view is intentional
