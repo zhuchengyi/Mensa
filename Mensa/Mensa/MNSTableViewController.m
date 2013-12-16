@@ -94,21 +94,13 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     return metricsCell;
 }
 
-#pragma mark - NSObject
-
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    if (self = [super initWithCoder:coder]) {
-        _metricsCells = [NSMutableDictionary dictionary];
-    }
-    return self;
-}
-
 #pragma mark - UIViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    _metricsCells = [NSMutableDictionary dictionary];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
     [self reloadBackingSectionsWithTableViewReload:NO];
 }
