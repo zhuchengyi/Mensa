@@ -70,6 +70,8 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
 		Class class = self.hostedViewControllerClass;
 		_hostedViewController = [[class alloc] initWithNibName:NSStringFromClass(class) bundle:nil];
+
+        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     return self;
 }
