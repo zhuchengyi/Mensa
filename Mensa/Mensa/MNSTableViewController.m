@@ -124,7 +124,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     if (metricsCell) {
         // We need to adjust the metrics cell’s frame to handle table width changes (e.g. rotations)
         CGRect frame = metricsCell.frame;
-        frame.size.width = self.tableView.bounds.size.width - metricsCell.layoutInsets.left - metricsCell.layoutInsets.right;
+        frame.size.width = self.tableView.bounds.size.width - metricsCell.layoutInsets.left - metricsCell.layoutInsets.right - 1.0f;
         metricsCell.frame = frame;
 
         // Set up the metrics cell using real populated content
