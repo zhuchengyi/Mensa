@@ -181,7 +181,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
         NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
         cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
         cell.parentViewController = self;
-        cell.selectionStyle = [cell.hostedViewController viewForObject:object].userInteractionEnabled ? UITableViewCellSelectionStyleBlue : UITableViewCellEditingStyleNone;
+        cell.userInteractionEnabled = [cell.hostedViewController viewForObject:object].userInteractionEnabled;
         [self hostViewController:cell.hostedViewController withObject:object];
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
