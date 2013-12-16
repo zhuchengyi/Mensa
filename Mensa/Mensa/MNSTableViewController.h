@@ -14,6 +14,7 @@
 @interface MNSTableViewController : UITableViewController
 
 + (Class)cellClass;
+- (void)reloadBackingSectionsWithTableViewReload:(BOOL)fully;
 - (void)hostViewController:(MNSHostedViewController *)viewController withObject:(id)object;
 - (void)selectObject:(id)object forViewController:(MNSHostedViewController *)viewController;
 

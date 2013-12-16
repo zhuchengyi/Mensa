@@ -26,6 +26,14 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     return [MNSHostingTableViewCell class];
 }
 
+- (void)reloadBackingSectionsWithTableViewReload:(BOOL)reload
+{
+    self.backingSections = self.sections;
+    if (reload) {
+        [self.tableView reloadData];
+    }
+}
+
 - (void)hostViewController:(MNSHostedViewController *)viewController withObject:(id)object
 {
     UIView *view = [viewController viewForObject:object];
@@ -102,7 +110,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 {
     [super viewDidLoad];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
-    self.backingSections = self.sections;
+    [self reloadBackingSectionsWithTableViewReload:NO];
 }
 
 #pragma mark - UITableViewDelegate
