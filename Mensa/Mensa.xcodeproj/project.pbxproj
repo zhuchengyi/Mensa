@@ -22,7 +22,10 @@
 		454F2FE017A3113800DF45AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FDF17A3113800DF45AB /* Foundation.framework */; };
 		454F2FE217A3113800DF45AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FE117A3113800DF45AB /* CoreGraphics.framework */; };
 		454F2FE417A3113800DF45AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FE317A3113800DF45AB /* UIKit.framework */; };
+		45B9FF8A185EBE840015805E /* MNSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9FF87185EBE840015805E /* MNSProperty.m */; };
+		45B9FF8B185EBE840015805E /* MNSPropertyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9FF89185EBE840015805E /* MNSPropertyView.m */; };
 		45DFCF621856470B006968EF /* MNSMultilineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DFCF611856470B006968EF /* MNSMultilineLabel.m */; };
+		45DFED5D186153460080BD62 /* MNSPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DFED5C186153460080BD62 /* MNSPropertyViewController.m */; };
 		45F740461852B25700478D29 /* MNSNumberView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F740451852B25700478D29 /* MNSNumberView.m */; };
 		45F7404C1852B3AF00478D29 /* MNSHostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F7404B1852B3AF00478D29 /* MNSHostedViewController.m */; };
 		45F740521853A2D200478D29 /* MNSPrimeFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F740511853A2D200478D29 /* MNSPrimeFlag.m */; };
@@ -60,8 +63,14 @@
 		454F2FE117A3113800DF45AB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		454F2FE317A3113800DF45AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		454F2FFE17A3113800DF45AB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		45B9FF86185EBE840015805E /* MNSProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSProperty.h; path = Mensa/MNSProperty.h; sourceTree = SOURCE_ROOT; };
+		45B9FF87185EBE840015805E /* MNSProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSProperty.m; path = Mensa/MNSProperty.m; sourceTree = SOURCE_ROOT; };
+		45B9FF88185EBE840015805E /* MNSPropertyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSPropertyView.h; path = Mensa/MNSPropertyView.h; sourceTree = SOURCE_ROOT; };
+		45B9FF89185EBE840015805E /* MNSPropertyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSPropertyView.m; path = Mensa/MNSPropertyView.m; sourceTree = SOURCE_ROOT; };
 		45DFCF601856470B006968EF /* MNSMultilineLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSMultilineLabel.h; path = Mensa/MNSMultilineLabel.h; sourceTree = SOURCE_ROOT; };
 		45DFCF611856470B006968EF /* MNSMultilineLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSMultilineLabel.m; path = Mensa/MNSMultilineLabel.m; sourceTree = SOURCE_ROOT; };
+		45DFED5B186153460080BD62 /* MNSPropertyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSPropertyViewController.h; path = Mensa/MNSPropertyViewController.h; sourceTree = SOURCE_ROOT; };
+		45DFED5C186153460080BD62 /* MNSPropertyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSPropertyViewController.m; path = Mensa/MNSPropertyViewController.m; sourceTree = SOURCE_ROOT; };
 		45F740441852B25700478D29 /* MNSNumberView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSNumberView.h; path = Example/MNSNumberView.h; sourceTree = "<group>"; };
 		45F740451852B25700478D29 /* MNSNumberView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSNumberView.m; path = Example/MNSNumberView.m; sourceTree = "<group>"; };
 		45F7404A1852B3AF00478D29 /* MNSHostedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSHostedViewController.h; path = Mensa/MNSHostedViewController.h; sourceTree = SOURCE_ROOT; };
@@ -169,6 +178,12 @@
 				454A191818511D99001F4296 /* MNSHostingTableViewCell.m */,
 				45DFCF601856470B006968EF /* MNSMultilineLabel.h */,
 				45DFCF611856470B006968EF /* MNSMultilineLabel.m */,
+				45B9FF86185EBE840015805E /* MNSProperty.h */,
+				45B9FF87185EBE840015805E /* MNSProperty.m */,
+				45B9FF88185EBE840015805E /* MNSPropertyView.h */,
+				45B9FF89185EBE840015805E /* MNSPropertyView.m */,
+				45DFED5B186153460080BD62 /* MNSPropertyViewController.h */,
+				45DFED5C186153460080BD62 /* MNSPropertyViewController.m */,
 				454A191918511D99001F4296 /* MNSTableViewController.h */,
 				454A191A18511D99001F4296 /* MNSTableViewController.m */,
 				454587F418528B320016E74B /* MNSTableViewSection.h */,
@@ -273,6 +288,9 @@
 				45F740521853A2D200478D29 /* MNSPrimeFlag.m in Sources */,
 				45F7404C1852B3AF00478D29 /* MNSHostedViewController.m in Sources */,
 				454A193118511DD4001F4296 /* main.m in Sources */,
+				45B9FF8A185EBE840015805E /* MNSProperty.m in Sources */,
+				45DFED5D186153460080BD62 /* MNSPropertyViewController.m in Sources */,
+				45B9FF8B185EBE840015805E /* MNSPropertyView.m in Sources */,
 				454587F618528B320016E74B /* MNSTableViewSection.m in Sources */,
 				454A191B18511D99001F4296 /* MNSHostingTableViewCell.m in Sources */,
 				454587F918529DA20016E74B /* MNSViewControllerRegistrar.m in Sources */,
