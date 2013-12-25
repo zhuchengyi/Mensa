@@ -15,6 +15,7 @@
 
 + (Class)cellClass;
 - (void)reloadBackingSectionsWithTableViewReload:(BOOL)fully;
+- (void)prepareToLoadHostedViewForViewController:(MNSHostedViewController *)viewController;
 - (void)hostViewController:(MNSHostedViewController *)viewController withObject:(id)object;
 - (void)selectObject:(id)object forViewController:(MNSHostedViewController *)viewController;
 

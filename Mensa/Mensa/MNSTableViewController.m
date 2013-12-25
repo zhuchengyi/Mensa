@@ -34,6 +34,11 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     }
 }
 
+- (void)prepareToLoadHostedViewForViewController:(MNSHostedViewController *)viewController
+{
+    // Subclasses implement
+}
+
 - (void)hostViewController:(MNSHostedViewController *)viewController withObject:(id)object
 {
     UIView *view = [viewController viewForObject:object];
@@ -58,7 +63,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
             for (id object in section) {
                 Class modelClass = [object class];
                 if (!self.metricsCells[modelClass]) {
-                    MNSHostingTableViewCell *metricsCell = [self _metricsCellForModelClass:modelClass];
+                    MNSHostingTableViewCell *metricsCell = [self _metricsCellForObject:object];
                     if (metricsCell) {
                         self.metricsCells[(id<NSCopying>)modelClass] = metricsCell;
                     }
@@ -74,9 +79,10 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     return self.backingSections[indexPath.section][indexPath.row];
 }
 
-- (MNSHostingTableViewCell *)_metricsCellForModelClass:(Class)modelClass
+- (MNSHostingTableViewCell *)_metricsCellForObject:(id)object
 {
     MNSHostingTableViewCell *metricsCell;
+    Class modelClass = [object class];
 
     // MNSHostingTableViewCell dynamically generates a subclass of itself that automatically hosts a view controller of a specific class.
     Class viewControllerClass = [MNSViewControllerRegistrar viewControllerClassForModelClass:modelClass];
@@ -87,7 +93,8 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 
         // Instead of storing a metrics cell we could just dequeue them as needed off of the table view. But due to the way our hosted cells work we can’t do that here
         metricsCell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        [metricsCell loadHostedView];
+        [self prepareToLoadHostedViewForViewController:metricsCell.hostedViewController];
+        [metricsCell loadHostedViewForObject:object];
         [metricsCell useAsMetricsCellInTableView:self.tableView];
     }
 
@@ -172,13 +179,14 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     if (viewControllerClass) {
         NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
         cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-        cell.parentViewController = self;
+        [self prepareToLoadHostedViewForViewController:cell.hostedViewController];
+        [cell setParentViewController:self withObject:object];
         cell.userInteractionEnabled = [cell.hostedViewController viewForObject:object].userInteractionEnabled;
         [self hostViewController:cell.hostedViewController withObject:object];
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     }
-
+    
     return cell;
 }
 

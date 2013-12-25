@@ -11,9 +11,11 @@
 @interface MNSHostingTableViewCell : UITableViewCell
 
 /**
- * Adds the hosted view controller’s view to the cell’s content view.
+ * Adds the hosted view controller’s view for the given object to the cell’s content view.
  */
-- (void)loadHostedView;
+- (void)loadHostedViewForObject:(id)object;
+
+- (void)setParentViewController:(UIViewController *)parentViewController withObject:(id)object;
 
 /**
  * Use this method to apply custom logic in a base MNSHostingTableViewCell subclass

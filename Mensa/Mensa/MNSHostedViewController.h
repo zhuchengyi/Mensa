@@ -12,6 +12,4 @@
 - (void)selectObject:(id)object;
 - (UIView *)viewForObject:(id)object;
 
-@property (nonatomic) IBOutletCollection(UIView) NSArray *views;
-
 @end
