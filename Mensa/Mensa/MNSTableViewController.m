@@ -45,9 +45,16 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     [viewController updateView:view withObject:object];
 }
 
+- (BOOL)canSelectObject:(id)object forViewController:(MNSHostedViewController *)viewController
+{
+    return [viewController canSelectObject:object];
+}
+
 - (void)selectObject:(id)object forViewController:(MNSHostedViewController *)viewController
 {
-    [viewController selectObject:object];
+    if ([self canSelectObject:object forViewController:viewController]) {
+        [viewController selectObject:object];
+    }
 }
 
 - (void)setBackingSections:(NSArray *)backingSections
@@ -146,6 +153,13 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     id object = [self _backingObjectForRowAtIndexPath:indexPath];
     MNSHostingTableViewCell *cell = (MNSHostingTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     [self selectObject:object forViewController:cell.hostedViewController];
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id object = [self _backingObjectForRowAtIndexPath:indexPath];
+    MNSHostingTableViewCell *cell = (MNSHostingTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    return [self canSelectObject:object forViewController:cell.hostedViewController];
 }
 
 #pragma mark - UITableViewDataSource
