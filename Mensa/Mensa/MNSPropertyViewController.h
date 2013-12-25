@@ -12,6 +12,4 @@
 
 @interface MNSPropertyViewController : MNSHostedViewController <UITextFieldDelegate>
 
-@property (nonatomic) MNSProperty *inputProperty;
-
 @end
