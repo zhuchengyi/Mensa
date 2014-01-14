@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		454587F618528B320016E74B /* MNSTableViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 454587F518528B320016E74B /* MNSTableViewSection.m */; };
+		454587F618528B320016E74B /* MNSSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 454587F518528B320016E74B /* MNSSection.m */; };
 		454587F918529DA20016E74B /* MNSViewControllerRegistrar.m in Sources */ = {isa = PBXBuildFile; fileRef = 454587F818529DA20016E74B /* MNSViewControllerRegistrar.m */; };
 		454587FC1852AB0A0016E74B /* MNSNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 454587FB1852AB0A0016E74B /* MNSNumber.m */; };
 		454A191B18511D99001F4296 /* MNSHostingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A191818511D99001F4296 /* MNSHostingTableViewCell.m */; };
@@ -36,8 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		454587F418528B320016E74B /* MNSTableViewSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSTableViewSection.h; path = Mensa/MNSTableViewSection.h; sourceTree = SOURCE_ROOT; };
-		454587F518528B320016E74B /* MNSTableViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSTableViewSection.m; path = Mensa/MNSTableViewSection.m; sourceTree = SOURCE_ROOT; };
+		454587F418528B320016E74B /* MNSSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSSection.h; path = Mensa/MNSSection.h; sourceTree = SOURCE_ROOT; };
+		454587F518528B320016E74B /* MNSSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSSection.m; path = Mensa/MNSSection.m; sourceTree = SOURCE_ROOT; };
 		454587F718529DA20016E74B /* MNSViewControllerRegistrar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSViewControllerRegistrar.h; path = Mensa/MNSViewControllerRegistrar.h; sourceTree = SOURCE_ROOT; };
 		454587F818529DA20016E74B /* MNSViewControllerRegistrar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSViewControllerRegistrar.m; path = Mensa/MNSViewControllerRegistrar.m; sourceTree = SOURCE_ROOT; };
 		454587FA1852AB0A0016E74B /* MNSNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSNumber.h; path = Example/MNSNumber.h; sourceTree = "<group>"; };
@@ -184,10 +184,10 @@
 				45B9FF89185EBE840015805E /* MNSPropertyView.m */,
 				45DFED5B186153460080BD62 /* MNSPropertyViewController.h */,
 				45DFED5C186153460080BD62 /* MNSPropertyViewController.m */,
+				454587F418528B320016E74B /* MNSSection.h */,
+				454587F518528B320016E74B /* MNSSection.m */,
 				454A191918511D99001F4296 /* MNSTableViewController.h */,
 				454A191A18511D99001F4296 /* MNSTableViewController.m */,
-				454587F418528B320016E74B /* MNSTableViewSection.h */,
-				454587F518528B320016E74B /* MNSTableViewSection.m */,
 				454587F718529DA20016E74B /* MNSViewControllerRegistrar.h */,
 				454587F818529DA20016E74B /* MNSViewControllerRegistrar.m */,
 			);
@@ -291,7 +291,7 @@
 				45B9FF8A185EBE840015805E /* MNSProperty.m in Sources */,
 				45DFED5D186153460080BD62 /* MNSPropertyViewController.m in Sources */,
 				45B9FF8B185EBE840015805E /* MNSPropertyView.m in Sources */,
-				454587F618528B320016E74B /* MNSTableViewSection.m in Sources */,
+				454587F618528B320016E74B /* MNSSection.m in Sources */,
 				454A191B18511D99001F4296 /* MNSHostingTableViewCell.m in Sources */,
 				454587F918529DA20016E74B /* MNSViewControllerRegistrar.m in Sources */,
 				45F7405A1853A30800478D29 /* MNSPrimeFlagView.m in Sources */,
