@@ -55,12 +55,18 @@
     return self;
 }
 
-#pragma mark - MNSTableViewController
+#pragma mark - UITableViewDelegate
 
-- (void)hostViewController:(MNSHostedViewController *)viewController withObject:(id)object
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [super hostViewController:viewController withObject:object];
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
 
+#pragma mark - MNSObjectBackerDelegate
+
+- (void)backer:(MNSObjectBacker *)backer didHostViewController:(MNSHostedViewController *)viewController withObject:(id)object
+{
     if ([object isKindOfClass:[MNSNumber class]]) {
         // Custom font size changing behavior for this table view controller
         MNSNumber *number = (MNSNumber *)object;
@@ -72,15 +78,7 @@
 
 - (NSArray *)sections
 {
-    return @[[MNSTableViewSection sectionWithTitle:@"Numbers and Prime Flags" objects:self.objects]];
-}
-
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    return @[[MNSSection sectionWithTitle:@"Numbers and Prime Flags" objects:self.objects]];
 }
 
 @end

@@ -22,6 +22,8 @@
 		454F2FE017A3113800DF45AB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FDF17A3113800DF45AB /* Foundation.framework */; };
 		454F2FE217A3113800DF45AB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FE117A3113800DF45AB /* CoreGraphics.framework */; };
 		454F2FE417A3113800DF45AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FE317A3113800DF45AB /* UIKit.framework */; };
+		4589208B18847355001EC015 /* MNSViewHosting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589208A18847355001EC015 /* MNSViewHosting.m */; };
+		4589209118848D19001EC015 /* MNSDataPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589209018848D19001EC015 /* MNSDataPresenter.m */; };
 		45B9FF8A185EBE840015805E /* MNSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9FF87185EBE840015805E /* MNSProperty.m */; };
 		45B9FF8B185EBE840015805E /* MNSPropertyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9FF89185EBE840015805E /* MNSPropertyView.m */; };
 		45DFCF621856470B006968EF /* MNSMultilineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DFCF611856470B006968EF /* MNSMultilineLabel.m */; };
@@ -63,6 +65,10 @@
 		454F2FE117A3113800DF45AB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		454F2FE317A3113800DF45AB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		454F2FFE17A3113800DF45AB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		4589208918847355001EC015 /* MNSViewHosting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSViewHosting.h; path = Mensa/MNSViewHosting.h; sourceTree = SOURCE_ROOT; };
+		4589208A18847355001EC015 /* MNSViewHosting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSViewHosting.m; path = Mensa/MNSViewHosting.m; sourceTree = SOURCE_ROOT; };
+		4589208F18848D19001EC015 /* MNSDataPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSDataPresenter.h; path = Mensa/MNSDataPresenter.h; sourceTree = SOURCE_ROOT; };
+		4589209018848D19001EC015 /* MNSDataPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSDataPresenter.m; path = Mensa/MNSDataPresenter.m; sourceTree = SOURCE_ROOT; };
 		45B9FF86185EBE840015805E /* MNSProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSProperty.h; path = Mensa/MNSProperty.h; sourceTree = SOURCE_ROOT; };
 		45B9FF87185EBE840015805E /* MNSProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSProperty.m; path = Mensa/MNSProperty.m; sourceTree = SOURCE_ROOT; };
 		45B9FF88185EBE840015805E /* MNSPropertyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSPropertyView.h; path = Mensa/MNSPropertyView.h; sourceTree = SOURCE_ROOT; };
@@ -172,6 +178,8 @@
 		4583626017A3A62C001FB4AE /* Mensa */ = {
 			isa = PBXGroup;
 			children = (
+				4589208F18848D19001EC015 /* MNSDataPresenter.h */,
+				4589209018848D19001EC015 /* MNSDataPresenter.m */,
 				45F7404A1852B3AF00478D29 /* MNSHostedViewController.h */,
 				45F7404B1852B3AF00478D29 /* MNSHostedViewController.m */,
 				454A191718511D99001F4296 /* MNSHostingTableViewCell.h */,
@@ -190,6 +198,8 @@
 				454A191A18511D99001F4296 /* MNSTableViewController.m */,
 				454587F718529DA20016E74B /* MNSViewControllerRegistrar.h */,
 				454587F818529DA20016E74B /* MNSViewControllerRegistrar.m */,
+				4589208918847355001EC015 /* MNSViewHosting.h */,
+				4589208A18847355001EC015 /* MNSViewHosting.m */,
 			);
 			name = Mensa;
 			path = SmartTables;
@@ -278,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				454587FC1852AB0A0016E74B /* MNSNumber.m in Sources */,
+				4589208B18847355001EC015 /* MNSViewHosting.m in Sources */,
 				454A191C18511D99001F4296 /* MNSTableViewController.m in Sources */,
 				454A192A18511DC4001F4296 /* MNSNumberTableViewController.m in Sources */,
 				45F740561853A2F100478D29 /* MNSPrimeFlagViewController.m in Sources */,
@@ -292,6 +303,7 @@
 				45DFED5D186153460080BD62 /* MNSPropertyViewController.m in Sources */,
 				45B9FF8B185EBE840015805E /* MNSPropertyView.m in Sources */,
 				454587F618528B320016E74B /* MNSSection.m in Sources */,
+				4589209118848D19001EC015 /* MNSDataPresenter.m in Sources */,
 				454A191B18511D99001F4296 /* MNSHostingTableViewCell.m in Sources */,
 				454587F918529DA20016E74B /* MNSViewControllerRegistrar.m in Sources */,
 				45F7405A1853A30800478D29 /* MNSPrimeFlagView.m in Sources */,

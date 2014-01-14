@@ -7,60 +7,19 @@
 //
 
 #import <objc/runtime.h>
+#import "MNSHostedViewController.h"
 #import "MNSHostingTableViewCell.h"
 
 @implementation MNSHostingTableViewCell
 
-- (void)loadHostedViewForObject:(id)object
-{
-    UIView *hostedView = [self.hostedViewController viewForObject:object];
-    NSParameterAssert(hostedView.superview == NULL);
-
-    hostedView.frame = self.contentView.bounds;
-    hostedView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [self.contentView addSubview:hostedView];
-}
+@synthesize layoutInsets = _layoutInsets;
+@synthesize hostedViewController = _hostedViewController;
+@synthesize hostedViewControllerClass = _hostedViewControllerClass;
+@synthesize parentViewController = _parentViewController;
 
 - (void)useAsMetricsCellInTableView:(UITableView *)tableView
 {
     // Subclasses implement
-}
-
-+ (Class)subclassWithViewControllerClass:(Class)viewControllerClass
-{
-	NSString *className = [NSString stringWithFormat:@"%@_%@", NSStringFromClass(self), NSStringFromClass(viewControllerClass)];
-    Class class = NSClassFromString(className);
-    if (!class) {
-        class = objc_allocateClassPair(self, [className UTF8String], 0);
-        id (^block)(id) = ^(id self) {
-            return viewControllerClass;
-        };
-        IMP implementation = imp_implementationWithBlock([block copy]);
-        // #@: == return a class (#), self (@), cmd selector (:)
-        class_addMethod(class, NSSelectorFromString(@"hostedViewControllerClass"), implementation, "#@:");
-        objc_registerClassPair(class);
-    }
-	return class;
-}
-
-- (void)setParentViewController:(UIViewController *)parentViewController withObject:(id)object
-{
-    if (_parentViewController != parentViewController) {
-        if (_parentViewController) {
-            UIView *view = [self.hostedViewController viewForObject:object];
-            [self.hostedViewController willMoveToParentViewController:nil];
-            [view removeFromSuperview];
-            [self.hostedViewController removeFromParentViewController];
-        }
-
-        _parentViewController = parentViewController;
-
-        if (_parentViewController) {
-            [_parentViewController addChildViewController:self.hostedViewController];
-            [self loadHostedViewForObject:object];
-            [self.hostedViewController didMoveToParentViewController:_parentViewController];
-        }
-    }
 }
 
 #pragma mark - UITableViewCell
@@ -74,6 +33,29 @@
         self.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
     return self;
+}
+
+#pragma mark - MNSHostingCell
+
++ (Class)subclassWithViewControllerClass:(Class)viewControllerClass
+{
+	NSString *className = [NSString stringWithFormat:@"%@_%@", NSStringFromClass(self), NSStringFromClass(viewControllerClass)];
+    Class class = NSClassFromString(className);
+    if (!class) {
+        class = objc_allocateClassPair(self, [className UTF8String], 0);
+        id (^block)(id) = ^(id self) {
+            return viewControllerClass;
+        };
+        IMP implementation = imp_implementationWithBlock([block copy]);
+        class_addMethod(class, NSSelectorFromString(@"hostedViewControllerClass"), implementation, "#@:");
+        objc_registerClassPair(class);
+    }
+	return class;
+}
+
+- (UIView *)hostingView
+{
+    return self.contentView;
 }
 
 @end
