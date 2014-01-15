@@ -26,6 +26,7 @@
 		4589208E1884877D001EC015 /* MNSHostingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589208D1884877D001EC015 /* MNSHostingCollectionViewCell.m */; };
 		4589209118848D19001EC015 /* MNSDataPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589209018848D19001EC015 /* MNSDataPresenter.m */; };
 		458920981885B06F001EC015 /* MNSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458920971885B06F001EC015 /* MNSCollectionViewController.m */; };
+		4589209B1885B53B001EC015 /* MNSNumberCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589209A1885B53B001EC015 /* MNSNumberCollectionViewController.m */; };
 		45B9FF8A185EBE840015805E /* MNSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9FF87185EBE840015805E /* MNSProperty.m */; };
 		45B9FF8B185EBE840015805E /* MNSPropertyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9FF89185EBE840015805E /* MNSPropertyView.m */; };
 		45DFCF621856470B006968EF /* MNSMultilineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DFCF611856470B006968EF /* MNSMultilineLabel.m */; };
@@ -75,6 +76,8 @@
 		4589209018848D19001EC015 /* MNSDataPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSDataPresenter.m; path = Mensa/MNSDataPresenter.m; sourceTree = SOURCE_ROOT; };
 		458920961885B06F001EC015 /* MNSCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSCollectionViewController.h; path = Mensa/MNSCollectionViewController.h; sourceTree = SOURCE_ROOT; };
 		458920971885B06F001EC015 /* MNSCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSCollectionViewController.m; path = Mensa/MNSCollectionViewController.m; sourceTree = SOURCE_ROOT; };
+		458920991885B53B001EC015 /* MNSNumberCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSNumberCollectionViewController.h; path = Example/MNSNumberCollectionViewController.h; sourceTree = "<group>"; };
+		4589209A1885B53B001EC015 /* MNSNumberCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSNumberCollectionViewController.m; path = Example/MNSNumberCollectionViewController.m; sourceTree = "<group>"; };
 		45B9FF86185EBE840015805E /* MNSProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSProperty.h; path = Mensa/MNSProperty.h; sourceTree = SOURCE_ROOT; };
 		45B9FF87185EBE840015805E /* MNSProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSProperty.m; path = Mensa/MNSProperty.m; sourceTree = SOURCE_ROOT; };
 		45B9FF88185EBE840015805E /* MNSPropertyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSPropertyView.h; path = Mensa/MNSPropertyView.h; sourceTree = SOURCE_ROOT; };
@@ -118,6 +121,8 @@
 				454A191F18511DB1001F4296 /* Main.storyboard */,
 				454A192218511DC4001F4296 /* MNSAppDelegate.h */,
 				454A192318511DC4001F4296 /* MNSAppDelegate.m */,
+				458920991885B53B001EC015 /* MNSNumberCollectionViewController.h */,
+				4589209A1885B53B001EC015 /* MNSNumberCollectionViewController.m */,
 				454A192418511DC4001F4296 /* MNSNumberTableViewController.h */,
 				454A192518511DC4001F4296 /* MNSNumberTableViewController.m */,
 				454588001852AC2D0016E74B /* Number */,
@@ -184,10 +189,14 @@
 		4583626017A3A62C001FB4AE /* Mensa */ = {
 			isa = PBXGroup;
 			children = (
+				458920961885B06F001EC015 /* MNSCollectionViewController.h */,
+				458920971885B06F001EC015 /* MNSCollectionViewController.m */,
 				4589208F18848D19001EC015 /* MNSDataPresenter.h */,
 				4589209018848D19001EC015 /* MNSDataPresenter.m */,
 				45F7404A1852B3AF00478D29 /* MNSHostedViewController.h */,
 				45F7404B1852B3AF00478D29 /* MNSHostedViewController.m */,
+				4589208C1884877D001EC015 /* MNSHostingCollectionViewCell.h */,
+				4589208D1884877D001EC015 /* MNSHostingCollectionViewCell.m */,
 				454A191718511D99001F4296 /* MNSHostingTableViewCell.h */,
 				454A191818511D99001F4296 /* MNSHostingTableViewCell.m */,
 				45DFCF601856470B006968EF /* MNSMultilineLabel.h */,
@@ -299,6 +308,7 @@
 				454A192A18511DC4001F4296 /* MNSNumberTableViewController.m in Sources */,
 				45F740561853A2F100478D29 /* MNSPrimeFlagViewController.m in Sources */,
 				45F740461852B25700478D29 /* MNSNumberView.m in Sources */,
+				4589209B1885B53B001EC015 /* MNSNumberCollectionViewController.m in Sources */,
 				4589208E1884877D001EC015 /* MNSHostingCollectionViewCell.m in Sources */,
 				45DFCF621856470B006968EF /* MNSMultilineLabel.m in Sources */,
 				454A192918511DC4001F4296 /* MNSAppDelegate.m in Sources */,

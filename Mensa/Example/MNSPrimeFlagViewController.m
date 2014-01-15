@@ -13,9 +13,19 @@
 
 @implementation MNSPrimeFlagViewController
 
+#pragma mark - MNSHostedViewController
+
 - (void)updateView:(MNSPrimeFlagView *)view withObject:(MNSPrimeFlag *)flag
 {
-    view.textLabel.text = [NSString stringWithFormat:view.formatString, flag.number.value];
+    if (view.textLabel) {
+        view.textLabel.text = [NSString stringWithFormat:view.formatString, flag.number.value];
+    }
+}
+
+- (UIView *)viewForObject:(MNSPrimeFlag *)flag
+{
+    [super viewForObject:flag];
+    return (self.displayStyle == MNSPrimeFlagDisplayStyleDefault) ? self.defaultView : self.compactView;
 }
 
 @end

@@ -8,6 +8,15 @@
 
 #import "MNSHostedViewController.h"
 
+typedef NS_ENUM(NSUInteger, MNSPrimeFlagDisplayStyle) {
+    MNSPrimeFlagDisplayStyleDefault,
+    MNSPrimeFlagDisplayStyleCompact
+};
+
 @interface MNSPrimeFlagViewController : MNSHostedViewController
+
+@property (nonatomic) MNSPrimeFlagDisplayStyle displayStyle;
+@property (nonatomic) IBOutlet UIView *defaultView;
+@property (nonatomic) IBOutlet UIView *compactView;
 
 @end

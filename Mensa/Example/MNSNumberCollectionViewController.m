@@ -1,28 +1,28 @@
 //
-//  MNSNumberTableViewController.m
+//  MNSNumberCollectionViewController.m
 //  Mensa
 //
-//  Created by Jordan Kay on 12/5/13.
-//  Copyright (c) 2013 toxicsoftware. All rights reserved.
+//  Created by Jordan Kay on 1/14/14.
+//  Copyright (c) 2014 toxicsoftware. All rights reserved.
 //
 
 #import "MNSNumber.h"
 #import "MNSNumberView.h"
 #import "MNSNumberViewController.h"
-#import "MNSNumberTableViewController.h"
+#import "MNSNumberCollectionViewController.h"
 #import "MNSPrimeFlag.h"
 #import "MNSPrimeFlagViewController.h"
 
 #define COUNT 100
 #define FONT_SIZE_MAX 105
 
-@interface MNSNumberTableViewController ()
+@interface MNSNumberCollectionViewController ()
 
 @property (nonatomic) NSMutableArray *objects;
 
 @end
 
-@implementation MNSNumberTableViewController
+@implementation MNSNumberCollectionViewController
 
 - (void)_setupObjects
 {
@@ -39,14 +39,6 @@
 
 #pragma mark - NSObject
 
-+ (void)initialize
-{
-    if (self == [MNSNumberTableViewController class]) {
-        [MNSViewControllerRegistrar registerViewControllerClass:[MNSNumberViewController class] forModelClass:[MNSNumber class]];
-        [MNSViewControllerRegistrar registerViewControllerClass:[MNSPrimeFlagViewController class] forModelClass:[MNSPrimeFlag class]];
-    }
-}
-
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
     if (self = [super initWithCoder:coder]) {
@@ -55,15 +47,14 @@
     return self;
 }
 
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-}
-
 #pragma mark - MNSDataProviderDelegate
+
+- (void)dataPresenter:(MNSDataPresenter *)dataPresenter willLoadHostedViewForViewController:(MNSHostedViewController *)viewController
+{
+    if ([viewController isKindOfClass:[MNSPrimeFlagViewController class]]) {
+        ((MNSPrimeFlagViewController *)viewController).displayStyle = MNSPrimeFlagDisplayStyleCompact;
+    }
+}
 
 - (void)dataPresenter:(MNSDataPresenter *)dataPresenter didUseViewController:(MNSHostedViewController *)viewController withObject:(id)object
 {
