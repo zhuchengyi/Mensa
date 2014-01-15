@@ -22,6 +22,11 @@
 
 static NSString *cellIdentifier = @"MNSCollectionViewCell";
 
+- (void)reloadDataAndUpdateCollectionView
+{
+    [self.dataMediator reloadDataWithUpdate:YES];
+}
+
 #pragma mark - UIViewController
 
 - (void)viewDidLoad

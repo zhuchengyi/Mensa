@@ -14,4 +14,6 @@
 
 @interface MNSTableViewController : UITableViewController <MNSDataMediatorDelegate>
 
+- (void)reloadDataAndUpdateTableView;
+
 @end

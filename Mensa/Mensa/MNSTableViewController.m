@@ -20,6 +20,11 @@
 
 static NSString *cellIdentifier = @"MNSTableViewCell";
 
+- (void)reloadDataAndUpdateTableView
+{
+    [self.dataMediator reloadDataWithUpdate:YES];
+}
+
 #pragma mark - UIViewController
 
 - (void)viewDidLoad
