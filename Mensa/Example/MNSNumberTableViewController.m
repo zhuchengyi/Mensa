@@ -13,7 +13,7 @@
 #import "MNSPrimeFlag.h"
 #import "MNSPrimeFlagViewController.h"
 
-#define COUNT 100
+#define COUNT 81
 #define FONT_SIZE_MAX 105
 
 @interface MNSNumberTableViewController ()

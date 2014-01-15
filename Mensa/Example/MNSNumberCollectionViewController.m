@@ -13,7 +13,7 @@
 #import "MNSPrimeFlag.h"
 #import "MNSPrimeFlagViewController.h"
 
-#define COUNT 100
+#define COUNT 81
 #define FONT_SIZE_MAX 105
 
 @interface MNSNumberCollectionViewController ()
@@ -74,7 +74,7 @@
 
 - (NSArray *)sections
 {
-    return @[[MNSSection sectionWithTitle:@"Numbers and Prime Flags" objects:self.objects]];
+    return @[self.objects];
 }
 
 @end
