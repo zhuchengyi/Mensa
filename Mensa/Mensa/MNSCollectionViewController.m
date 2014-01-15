@@ -94,10 +94,7 @@ static NSString *cellIdentifier = @"MNSCollectionViewCell";
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)layout insetForSectionAtIndex:(NSInteger)section
 {
-    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-    CGFloat navBarHeigt = self.navigationController.navigationBar.bounds.size.height;
-    CGFloat tabBarHeight = self.tabBarController.tabBar.bounds.size.height;
-    return UIEdgeInsetsMake(INSET + statusBarHeight + navBarHeigt, INSET, INSET + tabBarHeight, INSET);
+    return UIEdgeInsetsMake(INSET, INSET, INSET, INSET);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)layout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
