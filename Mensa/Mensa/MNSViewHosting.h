@@ -1,5 +1,5 @@
 //
-//  MNSHosting.h
+//  MNSViewHosting.h
 //  Mensa
 //
 //  Created by Jordan Kay on 1/13/14.

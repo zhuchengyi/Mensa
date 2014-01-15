@@ -64,7 +64,7 @@
 - (void)dataMediator:(MNSDataMediator *)dataMediator didUseViewController:(MNSHostedViewController *)viewController withObject:(id)object
 {
     if ([object isKindOfClass:[MNSNumber class]]) {
-        // Custom font size changing behavior for this table view controller
+        // Custom font size changing behavior for this collection view controller
         MNSNumber *number = (MNSNumber *)object;
         CGFloat fontSize = FONT_SIZE_MAX - number.value;
         MNSNumberView *view = (MNSNumberView *)[viewController viewForObject:number];
