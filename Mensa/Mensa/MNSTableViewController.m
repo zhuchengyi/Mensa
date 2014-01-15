@@ -10,7 +10,7 @@
 
 @interface MNSTableViewController ()
 
-@property (nonatomic) MNSDataPresenter *dataPresenter;
+@property (nonatomic) MNSDataMediator *dataMediator;
 
 @end
 
@@ -26,9 +26,9 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 {
     [super viewDidLoad];
 
-    self.dataPresenter = [[MNSDataPresenter alloc] initWithDelegate:self];
+    self.dataMediator = [[MNSDataMediator alloc] initWithDelegate:self];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellIdentifier];
-    [self.dataPresenter reloadDataWithUpdate:NO];
+    [self.dataMediator reloadDataWithUpdate:NO];
 }
 
 #pragma mark - UITableViewDelegate
@@ -36,8 +36,8 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat height = 0.0f;
-    id object = [self.dataPresenter backingObjectForRowAtIndexPath:indexPath];
-    MNSHostingTableViewCell *metricsCell = (MNSHostingTableViewCell *)[self.dataPresenter metricsCellForClass:[object class]];
+    id object = [self.dataMediator backingObjectForRowAtIndexPath:indexPath];
+    MNSHostingTableViewCell *metricsCell = (MNSHostingTableViewCell *)[self.dataMediator metricsCellForClass:[object class]];
 
     if (metricsCell) {
         // We need to adjust the metrics cell’s frame to handle table width changes (e.g. rotations)
@@ -46,7 +46,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
         metricsCell.frame = frame;
 
         // Set up the metrics cell using real populated content
-        [self.dataPresenter useViewController:metricsCell.hostedViewController withObject:object];
+        [self.dataMediator useViewController:metricsCell.hostedViewController withObject:object];
 
         // Force a layout
         [metricsCell layoutIfNeeded];
@@ -62,56 +62,56 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id object = [self.dataPresenter backingObjectForRowAtIndexPath:indexPath];
+    id object = [self.dataMediator backingObjectForRowAtIndexPath:indexPath];
     MNSHostingTableViewCell *cell = (MNSHostingTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    [self.dataPresenter selectObject:object forViewController:cell.hostedViewController];
+    [self.dataMediator selectObject:object forViewController:cell.hostedViewController];
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id object = [self.dataPresenter backingObjectForRowAtIndexPath:indexPath];
+    id object = [self.dataMediator backingObjectForRowAtIndexPath:indexPath];
     MNSHostingTableViewCell *cell = (MNSHostingTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    return [self.dataPresenter canSelectObject:object forViewController:cell.hostedViewController];
+    return [self.dataMediator canSelectObject:object forViewController:cell.hostedViewController];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.dataPresenter numberOfSections];
+    return [self.dataMediator numberOfSections];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.dataPresenter numberOfObjectsInSection:section];
+    return [self.dataMediator numberOfObjectsInSection:section];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [self.dataPresenter titleForSection:section];
+    return [self.dataMediator titleForSection:section];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-    return [self.dataPresenter summaryForSection:section];
+    return [self.dataMediator summaryForSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MNSHostingTableViewCell *cell;
-    id object = [self.dataPresenter backingObjectForRowAtIndexPath:indexPath];
+    id object = [self.dataMediator backingObjectForRowAtIndexPath:indexPath];
     Class viewControllerClass = [MNSViewControllerRegistrar viewControllerClassForModelClass:[object class]];
 
     if (viewControllerClass) {
         NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
         cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
-        if ([self respondsToSelector:@selector(dataPresenter:willLoadHostedViewForViewController:)]) {
-            [self dataPresenter:self.dataPresenter willLoadHostedViewForViewController:cell.hostedViewController];
+        if ([self respondsToSelector:@selector(dataMediator:willLoadHostedViewForViewController:)]) {
+            [self dataMediator:self.dataMediator willLoadHostedViewForViewController:cell.hostedViewController];
         }
 
         [MNSViewHosting setParentViewController:self forCell:cell withObject:object];
         cell.userInteractionEnabled = [cell.hostedViewController viewForObject:object].userInteractionEnabled;
-        [self.dataPresenter useViewController:cell.hostedViewController withObject:object];
+        [self.dataMediator useViewController:cell.hostedViewController withObject:object];
     } else {
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     }
@@ -119,26 +119,26 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     return cell;
 }
 
-#pragma mark - MNSDataProviderDelegate
+#pragma mark - MNSDataMediatorDelegate
 
-- (Class)cellClass:(MNSDataPresenter *)dataPresenter
+- (Class)cellClass:(MNSDataMediator *)dataMediator
 {
     return [MNSHostingTableViewCell class];
 }
 
-- (void)dataPresenter:(MNSDataPresenter *)dataPresenter didReloadDataWithUpdate:(BOOL)update
+- (void)dataMediator:(MNSDataMediator *)dataMediator didReloadDataWithUpdate:(BOOL)update
 {
     if (update) {
         [self.tableView reloadData];
     }
 }
 
-- (void)dataPresenter:(MNSDataPresenter *)dataPresenter willUseCellClass:(Class)cellClass forReuseIdentifier:(NSString *)reuseIdentifier
+- (void)dataMediator:(MNSDataMediator *)dataMediator willUseCellClass:(Class)cellClass forReuseIdentifier:(NSString *)reuseIdentifier
 {
     [self.tableView registerClass:cellClass forCellReuseIdentifier:reuseIdentifier];
 }
 
-- (void)dataPresenter:(MNSDataPresenter *)dataPresenter willUseMetricsCell:(MNSHostingTableViewCell *)metricsCell
+- (void)dataMediator:(MNSDataMediator *)dataMediator willUseMetricsCell:(MNSHostingTableViewCell *)metricsCell
 {
     [metricsCell useAsMetricsCellInTableView:self.tableView];
 }

@@ -47,16 +47,16 @@
     return self;
 }
 
-#pragma mark - MNSDataProviderDelegate
+#pragma mark - MNSDataMediatorDelegate
 
-- (void)dataPresenter:(MNSDataPresenter *)dataPresenter willLoadHostedViewForViewController:(MNSHostedViewController *)viewController
+- (void)dataMediator:(MNSDataMediator *)dataMediator willLoadHostedViewForViewController:(MNSHostedViewController *)viewController
 {
     if ([viewController isKindOfClass:[MNSPrimeFlagViewController class]]) {
         ((MNSPrimeFlagViewController *)viewController).displayStyle = MNSPrimeFlagDisplayStyleCompact;
     }
 }
 
-- (void)dataPresenter:(MNSDataPresenter *)dataPresenter didUseViewController:(MNSHostedViewController *)viewController withObject:(id)object
+- (void)dataMediator:(MNSDataMediator *)dataMediator didUseViewController:(MNSHostedViewController *)viewController withObject:(id)object
 {
     if ([object isKindOfClass:[MNSNumber class]]) {
         // Custom font size changing behavior for this table view controller

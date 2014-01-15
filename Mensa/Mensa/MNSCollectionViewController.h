@@ -6,12 +6,12 @@
 //  Copyright (c) 2014 toxicsoftware. All rights reserved.
 //
 
-#import "MNSDataPresenter.h"
+#import "MNSDataMediator.h"
 #import "MNSHostedViewController.h"
 #import "MNSHostingCollectionViewCell.h"
 #import "MNSSection.h"
 #import "MNSViewControllerRegistrar.h"
 
-@interface MNSCollectionViewController : UICollectionViewController <MNSDataProviderDelegate>
+@interface MNSCollectionViewController : UICollectionViewController <MNSDataMediatorDelegate>
 
 @end

@@ -12,7 +12,7 @@
 
 @interface MNSCollectionViewController ()
 
-@property (nonatomic) MNSDataPresenter *dataPresenter;
+@property (nonatomic) MNSDataMediator *dataMediator;
 
 @end
 
@@ -28,39 +28,39 @@ static NSString *cellIdentifier = @"MNSCollectionViewCell";
 {
     [super viewDidLoad];
 
-    self.dataPresenter = [[MNSDataPresenter alloc] initWithDelegate:self];
+    self.dataMediator = [[MNSDataMediator alloc] initWithDelegate:self];
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
-    [self.dataPresenter reloadDataWithUpdate:NO];
+    [self.dataMediator reloadDataWithUpdate:NO];
 }
 
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return [self.dataPresenter numberOfSections];
+    return [self.dataMediator numberOfSections];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.dataPresenter numberOfObjectsInSection:section];
+    return [self.dataMediator numberOfObjectsInSection:section];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MNSHostingCollectionViewCell *cell;
-    id object = [self.dataPresenter backingObjectForRowAtIndexPath:indexPath];
+    id object = [self.dataMediator backingObjectForRowAtIndexPath:indexPath];
     Class viewControllerClass = [MNSViewControllerRegistrar viewControllerClassForModelClass:[object class]];
 
     if (viewControllerClass) {
         NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-        if ([self respondsToSelector:@selector(dataPresenter:willLoadHostedViewForViewController:)]) {
-            [self dataPresenter:self.dataPresenter willLoadHostedViewForViewController:cell.hostedViewController];
+        if ([self respondsToSelector:@selector(dataMediator:willLoadHostedViewForViewController:)]) {
+            [self dataMediator:self.dataMediator willLoadHostedViewForViewController:cell.hostedViewController];
         }
 
         [MNSViewHosting setParentViewController:self forCell:cell withObject:object];
         cell.userInteractionEnabled = [cell.hostedViewController viewForObject:object].userInteractionEnabled;
-        [self.dataPresenter useViewController:cell.hostedViewController withObject:object];
+        [self.dataMediator useViewController:cell.hostedViewController withObject:object];
     } else {
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];;
     }
@@ -74,11 +74,11 @@ static NSString *cellIdentifier = @"MNSCollectionViewCell";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewFlowLayout *)layout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGSize size = layout.itemSize;
-    id object = [self.dataPresenter backingObjectForRowAtIndexPath:indexPath];
-    MNSHostingCollectionViewCell *metricsCell = (MNSHostingCollectionViewCell *)[self.dataPresenter metricsCellForClass:[object class]];
+    id object = [self.dataMediator backingObjectForRowAtIndexPath:indexPath];
+    MNSHostingCollectionViewCell *metricsCell = (MNSHostingCollectionViewCell *)[self.dataMediator metricsCellForClass:[object class]];
 
     if (metricsCell) {
-        [self.dataPresenter useViewController:metricsCell.hostedViewController withObject:object];
+        [self.dataMediator useViewController:metricsCell.hostedViewController withObject:object];
         [metricsCell layoutIfNeeded];
 
         size = [metricsCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
@@ -105,26 +105,26 @@ static NSString *cellIdentifier = @"MNSCollectionViewCell";
     return INSET;
 }
 
-#pragma mark - MNSDataProviderDelegate
+#pragma mark - MNSDataMediatorDelegate
 
-- (Class)cellClass:(MNSDataPresenter *)dataPresenter
+- (Class)cellClass:(MNSDataMediator *)dataMediator
 {
     return [MNSHostingCollectionViewCell class];
 }
 
-- (void)dataPresenter:(MNSDataPresenter *)dataPresenter didReloadDataWithUpdate:(BOOL)update
+- (void)dataMediator:(MNSDataMediator *)dataMediator didReloadDataWithUpdate:(BOOL)update
 {
     if (update) {
         [self.collectionView reloadData];
     }
 }
 
-- (void)dataPresenter:(MNSDataPresenter *)dataPresenter willUseCellClass:(Class)cellClass forReuseIdentifier:(NSString *)reuseIdentifier
+- (void)dataMediator:(MNSDataMediator *)dataMediator willUseCellClass:(Class)cellClass forReuseIdentifier:(NSString *)reuseIdentifier
 {
     [self.collectionView registerClass:cellClass forCellWithReuseIdentifier:reuseIdentifier];
 }
 
-- (void)dataPresenter:(MNSDataPresenter *)dataPresenter willUseMetricsCell:(MNSHostingCollectionViewCell *)metricsCell
+- (void)dataMediator:(MNSDataMediator *)dataMediator willUseMetricsCell:(MNSHostingCollectionViewCell *)metricsCell
 {
     [metricsCell useAsMetricsCellInCollectionView:self.collectionView];
 }

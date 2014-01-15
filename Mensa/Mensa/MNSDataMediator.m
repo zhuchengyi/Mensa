@@ -1,27 +1,27 @@
 //
-//  MNSDatadataPresenter.h
+//  MNSDatadataMediator.h
 //  Mensa
 //
 //  Created by Jordan Kay on 1/13/14.
 //  Copyright (c) 2014 toxicsoftware. All rights reserved.
 //
 
-#import "MNSDataPresenter.h"
+#import "MNSDataMediator.h"
 #import "MNSHostedViewController.h"
 #import "MNSViewHosting.h"
 #import "MNSViewControllerRegistrar.h"
 #import "MNSSection.h"
 
-@interface MNSDataPresenter ()
+@interface MNSDataMediator ()
 
 @property (nonatomic) NSMutableDictionary *metricsCells;
 @property (nonatomic, copy) NSArray *backingSections;
 
 @end
 
-@implementation MNSDataPresenter
+@implementation MNSDataMediator
 
-- (instancetype)initWithDelegate:(id<MNSDataProviderDelegate>)delegate
+- (instancetype)initWithDelegate:(id<MNSDataMediatorDelegate>)delegate
 {
     if (self = [super init]) {
         _delegate = delegate;
@@ -33,15 +33,15 @@
 - (void)reloadDataWithUpdate:(BOOL)update
 {
     self.backingSections = self.delegate.sections;
-    [self.delegate dataPresenter:self didReloadDataWithUpdate:update];
+    [self.delegate dataMediator:self didReloadDataWithUpdate:update];
 }
 
 - (void)useViewController:(MNSHostedViewController *)viewController withObject:(id)object
 {
     UIView *view = [viewController viewForObject:object];
     [viewController updateView:view withObject:object];
-    if ([self.delegate respondsToSelector:@selector(dataPresenter:didUseViewController:withObject:)]) {
-        [self.delegate dataPresenter:self didUseViewController:viewController withObject:object];
+    if ([self.delegate respondsToSelector:@selector(dataMediator:didUseViewController:withObject:)]) {
+        [self.delegate dataMediator:self didUseViewController:viewController withObject:object];
     }
 }
 
@@ -120,7 +120,7 @@
     if (viewControllerClass) {
         Class cellClass = [[self.delegate cellClass:self] subclassWithViewControllerClass:viewControllerClass];
         NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
-        [self.delegate dataPresenter:self willUseCellClass:cellClass forReuseIdentifier:reuseIdentifier];
+        [self.delegate dataMediator:self willUseCellClass:cellClass forReuseIdentifier:reuseIdentifier];
 
         // Instead of storing a metrics cell we could just dequeue them as needed off of the table view. But due to the way our hosted cells work we can’t do that here
         if ([metricsCell isKindOfClass:[UITableViewCell class]]) {
@@ -128,11 +128,11 @@
         } else {
             metricsCell = [[cellClass alloc] init];
         }
-        if ([self.delegate respondsToSelector:@selector(dataPresenter:willLoadHostedViewForViewController:)]) {
-            [self.delegate dataPresenter:self willLoadHostedViewForViewController:metricsCell.hostedViewController];
+        if ([self.delegate respondsToSelector:@selector(dataMediator:willLoadHostedViewForViewController:)]) {
+            [self.delegate dataMediator:self willLoadHostedViewForViewController:metricsCell.hostedViewController];
         }
         [MNSViewHosting loadHostedViewForObject:object inCell:metricsCell];
-        [self.delegate dataPresenter:self willUseMetricsCell:metricsCell];
+        [self.delegate dataMediator:self willUseMetricsCell:metricsCell];
     }
 
     return metricsCell;

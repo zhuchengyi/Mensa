@@ -24,7 +24,7 @@
 		454F2FE417A3113800DF45AB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 454F2FE317A3113800DF45AB /* UIKit.framework */; };
 		4589208B18847355001EC015 /* MNSViewHosting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589208A18847355001EC015 /* MNSViewHosting.m */; };
 		4589208E1884877D001EC015 /* MNSHostingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589208D1884877D001EC015 /* MNSHostingCollectionViewCell.m */; };
-		4589209118848D19001EC015 /* MNSDataPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589209018848D19001EC015 /* MNSDataPresenter.m */; };
+		4589209118848D19001EC015 /* MNSDataMediator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589209018848D19001EC015 /* MNSDataMediator.m */; };
 		458920981885B06F001EC015 /* MNSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458920971885B06F001EC015 /* MNSCollectionViewController.m */; };
 		4589209B1885B53B001EC015 /* MNSNumberCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589209A1885B53B001EC015 /* MNSNumberCollectionViewController.m */; };
 		45B9FF8A185EBE840015805E /* MNSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9FF87185EBE840015805E /* MNSProperty.m */; };
@@ -72,8 +72,8 @@
 		4589208A18847355001EC015 /* MNSViewHosting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSViewHosting.m; path = Mensa/MNSViewHosting.m; sourceTree = SOURCE_ROOT; };
 		4589208C1884877D001EC015 /* MNSHostingCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSHostingCollectionViewCell.h; path = Mensa/MNSHostingCollectionViewCell.h; sourceTree = SOURCE_ROOT; };
 		4589208D1884877D001EC015 /* MNSHostingCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSHostingCollectionViewCell.m; path = Mensa/MNSHostingCollectionViewCell.m; sourceTree = SOURCE_ROOT; };
-		4589208F18848D19001EC015 /* MNSDataPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSDataPresenter.h; path = Mensa/MNSDataPresenter.h; sourceTree = SOURCE_ROOT; };
-		4589209018848D19001EC015 /* MNSDataPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSDataPresenter.m; path = Mensa/MNSDataPresenter.m; sourceTree = SOURCE_ROOT; };
+		4589208F18848D19001EC015 /* MNSDataMediator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSDataMediator.h; path = Mensa/MNSDataMediator.h; sourceTree = SOURCE_ROOT; };
+		4589209018848D19001EC015 /* MNSDataMediator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSDataMediator.m; path = Mensa/MNSDataMediator.m; sourceTree = SOURCE_ROOT; };
 		458920961885B06F001EC015 /* MNSCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSCollectionViewController.h; path = Mensa/MNSCollectionViewController.h; sourceTree = SOURCE_ROOT; };
 		458920971885B06F001EC015 /* MNSCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSCollectionViewController.m; path = Mensa/MNSCollectionViewController.m; sourceTree = SOURCE_ROOT; };
 		458920991885B53B001EC015 /* MNSNumberCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSNumberCollectionViewController.h; path = Example/MNSNumberCollectionViewController.h; sourceTree = "<group>"; };
@@ -191,8 +191,8 @@
 			children = (
 				458920961885B06F001EC015 /* MNSCollectionViewController.h */,
 				458920971885B06F001EC015 /* MNSCollectionViewController.m */,
-				4589208F18848D19001EC015 /* MNSDataPresenter.h */,
-				4589209018848D19001EC015 /* MNSDataPresenter.m */,
+				4589208F18848D19001EC015 /* MNSDataMediator.h */,
+				4589209018848D19001EC015 /* MNSDataMediator.m */,
 				45F7404A1852B3AF00478D29 /* MNSHostedViewController.h */,
 				45F7404B1852B3AF00478D29 /* MNSHostedViewController.m */,
 				4589208C1884877D001EC015 /* MNSHostingCollectionViewCell.h */,
@@ -321,7 +321,7 @@
 				45DFED5D186153460080BD62 /* MNSPropertyViewController.m in Sources */,
 				45B9FF8B185EBE840015805E /* MNSPropertyView.m in Sources */,
 				454587F618528B320016E74B /* MNSSection.m in Sources */,
-				4589209118848D19001EC015 /* MNSDataPresenter.m in Sources */,
+				4589209118848D19001EC015 /* MNSDataMediator.m in Sources */,
 				454A191B18511D99001F4296 /* MNSHostingTableViewCell.m in Sources */,
 				454587F918529DA20016E74B /* MNSViewControllerRegistrar.m in Sources */,
 				45F7405A1853A30800478D29 /* MNSPrimeFlagView.m in Sources */,

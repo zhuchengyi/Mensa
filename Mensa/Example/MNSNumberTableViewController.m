@@ -63,9 +63,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
-#pragma mark - MNSDataProviderDelegate
+#pragma mark - MNSDataMediatorDelegate
 
-- (void)dataPresenter:(MNSDataPresenter *)dataPresenter didUseViewController:(MNSHostedViewController *)viewController withObject:(id)object
+- (void)dataMediator:(MNSDataMediator *)dataMediator didUseViewController:(MNSHostedViewController *)viewController withObject:(id)object
 {
     if ([object isKindOfClass:[MNSNumber class]]) {
         // Custom font size changing behavior for this table view controller
