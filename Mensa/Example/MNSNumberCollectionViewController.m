@@ -23,28 +23,33 @@
 @end
 
 @implementation MNSNumberCollectionViewController
-
-- (void)_setupObjects
 {
-    self.objects = [NSMutableArray arrayWithCapacity:COUNT];
-    for (NSInteger i = 1; i <= COUNT; i++) {
-        MNSNumber *number = [[MNSNumber alloc] initWithValue:i];
-        [self.objects addObject:number];
-        if (number.isPrime) {
-            MNSPrimeFlag *flag = [[MNSPrimeFlag alloc] initWithNumber:number];
-            [self.objects addObject:flag];
-        }
-    }
+    BOOL _primeFlagsShowing;
 }
 
-#pragma mark - NSObject
-
-- (instancetype)initWithCoder:(NSCoder *)coder
+- (IBAction)togglePrimeFlags:(UIBarButtonItem *)sender
 {
-    if (self = [super initWithCoder:coder]) {
-        [self _setupObjects];
+    _primeFlagsShowing = !_primeFlagsShowing;
+    sender.title = (_primeFlagsShowing) ? @"Hide Flags" : @"Show Flags";
+
+    _objects = nil;
+    [self reloadDataAndUpdateCollectionView];
+}
+
+- (NSArray *)objects
+{
+    if (!_objects) {
+        _objects = [NSMutableArray array];
+        for (NSInteger i = 1; i <= COUNT; i++) {
+            MNSNumber *number = [[MNSNumber alloc] initWithValue:i];
+            [_objects addObject:number];
+            if (_primeFlagsShowing && number.isPrime) {
+                MNSPrimeFlag *flag = [[MNSPrimeFlag alloc] initWithNumber:number];
+                [_objects addObject:flag];
+            }
+        }
     }
-    return self;
+    return _objects;
 }
 
 #pragma mark - MNSDataMediatorDelegate
