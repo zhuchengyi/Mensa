@@ -73,6 +73,14 @@ static NSString *cellIdentifier = @"MNSCollectionViewCell";
     return cell;
 }
 
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    id object = [self.dataMediator backingObjectForRowAtIndexPath:indexPath];
+    MNSHostingCollectionViewCell *cell = (MNSHostingCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [self.dataMediator selectObject:object forViewController:cell.hostedViewController];
+}
 
 #pragma mark - UICollectionViewDelegateFlowLayout
 
