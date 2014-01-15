@@ -15,6 +15,7 @@
 
 #define COUNT 83
 #define FONT_SIZE_MAX 105
+#define INSET 10.0f
 
 @interface MNSNumberCollectionViewController ()
 
@@ -50,6 +51,16 @@
         }
     }
     return _objects;
+}
+
+#pragma mark - UIViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
+    layout.sectionInset = UIEdgeInsetsMake(INSET, INSET, INSET, INSET);
 }
 
 #pragma mark - MNSDataMediatorDelegate

@@ -100,21 +100,6 @@ static NSString *cellIdentifier = @"MNSCollectionViewCell";
     return size;
 }
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)layout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(INSET, INSET, INSET, INSET);
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)layout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return INSET;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)layout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return INSET;
-}
-
 #pragma mark - MNSDataMediatorDelegate
 
 - (Class)cellClass:(MNSDataMediator *)dataMediator
