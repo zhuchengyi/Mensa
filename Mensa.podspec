@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'Mensa'
-  s.version      = '0.3.0'
+  s.version      = '0.8.0'
   s.summary      = 'Smart, modern table views on iOS.'
   s.homepage     = 'https://www.github.com/jordanekay/Mensa'
   s.platform     = :ios, '6.0'
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   }
   s.source = {
     :git => 'https://github.com/jordanekay/Mensa.git',
-    :tag => '0.3.0'
+    :tag => '0.8.0'
   }
   s.license = {
     :type => 'MIT'
