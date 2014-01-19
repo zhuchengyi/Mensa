@@ -59,7 +59,7 @@
 {
     [super viewDidLoad];
 
-    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionViewLayout;
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     layout.sectionInset = UIEdgeInsetsMake(INSET, INSET, INSET, INSET);
 }
 
