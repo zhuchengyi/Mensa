@@ -57,7 +57,7 @@ static NSString *cellIdentifier = @"MNSCollectionViewCell";
     Class viewControllerClass = [MNSViewControllerRegistrar viewControllerClassForModelClass:[object class]];
 
     if (viewControllerClass) {
-        NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
+        NSString *reuseIdentifier = [viewControllerClass reuseIdentifierForObject:object];
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
         if ([self respondsToSelector:@selector(dataMediator:willLoadHostedViewForViewController:)]) {
             [self dataMediator:self.dataMediator willLoadHostedViewForViewController:cell.hostedViewController];
@@ -114,9 +114,11 @@ static NSString *cellIdentifier = @"MNSCollectionViewCell";
     }
 }
 
-- (void)dataMediator:(MNSDataMediator *)dataMediator willUseCellClass:(Class)cellClass forReuseIdentifier:(NSString *)reuseIdentifier
+- (void)dataMediator:(MNSDataMediator *)dataMediator willUseCellClass:(Class)cellClass forReuseIdentifiers:(NSArray *)reuseIdentifiers
 {
-    [self.collectionView registerClass:cellClass forCellWithReuseIdentifier:reuseIdentifier];
+    for (NSString *reuseIdentifier in reuseIdentifiers) {
+        [self.collectionView registerClass:cellClass forCellWithReuseIdentifier:reuseIdentifier];
+    }
 }
 
 - (void)dataMediator:(MNSDataMediator *)dataMediator willUseMetricsCell:(MNSHostingCollectionViewCell *)metricsCell

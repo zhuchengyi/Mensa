@@ -16,7 +16,6 @@
  * Adds the hosted view controller’s view for the given object to a cell’s content view.
  */
 + (void)loadHostedViewForObject:(id)object inCell:(id <MNSHostingCell>)cell;
-
 + (void)setParentViewController:(UIViewController *)parentViewController forCell:(id<MNSHostingCell>)cell withObject:(id)object;
 
 @end

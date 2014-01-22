@@ -119,9 +119,9 @@
     Class viewControllerClass = [MNSViewControllerRegistrar viewControllerClassForModelClass:modelClass];
     if (viewControllerClass) {
         Class cellClass = [[self.delegate cellClass:self] subclassWithViewControllerClass:viewControllerClass];
-        NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
-        [self.delegate dataMediator:self willUseCellClass:cellClass forReuseIdentifier:reuseIdentifier];
-
+        NSArray *reuseIdentifiers = [viewControllerClass reuseIdentifiers];
+        [self.delegate dataMediator:self willUseCellClass:cellClass forReuseIdentifiers:reuseIdentifiers];
+        
         // Instead of storing a metrics cell we could just dequeue them as needed off of the table view. But due to the way our hosted cells work we can’t do that here
         if ([metricsCell isKindOfClass:[UITableViewCell class]]) {
             metricsCell = [[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];

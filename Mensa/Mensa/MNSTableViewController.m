@@ -108,7 +108,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     Class viewControllerClass = [MNSViewControllerRegistrar viewControllerClassForModelClass:[object class]];
 
     if (viewControllerClass) {
-        NSString *reuseIdentifier = NSStringFromClass(viewControllerClass);
+        NSString *reuseIdentifier = [viewControllerClass reuseIdentifierForObject:object];
         cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier forIndexPath:indexPath];
         if ([self respondsToSelector:@selector(dataMediator:willLoadHostedViewForViewController:)]) {
             [self dataMediator:self.dataMediator willLoadHostedViewForViewController:cell.hostedViewController];
@@ -138,9 +138,11 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     }
 }
 
-- (void)dataMediator:(MNSDataMediator *)dataMediator willUseCellClass:(Class)cellClass forReuseIdentifier:(NSString *)reuseIdentifier
+- (void)dataMediator:(MNSDataMediator *)dataMediator willUseCellClass:(Class)cellClass forReuseIdentifiers:(NSArray *)reuseIdentifiers
 {
-    [self.tableView registerClass:cellClass forCellReuseIdentifier:reuseIdentifier];
+    for (NSString *reuseIdentifier in reuseIdentifiers) {
+        [self.tableView registerClass:cellClass forCellReuseIdentifier:reuseIdentifier];
+    }
 }
 
 - (void)dataMediator:(MNSDataMediator *)dataMediator willUseMetricsCell:(MNSHostingTableViewCell *)metricsCell

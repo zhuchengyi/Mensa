@@ -13,4 +13,7 @@
 - (BOOL)canSelectObject:(id)object;
 - (UIView *)viewForObject:(id)object;
 
++ (NSArray *)reuseIdentifiers;
++ (NSString *)reuseIdentifierForObject:(id)object;
+
 @end

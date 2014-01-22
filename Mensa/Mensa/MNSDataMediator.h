@@ -35,7 +35,7 @@
 @protocol MNSDataMediatorDelegate <NSObject>
 
 - (Class)cellClass:(MNSDataMediator *)dataMediator;
-- (void)dataMediator:(MNSDataMediator *)dataMediator willUseCellClass:(Class)cellClass forReuseIdentifier:(NSString *)reuseIdentifier;
+- (void)dataMediator:(MNSDataMediator *)dataMediator willUseCellClass:(Class)cellClass forReuseIdentifiers:(NSArray *)reuseIdentifiers;
 - (void)dataMediator:(MNSDataMediator *)dataMediator willUseMetricsCell:(id<MNSHostingCell>)metricsCell;
 - (void)dataMediator:(MNSDataMediator *)dataMediator didReloadDataWithUpdate:(BOOL)update;
 

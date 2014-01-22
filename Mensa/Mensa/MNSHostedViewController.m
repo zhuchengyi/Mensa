@@ -31,4 +31,19 @@
     return self.view;
 }
 
++ (NSArray *)reuseIdentifiers
+{
+    static NSArray *reuseIdentifiers;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        reuseIdentifiers = @[NSStringFromClass(self)];
+    });
+    return reuseIdentifiers;
+}
+
++ (NSString *)reuseIdentifierForObject:(id)object
+{
+    return NSStringFromClass(self);
+}
+
 @end
