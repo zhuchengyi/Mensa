@@ -79,6 +79,20 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
     return [self.dataMediator canSelectObject:object forViewController:cell.hostedViewController];
 }
 
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id object = [self.dataMediator backingObjectForRowAtIndexPath:indexPath];
+    MNSHostingTableViewCell *cell = (MNSHostingTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [cell.hostedViewController setViewHighlighted:YES forObject:object];
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id object = [self.dataMediator backingObjectForRowAtIndexPath:indexPath];
+    MNSHostingTableViewCell *cell = (MNSHostingTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [cell.hostedViewController setViewHighlighted:NO forObject:object];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

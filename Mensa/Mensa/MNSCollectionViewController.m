@@ -82,6 +82,20 @@ static NSString *cellIdentifier = @"MNSCollectionViewCell";
     [self.dataMediator selectObject:object forViewController:cell.hostedViewController];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    id object = [self.dataMediator backingObjectForRowAtIndexPath:indexPath];
+    MNSHostingCollectionViewCell *cell = (MNSHostingCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [cell.hostedViewController setViewHighlighted:YES forObject:object];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    id object = [self.dataMediator backingObjectForRowAtIndexPath:indexPath];
+    MNSHostingCollectionViewCell *cell = (MNSHostingCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [cell.hostedViewController setViewHighlighted:NO forObject:object];
+}
+
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewFlowLayout *)layout sizeForItemAtIndexPath:(NSIndexPath *)indexPath

@@ -11,6 +11,7 @@
 - (void)updateView:(UIView *)view withObject:(id)object;
 - (void)selectObject:(id)object;
 - (BOOL)canSelectObject:(id)object;
+- (void)setViewHighlighted:(BOOL)highlighted forObject:(id)object;
 - (UIView *)viewForObject:(id)object;
 
 + (NSArray *)reuseIdentifiers;

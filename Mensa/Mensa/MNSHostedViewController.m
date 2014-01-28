@@ -26,6 +26,11 @@
     return YES;
 }
 
+- (void)setViewHighlighted:(BOOL)highlighted forObject:(id)object
+{
+    // Subclasses implement
+}
+
 - (UIView *)viewForObject:(id)object
 {
     return self.view;
