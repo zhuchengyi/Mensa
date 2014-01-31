@@ -38,12 +38,7 @@
 
 + (NSArray *)reuseIdentifiers
 {
-    static NSArray *reuseIdentifiers;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        reuseIdentifiers = @[NSStringFromClass(self)];
-    });
-    return reuseIdentifiers;
+    return @[NSStringFromClass(self)];
 }
 
 + (NSString *)reuseIdentifierForObject:(id)object
