@@ -3,7 +3,7 @@
 //  Mensa
 //
 //  Created by Jordan Kay on 1/13/14.
-//  Copyright (c) 2014 toxicsoftware. All rights reserved.
+//  Copyright (c) 2014 Jordan Kay. All rights reserved.
 //
 
 #import "MNSDataMediator.h"

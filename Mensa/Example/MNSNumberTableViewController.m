@@ -3,7 +3,7 @@
 //  Mensa
 //
 //  Created by Jordan Kay on 12/5/13.
-//  Copyright (c) 2013 toxicsoftware. All rights reserved.
+//  Copyright (c) 2013 Jordan Kay. All rights reserved.
 //
 
 #import "MNSNumber.h"
