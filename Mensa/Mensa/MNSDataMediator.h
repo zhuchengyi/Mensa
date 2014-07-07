@@ -41,7 +41,7 @@
 - (void)dataMediator:(MNSDataMediator *)dataMediator willUseMetricsCell:(id<MNSHostingCell>)metricsCell;
 - (void)dataMediator:(MNSDataMediator *)dataMediator didReloadDataWithUpdate:(BOOL)update;
 
-@property (nonatomic) NSArray *sections;
+@property (nonatomic, readonly) NSArray *sections;
 
 @optional
 
