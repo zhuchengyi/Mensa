@@ -10,7 +10,6 @@
 
 @interface MNSViewControllerRegistrar : NSObject
 
-+ (void)registerViewControllerClasses;
 + (void)registerViewControllerClass:(Class)viewControllerClass forModelClass:(Class)modelClass;
 + (Class)viewControllerClassForModelClass:(Class)modelClass;
 
