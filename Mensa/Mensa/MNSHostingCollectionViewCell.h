@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Jordan Kay. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "MNSViewHosting.h"
 #import "MNSHostedViewController.h"
 

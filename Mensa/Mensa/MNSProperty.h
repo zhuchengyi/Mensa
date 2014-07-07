@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Jordan Kay. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 typedef NS_OPTIONS(NSUInteger, MNSPropertyOptions) {
     MNSPropertyOptionHidesName               = 1 << 0,
     MNSPropertyOptionAllowsUserInput         = 1 << 1,

@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Jordan Kay. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 @class MNSHostedViewController;
 
 @protocol MNSHostingCell;

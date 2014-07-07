@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Jordan Kay. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+
 @interface MNSSection : NSObject
 
 + (instancetype)sectionWithObjects:(NSArray *)objects;
