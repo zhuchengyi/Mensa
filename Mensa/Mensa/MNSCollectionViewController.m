@@ -8,8 +8,6 @@
 
 #import "MNSCollectionViewController.h"
 
-#define INSET 10.0f
-
 @interface MNSCollectionViewController ()
 
 @property (nonatomic) MNSDataMediator *dataMediator;
