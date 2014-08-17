@@ -13,9 +13,9 @@
 #import "MNSPrimeFlag.h"
 #import "MNSPrimeFlagViewController.h"
 
-#define COUNT 83
-#define FONT_SIZE_MAX 105
-#define INSET 10.0f
+static const NSUInteger kNumberCount = 83;
+static const CGFloat kMaxFontSize = 105.0f;
+static const CGFloat kSectionInset = 10.0f;
 
 @interface MNSNumberCollectionViewController ()
 
@@ -41,7 +41,7 @@
 {
     if (!_objects) {
         _objects = [NSMutableArray array];
-        for (NSInteger i = 1; i <= COUNT; i++) {
+        for (NSInteger i = 1; i <= kNumberCount; i++) {
             MNSNumber *number = [[MNSNumber alloc] initWithValue:i];
             [_objects addObject:number];
             if (_primeFlagsShowing && number.isPrime) {
@@ -60,7 +60,7 @@
     [super viewDidLoad];
 
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    layout.sectionInset = UIEdgeInsetsMake(INSET, INSET, INSET, INSET);
+    layout.sectionInset = UIEdgeInsetsMake(kSectionInset, kSectionInset, kSectionInset, kSectionInset);
 }
 
 #pragma mark - MNSDataMediatorDelegate
@@ -77,7 +77,7 @@
     if ([object isKindOfClass:[MNSNumber class]]) {
         // Custom font size changing behavior for this collection view controller
         MNSNumber *number = (MNSNumber *)object;
-        CGFloat fontSize = FONT_SIZE_MAX - number.value;
+        CGFloat fontSize = kMaxFontSize - number.value;
         MNSNumberView *view = (MNSNumberView *)[viewController viewForObject:number];
         view.valueLabel.font = [view.valueLabel.font fontWithSize:fontSize];
     }

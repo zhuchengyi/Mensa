@@ -13,8 +13,8 @@
 #import "MNSPrimeFlag.h"
 #import "MNSPrimeFlagViewController.h"
 
-#define COUNT 83
-#define FONT_SIZE_MAX 105
+static const NSUInteger kNumberCount = 83;
+static const CGFloat kMaxFontSize = 105.0f;
 
 @interface MNSNumberTableViewController ()
 
@@ -26,8 +26,8 @@
 
 - (void)_setupObjects
 {
-    self.objects = [NSMutableArray arrayWithCapacity:COUNT];
-    for (NSInteger i = 1; i <= COUNT; i++) {
+    self.objects = [NSMutableArray arrayWithCapacity:kNumberCount];
+    for (NSInteger i = 1; i <= kNumberCount; i++) {
         MNSNumber *number = [[MNSNumber alloc] initWithValue:i];
         [self.objects addObject:number];
         if (number.isPrime) {
@@ -70,7 +70,7 @@
     if ([object isKindOfClass:[MNSNumber class]]) {
         // Custom font size changing behavior for this table view controller
         MNSNumber *number = (MNSNumber *)object;
-        CGFloat fontSize = FONT_SIZE_MAX - number.value;
+        CGFloat fontSize = kMaxFontSize - number.value;
         MNSNumberView *view = (MNSNumberView *)[viewController viewForObject:number];
         view.valueLabel.font = [view.valueLabel.font fontWithSize:fontSize];
     }
