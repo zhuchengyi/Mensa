@@ -110,7 +110,7 @@
     return [self.backingSections[section] summary];
 }
 
-- (id <MNSHostingCell>)_metricsCellForObject:(id)object
+- (id<MNSHostingCell>)_metricsCellForObject:(id)object
 {
     id<MNSHostingCell> metricsCell;
     Class modelClass = [object class];

@@ -11,7 +11,7 @@
 
 @implementation MNSViewHosting
 
-+ (void)loadHostedViewForObject:(id)object inCell:(id <MNSHostingCell>)cell
++ (void)loadHostedViewForObject:(id)object inCell:(id<MNSHostingCell>)cell
 {
     UIView *hostedView = [cell.hostedViewController viewForObject:object];
     NSParameterAssert(hostedView.superview == NULL);
