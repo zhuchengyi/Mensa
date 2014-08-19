@@ -20,6 +20,7 @@
  */
 + (void)loadHostedViewForObject:(id)object inCell:(id<MNSHostingCell>)cell;
 + (void)setParentViewController:(UIViewController *)parentViewController forCell:(id<MNSHostingCell>)cell withObject:(id)object;
++ (void)adjustLayoutConstraintsForCell:(id<MNSHostingCell>)cell contentView:(UIView *)contentView;
 
 @end
 

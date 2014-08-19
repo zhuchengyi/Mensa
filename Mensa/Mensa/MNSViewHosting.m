@@ -41,4 +41,30 @@
     }
 }
 
++ (void)adjustLayoutConstraintsForCell:(UIView<MNSHostingCell> *)cell contentView:(UIView *)contentView
+{
+    [self _adjustConstraintsForCell:cell toPriority:UILayoutPriorityDefaultHigh];
+    [self _addEqualityConstraintsToCell:cell contentView:contentView];
+}
+
++ (void)_adjustConstraintsForCell:(UIView<MNSHostingCell> *)cell toPriority:(UILayoutPriority)priority
+{
+    UIView *hostedView = cell.hostedViewController.view;
+    for (NSLayoutConstraint *constraint in hostedView.constraints) {
+        NSLayoutConstraint *adjustedConstraint = [NSLayoutConstraint constraintWithItem:constraint.firstItem attribute:constraint.firstAttribute relatedBy:constraint.relation toItem:constraint.secondItem attribute:constraint.secondAttribute multiplier:constraint.multiplier constant:constraint.constant];
+        adjustedConstraint.priority = priority;
+
+        [hostedView removeConstraint:constraint];
+        [hostedView addConstraint:adjustedConstraint];
+    }
+}
+
++ (void)_addEqualityConstraintsToCell:(UIView<MNSHostingCell> *)cell contentView:(UIView *)contentView
+{
+    for (NSLayoutAttribute attribute = NSLayoutAttributeWidth; attribute <= NSLayoutAttributeHeight; attribute++) {
+        NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:contentView attribute:attribute relatedBy:NSLayoutRelationEqual toItem:cell.hostedViewController.view attribute:attribute multiplier:1.0f constant:0.0f];
+        [cell addConstraint:constraint];
+    }
+}
+
 @end

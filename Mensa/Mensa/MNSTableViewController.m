@@ -54,7 +54,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
         [self.dataMediator useViewController:metricsCell.hostedViewController withObject:object];
 
         // Force a layout
-        [metricsCell layoutIfNeeded];
+        [metricsCell setNeedsUpdateConstraints];
 
         // Get the layout size; we ignore the width, in fact the width *could* conceivably be zero
         // Note: Using content view is intentional
@@ -162,6 +162,7 @@ static NSString *cellIdentifier = @"MNSTableViewCell";
 - (void)dataMediator:(MNSDataMediator *)dataMediator willUseMetricsCell:(MNSHostingTableViewCell *)metricsCell
 {
     [metricsCell useAsMetricsCellInTableView:self.tableView];
+    [MNSViewHosting adjustLayoutConstraintsForCell:metricsCell contentView:metricsCell.contentView];
 }
 
 @end
