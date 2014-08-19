@@ -34,7 +34,7 @@ static const CGFloat kSectionInset = 10.0f;
     sender.title = (_primeFlagsShowing) ? @"Hide Flags" : @"Show Flags";
 
     _objects = nil;
-    [self reloadDataAndUpdateCollectionView];
+    [self reloadDataAndUpdateCollectionView:YES];
 }
 
 - (NSArray *)objects
