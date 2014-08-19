@@ -45,6 +45,7 @@
 
 @optional
 
+- (void)dataMediator:(MNSDataMediator *)dataMediator didSelectObject:(id)object;
 - (void)dataMediator:(MNSDataMediator *)dataMediator willLoadHostedViewForViewController:(MNSHostedViewController *)viewController;
 - (void)dataMediator:(MNSDataMediator *)dataMediator didUseViewController:(MNSHostedViewController *)viewController withObject:(id)object;
 

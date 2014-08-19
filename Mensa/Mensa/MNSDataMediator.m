@@ -54,6 +54,9 @@
 {
     if ([self canSelectObject:object forViewController:viewController]) {
         [viewController selectObject:object];
+        if ([self.delegate respondsToSelector:@selector(dataMediator:didSelectObject:)]) {
+            [self.delegate dataMediator:self didSelectObject:object];
+        }
     }
 }
 
