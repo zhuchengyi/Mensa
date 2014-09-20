@@ -72,10 +72,10 @@
             }
             for (id object in section) {
                 Class modelClass = [object class];
-                if (!self.metricsCells[modelClass]) {
+                if (!self.metricsCells[NSStringFromClass(modelClass)]) {
                     id<MNSHostingCell> metricsCell = [self _metricsCellForObject:object];
                     if (metricsCell) {
-                        self.metricsCells[(id<NSCopying>)modelClass] = metricsCell;
+                        self.metricsCells[NSStringFromClass(modelClass)] = metricsCell;
                     }
                 }
             }
@@ -86,7 +86,7 @@
 
 - (id<MNSHostingCell>)metricsCellForClass:(Class)class
 {
-    return self.metricsCells[class];
+    return self.metricsCells[NSStringFromClass(class)];
 }
 
 - (id)backingObjectForRowAtIndexPath:(NSIndexPath *)indexPath

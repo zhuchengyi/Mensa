@@ -14,12 +14,12 @@ static NSMutableDictionary *registeredViewControllerClasses;
 
 + (void)registerViewControllerClass:(Class)viewControllerClass forModelClass:(Class)modelClass
 {
-    registeredViewControllerClasses[(id<NSCopying>)modelClass] = viewControllerClass;
+    registeredViewControllerClasses[NSStringFromClass(modelClass)] = viewControllerClass;
 }
 
 + (Class)viewControllerClassForModelClass:(Class)modelClass
 {
-    return registeredViewControllerClasses[modelClass];
+    return registeredViewControllerClasses[NSStringFromClass(modelClass)];
 }
 
 #pragma mark - NSObject
