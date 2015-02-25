@@ -7,6 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		451BA71D1A9D5F610036074F /* Mensa.h in Headers */ = {isa = PBXBuildFile; fileRef = 451BA71C1A9D5F610036074F /* Mensa.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA72F1A9D5F610036074F /* Mensa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 451BA7181A9D5F610036074F /* Mensa.framework */; };
+		451BA7311A9D5F610036074F /* Mensa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 451BA7181A9D5F610036074F /* Mensa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		451BA7381A9D5F920036074F /* MNSCollectionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 458920961885B06F001EC015 /* MNSCollectionViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA7391A9D5F920036074F /* MNSDataMediator.h in Headers */ = {isa = PBXBuildFile; fileRef = 4589208F18848D19001EC015 /* MNSDataMediator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA73A1A9D5F920036074F /* MNSHostedViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45F7404A1852B3AF00478D29 /* MNSHostedViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA73B1A9D5F920036074F /* MNSHostingCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 4589208C1884877D001EC015 /* MNSHostingCollectionViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA73C1A9D5F920036074F /* MNSHostingTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 454A191718511D99001F4296 /* MNSHostingTableViewCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA73D1A9D5F920036074F /* MNSMultilineLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 45DFCF601856470B006968EF /* MNSMultilineLabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA73E1A9D5F920036074F /* MNSProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B9FF86185EBE840015805E /* MNSProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA73F1A9D5F920036074F /* MNSPropertyView.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B9FF88185EBE840015805E /* MNSPropertyView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA7401A9D5F920036074F /* MNSPropertyViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45DFED5B186153460080BD62 /* MNSPropertyViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA7411A9D5F920036074F /* MNSSection.h in Headers */ = {isa = PBXBuildFile; fileRef = 454587F418528B320016E74B /* MNSSection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA7421A9D5F920036074F /* MNSTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 454A191918511D99001F4296 /* MNSTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA7431A9D5F920036074F /* MNSViewControllerRegistrar.h in Headers */ = {isa = PBXBuildFile; fileRef = 454587F718529DA20016E74B /* MNSViewControllerRegistrar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA7441A9D5F920036074F /* MNSViewHosting.h in Headers */ = {isa = PBXBuildFile; fileRef = 4589208918847355001EC015 /* MNSViewHosting.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		451BA7451A9D5F9C0036074F /* MNSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 458920971885B06F001EC015 /* MNSCollectionViewController.m */; };
+		451BA7461A9D5F9C0036074F /* MNSDataMediator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589209018848D19001EC015 /* MNSDataMediator.m */; };
+		451BA7471A9D5F9C0036074F /* MNSHostedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F7404B1852B3AF00478D29 /* MNSHostedViewController.m */; };
+		451BA7481A9D5F9C0036074F /* MNSHostingCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589208D1884877D001EC015 /* MNSHostingCollectionViewCell.m */; };
+		451BA7491A9D5F9C0036074F /* MNSHostingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A191818511D99001F4296 /* MNSHostingTableViewCell.m */; };
+		451BA74A1A9D5F9C0036074F /* MNSMultilineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DFCF611856470B006968EF /* MNSMultilineLabel.m */; };
+		451BA74B1A9D5F9C0036074F /* MNSProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9FF87185EBE840015805E /* MNSProperty.m */; };
+		451BA74C1A9D5F9C0036074F /* MNSPropertyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9FF89185EBE840015805E /* MNSPropertyView.m */; };
+		451BA74D1A9D5F9C0036074F /* MNSPropertyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DFED5C186153460080BD62 /* MNSPropertyViewController.m */; };
+		451BA74E1A9D5F9C0036074F /* MNSSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 454587F518528B320016E74B /* MNSSection.m */; };
+		451BA74F1A9D5F9C0036074F /* MNSTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 454A191A18511D99001F4296 /* MNSTableViewController.m */; };
+		451BA7501A9D5F9C0036074F /* MNSViewControllerRegistrar.m in Sources */ = {isa = PBXBuildFile; fileRef = 454587F818529DA20016E74B /* MNSViewControllerRegistrar.m */; };
+		451BA7511A9D5F9C0036074F /* MNSViewHosting.m in Sources */ = {isa = PBXBuildFile; fileRef = 4589208A18847355001EC015 /* MNSViewHosting.m */; };
 		454587F618528B320016E74B /* MNSSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 454587F518528B320016E74B /* MNSSection.m */; };
 		454587F918529DA20016E74B /* MNSViewControllerRegistrar.m in Sources */ = {isa = PBXBuildFile; fileRef = 454587F818529DA20016E74B /* MNSViewControllerRegistrar.m */; };
 		454587FC1852AB0A0016E74B /* MNSNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 454587FB1852AB0A0016E74B /* MNSNumber.m */; };
@@ -40,7 +69,34 @@
 		45F7405C1853A36D00478D29 /* MNSNumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45F7405B1853A36D00478D29 /* MNSNumberViewController.xib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		451BA72D1A9D5F610036074F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 454F2FD417A3113800DF45AB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 451BA7171A9D5F610036074F;
+			remoteInfo = Mensa;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		451BA7301A9D5F610036074F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				451BA7311A9D5F610036074F /* Mensa.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		451BA7181A9D5F610036074F /* Mensa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mensa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		451BA71B1A9D5F610036074F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		451BA71C1A9D5F610036074F /* Mensa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mensa.h; sourceTree = "<group>"; };
 		454587F418528B320016E74B /* MNSSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSSection.h; path = Mensa/MNSSection.h; sourceTree = SOURCE_ROOT; };
 		454587F518528B320016E74B /* MNSSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MNSSection.m; path = Mensa/MNSSection.m; sourceTree = SOURCE_ROOT; };
 		454587F718529DA20016E74B /* MNSViewControllerRegistrar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MNSViewControllerRegistrar.h; path = Mensa/MNSViewControllerRegistrar.h; sourceTree = SOURCE_ROOT; };
@@ -101,6 +157,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		451BA7141A9D5F610036074F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		454F2FD917A3113800DF45AB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -108,12 +171,30 @@
 				454F2FE217A3113800DF45AB /* CoreGraphics.framework in Frameworks */,
 				454F2FE417A3113800DF45AB /* UIKit.framework in Frameworks */,
 				454F2FE017A3113800DF45AB /* Foundation.framework in Frameworks */,
+				451BA72F1A9D5F610036074F /* Mensa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		451BA7191A9D5F610036074F /* Mensa */ = {
+			isa = PBXGroup;
+			children = (
+				451BA71C1A9D5F610036074F /* Mensa.h */,
+				451BA71A1A9D5F610036074F /* Supporting Files */,
+			);
+			path = Mensa;
+			sourceTree = "<group>";
+		};
+		451BA71A1A9D5F610036074F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				451BA71B1A9D5F610036074F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		45318BF11850FB93006F8527 /* Example */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +243,7 @@
 				45318BF11850FB93006F8527 /* Example */,
 				4583626017A3A62C001FB4AE /* Mensa */,
 				454A191018511CC6001F4296 /* Supporting Files */,
+				451BA7191A9D5F610036074F /* Mensa */,
 				454F2FDE17A3113800DF45AB /* Frameworks */,
 				454F2FDD17A3113800DF45AB /* Products */,
 			);
@@ -171,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				454F2FDC17A3113800DF45AB /* Mensa.app */,
+				451BA7181A9D5F610036074F /* Mensa.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -236,7 +319,49 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		451BA7151A9D5F610036074F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				451BA7381A9D5F920036074F /* MNSCollectionViewController.h in Headers */,
+				451BA73F1A9D5F920036074F /* MNSPropertyView.h in Headers */,
+				451BA7431A9D5F920036074F /* MNSViewControllerRegistrar.h in Headers */,
+				451BA73B1A9D5F920036074F /* MNSHostingCollectionViewCell.h in Headers */,
+				451BA73C1A9D5F920036074F /* MNSHostingTableViewCell.h in Headers */,
+				451BA7441A9D5F920036074F /* MNSViewHosting.h in Headers */,
+				451BA73D1A9D5F920036074F /* MNSMultilineLabel.h in Headers */,
+				451BA71D1A9D5F610036074F /* Mensa.h in Headers */,
+				451BA7391A9D5F920036074F /* MNSDataMediator.h in Headers */,
+				451BA73E1A9D5F920036074F /* MNSProperty.h in Headers */,
+				451BA7411A9D5F920036074F /* MNSSection.h in Headers */,
+				451BA73A1A9D5F920036074F /* MNSHostedViewController.h in Headers */,
+				451BA7401A9D5F920036074F /* MNSPropertyViewController.h in Headers */,
+				451BA7421A9D5F920036074F /* MNSTableViewController.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		451BA7171A9D5F610036074F /* Mensa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 451BA7361A9D5F620036074F /* Build configuration list for PBXNativeTarget "Mensa" */;
+			buildPhases = (
+				451BA7131A9D5F610036074F /* Sources */,
+				451BA7141A9D5F610036074F /* Frameworks */,
+				451BA7151A9D5F610036074F /* Headers */,
+				451BA7161A9D5F610036074F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mensa;
+			productName = Mensa;
+			productReference = 451BA7181A9D5F610036074F /* Mensa.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		454F2FDB17A3113800DF45AB /* SmartTables */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 454F300E17A3113800DF45AB /* Build configuration list for PBXNativeTarget "SmartTables" */;
@@ -244,10 +369,12 @@
 				454F2FD817A3113800DF45AB /* Sources */,
 				454F2FD917A3113800DF45AB /* Frameworks */,
 				454F2FDA17A3113800DF45AB /* Resources */,
+				451BA7301A9D5F610036074F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				451BA72E1A9D5F610036074F /* PBXTargetDependency */,
 			);
 			name = SmartTables;
 			productName = SmartTables;
@@ -263,6 +390,11 @@
 				CLASSPREFIX = C;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = toxicsoftware;
+				TargetAttributes = {
+					451BA7171A9D5F610036074F = {
+						CreatedOnToolsVersion = 6.1;
+					};
+				};
 			};
 			buildConfigurationList = 454F2FD717A3113800DF45AB /* Build configuration list for PBXProject "Mensa" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -278,11 +410,19 @@
 			projectRoot = "";
 			targets = (
 				454F2FDB17A3113800DF45AB /* SmartTables */,
+				451BA7171A9D5F610036074F /* Mensa */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		451BA7161A9D5F610036074F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		454F2FDA17A3113800DF45AB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -298,6 +438,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		451BA7131A9D5F610036074F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				451BA7451A9D5F9C0036074F /* MNSCollectionViewController.m in Sources */,
+				451BA7461A9D5F9C0036074F /* MNSDataMediator.m in Sources */,
+				451BA74C1A9D5F9C0036074F /* MNSPropertyView.m in Sources */,
+				451BA74D1A9D5F9C0036074F /* MNSPropertyViewController.m in Sources */,
+				451BA74E1A9D5F9C0036074F /* MNSSection.m in Sources */,
+				451BA7481A9D5F9C0036074F /* MNSHostingCollectionViewCell.m in Sources */,
+				451BA7511A9D5F9C0036074F /* MNSViewHosting.m in Sources */,
+				451BA7491A9D5F9C0036074F /* MNSHostingTableViewCell.m in Sources */,
+				451BA7501A9D5F9C0036074F /* MNSViewControllerRegistrar.m in Sources */,
+				451BA7471A9D5F9C0036074F /* MNSHostedViewController.m in Sources */,
+				451BA74F1A9D5F9C0036074F /* MNSTableViewController.m in Sources */,
+				451BA74A1A9D5F9C0036074F /* MNSMultilineLabel.m in Sources */,
+				451BA74B1A9D5F9C0036074F /* MNSProperty.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		454F2FD817A3113800DF45AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -330,6 +490,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		451BA72E1A9D5F610036074F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 451BA7171A9D5F610036074F /* Mensa */;
+			targetProxy = 451BA72D1A9D5F610036074F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		454A191F18511DB1001F4296 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -350,6 +518,60 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		451BA7321A9D5F620036074F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Mensa/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		451BA7331A9D5F620036074F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = Mensa/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		454F300C17A3113800DF45AB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -427,6 +649,7 @@
 				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Example/Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Mensa;
 				WRAPPER_EXTENSION = app;
 			};
@@ -441,6 +664,7 @@
 				GCC_PREFIX_HEADER = "Example/Example-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Example/Example-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Mensa;
 				WRAPPER_EXTENSION = app;
 			};
@@ -449,6 +673,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		451BA7361A9D5F620036074F /* Build configuration list for PBXNativeTarget "Mensa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				451BA7321A9D5F620036074F /* Debug */,
+				451BA7331A9D5F620036074F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		454F2FD717A3113800DF45AB /* Build configuration list for PBXProject "Mensa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
