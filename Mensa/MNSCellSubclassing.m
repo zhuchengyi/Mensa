@@ -19,7 +19,9 @@ Class subclassForCellClassWithViewControllerClass(Class cellClass, Class viewCon
     if (!class) {
         class = objc_allocateClassPair(cellClass, [className UTF8String], 0);
         id (^block)(id) = ^(id self) {
-            return [[viewControllerClass alloc] initWithNibName:@"NumberViewController" bundle:nil];
+            NSString *className = NSStringFromClass(viewControllerClass);
+            NSString *nibName = [[className componentsSeparatedByString:@"."] lastObject];
+            return [[viewControllerClass alloc] initWithNibName:nibName bundle:nil];
         };
         IMP implementation = imp_implementationWithBlock([block copy]);
         class_addMethod(class, NSSelectorFromString(@"hostedViewController"), implementation, "#@:");
