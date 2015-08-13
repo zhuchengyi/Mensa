@@ -12,8 +12,8 @@ struct DataMediator<Object: Equatable, View: HostedView, Cell: HostingCell, Dele
     private var metricsCells: [String: Cell] = [:]
     private let delegate: Delegate
     
-    init(delegate: Delegate) {
-        self.delegate = delegate
+    var numberOfSections: Int {
+        return backingSections.count
     }
     
     private var backingSections: [Section<Object>] = [] {
@@ -30,6 +30,10 @@ struct DataMediator<Object: Equatable, View: HostedView, Cell: HostingCell, Dele
                 }
             }
         }
+    }
+    
+    init(delegate: Delegate) {
+        self.delegate = delegate
     }
     
     mutating func reloadDataWithUpdate(update: Bool) {
@@ -58,10 +62,6 @@ struct DataMediator<Object: Equatable, View: HostedView, Cell: HostingCell, Dele
     
     func backingObjectForRowAtIndexPath(indexPath: NSIndexPath) -> Object {
         return backingSections[indexPath.section][indexPath.row]
-    }
-    
-    func numberOfSections() -> Int {
-        return backingSections.count
     }
     
     func numberOfObjectsInSection(section: Int) -> Int {
