@@ -9,7 +9,7 @@
 import UIKit.UIImageView
 import UIKit.UISwitch
 
-class PropertyView: UIView, HostedView {
+class PropertyView: UIView {
     @IBOutlet private(set) weak var nameLabel: UILabel!
     @IBOutlet private(set) weak var valueLabel: UILabel!
     @IBOutlet private(set) weak var inputField: UITextField!

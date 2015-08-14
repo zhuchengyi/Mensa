@@ -10,27 +10,27 @@ import UIKit.UITableViewController
 
 private let reuseIdentifier = "TableViewCell"
 
-public class TableViewController<Object: Equatable, View: HostedView>: UITableViewController {
-    typealias Cell = HostingTableViewCell<Object, View>
-    
-    private var dataMediator: DataMediator<Object, View, Cell, TableViewController<Object, View>>!
+public class TableViewController<Object, View: UIView>: UITableViewController, HostingViewController {
+    public typealias Cell = HostingTableViewCell<Object, View>
+
     public var sections: [Section<Object>] {
         // Subclasses override
         fatalError()
     }
 
-    public required override init(style: UITableViewStyle) {
-        super.init(style: style)
-        dataMediator = DataMediator(delegate: self)
-    }
-    
+    private var dataMediator: DataMediator<Object, View, Cell, TableViewController<Object, View>>!
+
     public convenience init() {
         self.init(style: .Plain)
     }
-    
-    public func didSelectObject(object: Object) {}
-    public func willLoadHostedViewController(viewController: HostedViewController<Object, View>) {}
-    public func didUseViewController(viewController: HostedViewController<Object, View>, withObject object: Object) {}
+
+    // MARK: NSObject
+    public override class func initialize() {
+        var token: dispatch_once_t = 0
+        dispatch_once(&token) {
+            registerViewControllers()
+        }
+    }
 
     // MARK: UIViewController
     public override func viewDidLoad() {
@@ -38,6 +38,12 @@ public class TableViewController<Object: Equatable, View: HostedView>: UITableVi
 
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         dataMediator.reloadDataWithUpdate(false)
+    }
+
+    // MARK: UITableViewController
+    public required override init(style: UITableViewStyle) {
+        super.init(style: style)
+        dataMediator = DataMediator(delegate: self)
     }
 
     // MARK: UITableViewControllerDataSource
@@ -59,7 +65,8 @@ public class TableViewController<Object: Equatable, View: HostedView>: UITableVi
 
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
-        guard let viewControllerClass: HostedViewController<Object, View>.Type = viewControllerClassForModelClass(Object.self) else {
+        let modelClass = object.dynamicType
+        guard let viewControllerClass: HostedViewController<Object, View>.Type = self.dynamicType.viewControllerClassForModelClass(modelClass) else {
             return tableView.dequeueReusableCellWithIdentifier(reuseIdentifier)!
         }
         
@@ -68,7 +75,7 @@ public class TableViewController<Object: Equatable, View: HostedView>: UITableVi
         let hostedViewController = cell.hostedViewController
         
         willLoadHostedViewController(hostedViewController)
-        ViewHosting<Object, View, Cell>.setParentViewContoller(self, forCell: cell, withObject: object)
+        setParentViewContoller(self, forCell: cell, withObject: object)
         cell.userInteractionEnabled = hostedViewController.viewForObject(object).userInteractionEnabled
         dataMediator.useViewController(hostedViewController, withObject: object)
         
@@ -107,6 +114,14 @@ public class TableViewController<Object: Equatable, View: HostedView>: UITableVi
         guard let (object, hostedViewController) = objectAndHostedViewControllerForRowAtIndexPath(indexPath) else { return }
         hostedViewController.setViewHighlighted(false, forObject: object)
     }
+
+    // MARK: HostingViewController
+    class public func registerViewControllers() {}
+
+    // MARK: DataMediatorDelegate
+    public func didSelectObject(object: Object) {}
+    public func willLoadHostedViewController(viewController: HostedViewController<Object, View>) {}
+    public func didUseViewController(viewController: HostedViewController<Object, View>, withObject object: Object) {}
 }
 
 private extension TableViewController {
@@ -117,35 +132,31 @@ private extension TableViewController {
     }
 }
 
-// MARK: DataMediatedViewController
 extension TableViewController: DataMediatedViewController {
     public var dataView: UIScrollView {
         return tableView
     }
 }
 
-// MARK: DataMediatorDelegate
 extension TableViewController: DataMediatorDelegate {
-    typealias ViewType = View
-    
-    var cellClass: Cell.Type {
+    public typealias ViewType = View
+
+    public var cellClass: Cell.Type {
         return HostingTableViewCell<Object, View>.self
     }
     
-    func didReloadWithUpdate(update: Bool) {
+    public func didReloadWithUpdate(update: Bool) {
         if (update) {
             tableView.reloadData()
         }
     }
     
-    func willUseCellClass(cellClass: CellClass, forReuseIdentifiers reuseIdentifiers: [String]) {
-        for reuseIdentifier in reuseIdentifiers {
-            tableView.registerClass(cellClass, forCellReuseIdentifier: reuseIdentifier)
-        }
+    public func willUseCellClass(cellClass: CellClass, forReuseIdentifier reuseIdentifier: String) {
+        tableView.registerClass(cellClass, forCellReuseIdentifier: reuseIdentifier)
     }
     
-    func willUseMetricsCell(metricsCell: Cell, forObject object: Object) {
+    public func willUseMetricsCell(metricsCell: Cell, forObject object: Object) {
         metricsCell.useAsMetricsCellInTableView(tableView)
-        ViewHosting<Object, View, Cell>.adjustLayoutConstraintsForCell(metricsCell, object: object)
+        adjustLayoutConstraintsForCell(metricsCell, object: object)
     }
 }

@@ -9,7 +9,7 @@
 import Mensa
 import UIKit.UIView
 
-class PrimeFlagView: UIView, HostedView {
+class PrimeFlagView: UIView {
     @IBOutlet private(set) weak var textLabel: UILabel?
     private(set) var formatString: String!
     

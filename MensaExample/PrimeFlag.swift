@@ -6,14 +6,10 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-struct PrimeFlag: Equatable {
+struct PrimeFlag {
     let number: Number
 
     init(number: Number) {
         self.number = number
     }
-}
-
-func ==(lhs: PrimeFlag, rhs: PrimeFlag) -> Bool {
-    return lhs.number == rhs.number
 }

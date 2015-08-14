@@ -9,7 +9,7 @@
 import UIKit.UICollectionViewCell
 import UIKit.UIView
 
-public class HostingCollectionViewCell<Object: Equatable, View: HostedView>: UICollectionViewCell, HostingCell {
+public class HostingCollectionViewCell<Object, View>: UICollectionViewCell, HostingCell {
     public var layoutInsets = UIEdgeInsetsZero
     public weak var parentViewController: UIViewController?
     lazy public var hostedViewController: HostedViewController<Object, View> = {
@@ -31,9 +31,5 @@ public class HostingCollectionViewCell<Object: Equatable, View: HostedView>: UIC
     
     public var hostingView: UIView {
         return contentView
-    }
-    
-    public class func subclassWithViewControllerClass(viewControllerClass: UIViewController.Type) -> CellClass {
-        return subclassForCellClassWithViewControllerClass(self, viewControllerClass) as! CellClass
     }
 }

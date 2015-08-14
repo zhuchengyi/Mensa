@@ -12,16 +12,16 @@
 @import Foundation.NSString;
 @import UIKit.UIViewController;
 
-Class subclassForCellClassWithViewControllerClass(Class cellClass, Class viewControllerClass)
+Class subclassForCellClassWithViewControllerClass(Class cellClass, Class viewControllerClass, NSString *modelType)
 {
-    NSString *className = [NSString stringWithFormat:@"%@_%@", NSStringFromClass(cellClass), NSStringFromClass(viewControllerClass)];
+    NSString *className = [NSString stringWithFormat:@"%@%@%@", NSStringFromClass(cellClass), NSStringFromClass(viewControllerClass), modelType];
     Class class = NSClassFromString(className);
     if (!class) {
         class = objc_allocateClassPair(cellClass, [className UTF8String], 0);
         id (^block)(id) = ^(id self) {
-            NSString *className = NSStringFromClass(viewControllerClass);
-            NSString *nibName = [[className componentsSeparatedByString:@"."] lastObject];
-            return [[viewControllerClass alloc] initWithNibName:nibName bundle:nil];
+            NSString *nibName = [[[modelType componentsSeparatedByString:@"."] lastObject] stringByAppendingString:@"ViewController"];
+            UIViewController *foo = [[viewControllerClass alloc] initWithNibName:nibName bundle:nil];
+            return foo;
         };
         IMP implementation = imp_implementationWithBlock([block copy]);
         class_addMethod(class, NSSelectorFromString(@"hostedViewController"), implementation, "#@:");

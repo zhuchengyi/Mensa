@@ -8,7 +8,7 @@
 
 import Darwin
 
-struct Number: Equatable {
+struct Number {
     let value: Int
     
     lazy var prime: Bool = {
@@ -32,8 +32,4 @@ struct Number: Equatable {
     init(_ value: Int) {
         self.value = value
     }
-}
-
-func ==(lhs: Number, rhs: Number) -> Bool {
-    return lhs.value == rhs.value
 }

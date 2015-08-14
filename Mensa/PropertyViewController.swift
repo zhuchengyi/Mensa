@@ -9,7 +9,7 @@
 import UIKit.UITextField
 import UIKit.UIViewController
 
-class PropertyViewController<T: Equatable>: HostedViewController<Property<T>, PropertyView>, UITextFieldDelegate {
+class PropertyViewController<T>: HostedViewController<Property<T>, PropertyView>, UITextFieldDelegate {
     private var inputProperty: Property<T>?
     
     override func selectObject(var property: Property<T>) {

@@ -7,18 +7,25 @@
 //
 
 import UIKit.UITableViewCell
+import UIKit.UIViewController
 
-struct DataMediator<Object: Equatable, View: HostedView, Cell: HostingCell, Delegate: DataMediatorDelegate where Object == Delegate.ObjectType, Object == Cell.ObjectType, View == Cell.ViewType, View == Delegate.ViewType, Cell == Delegate.HostingCellType, Cell: UIView> {
+typealias HostedViewControllerClass = HostedViewControllerType.Type
+typealias HostingViewControllerClass = HostingViewController.Type
+
+private var register: (Void -> Void)?
+private var registeringViewControllerClasses: [String: Any.Type] = [:]
+private var registeredViewControllerClasses: [String: HostedViewControllerClass] = [:]
+
+struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMediatorDelegate where Object == Delegate.ObjectType, Object == Cell.ObjectType, View == Cell.ViewType, View == Delegate.ViewType, Cell == Delegate.HostingCellType, Cell: UIView> {
     private var metricsCells: [String: Cell] = [:]
     private let delegate: Delegate
-    
+
     var numberOfSections: Int {
         return backingSections.count
     }
     
     private var backingSections: [Section<Object>] = [] {
         didSet {
-            guard backingSections != oldValue else { return }
             for section in backingSections {
                 for object in section {
                     let key = _reflect(object).summary // TODO: Variant
@@ -80,12 +87,12 @@ struct DataMediator<Object: Equatable, View: HostedView, Cell: HostingCell, Dele
 private extension DataMediator {
     func createMetricsCellForObject(object: Object) -> Cell? {
         let modelClass = object.dynamicType
-        guard let viewControllerClass: HostedViewController<Object, View>.Type = viewControllerClassForModelClass(modelClass) else { return nil }
+        guard let viewControllerClass: HostedViewController<Object, View>.Type = delegate.dynamicType.viewControllerClassForModelClass(modelClass) else { return nil }
 
         var metricsCell: Cell!
-        let reuseIdentifiers = viewControllerClass.reuseIdentifiers
-        let cellClass = delegate.cellClass.subclassWithViewControllerClass(viewControllerClass)
-        delegate.willUseCellClass(cellClass, forReuseIdentifiers: reuseIdentifiers)
+        let reuseIdentifier = viewControllerClass.reuseIdentifierForObject(object)
+        let cellClass = delegate.cellClass.subclassWithViewControllerClass(viewControllerClass, modelType: object.dynamicType)
+        delegate.willUseCellClass(cellClass, forReuseIdentifier: reuseIdentifier)
         if cellClass is UITableViewCell.Type {
             metricsCell = tableViewCellOfSubclass(cellClass) as? Cell
         } else if cellClass is UICollectionViewCell.Type {
@@ -93,27 +100,55 @@ private extension DataMediator {
         }
         
         delegate.willLoadHostedViewController(metricsCell.hostedViewController)
-        ViewHosting<Object, View, Cell>.loadHostedViewForObject(object, inCell: metricsCell)
+        loadHostedViewForObject(object, inCell: metricsCell)
         delegate.willUseMetricsCell(metricsCell, forObject: object)
         return metricsCell
     }
 }
 
-protocol DataMediatorDelegate {
-    typealias ObjectType: Equatable
+public protocol DataMediatorDelegate {
+    typealias ObjectType
+    typealias ViewType: UIView
     typealias HostingCellType: HostingCell
-    typealias ViewType: HostedView
-    
+
     var sections: [Section<ObjectType>] { get }
     var cellClass: HostingCellType.Type { get }
-    
-    func didReloadWithUpdate(update: Bool)
-    func willUseCellClass(cellClass: CellClass, forReuseIdentifiers reuseIdentifiers: [String])
-    func willUseMetricsCell(metricsCell: HostingCellType, forObject: ObjectType)
 
+    func didReloadWithUpdate(update: Bool)
+    func willUseCellClass(cellClass: CellClass, forReuseIdentifier reuseIdentifier: String)
+    func willUseMetricsCell(metricsCell: HostingCellType, forObject: ObjectType)
     func didSelectObject(object: ObjectType)
     func willLoadHostedViewController(viewController: HostedViewController<ObjectType, ViewType>)
     func didUseViewController(viewController: HostedViewController<ObjectType, ViewType>, withObject object: ObjectType)
+}
+
+extension DataMediatorDelegate {
+    public static func registerViewControllerClass<Object, View: UIView>(viewControllerClass: HostedViewController<Object, View>.Type, forModelClass modelClass: Object.Type) {
+        let registeringClassName = _reflect(self).summary
+        let modelClassName = _reflect(modelClass).summary
+        if let existingModelClass = registeringViewControllerClasses[registeringClassName] {
+            let viewController = (viewControllerClass as UIViewController.Type).init(nibName: nil, bundle: nil) as! HostedViewController<Object, View>
+            MultiHostedViewController<Object, View>.registerViewController(viewController, forType: modelClass)
+
+            let existingModelClassName = _reflect(existingModelClass).summary
+            let multiHostedViewControllerClass = MultiHostedViewController<ObjectType, ViewType>.self
+            
+            register?()
+            registeredViewControllerClasses[modelClassName] = multiHostedViewControllerClass
+            registeredViewControllerClasses[existingModelClassName] = multiHostedViewControllerClass
+        } else {
+            registeringViewControllerClasses[registeringClassName] = modelClass
+            registeredViewControllerClasses[modelClassName] = viewControllerClass
+            register = {
+                register = nil
+                registerViewControllerClass(viewControllerClass, forModelClass: modelClass)
+            }
+        }
+    }
+
+    public static func viewControllerClassForModelClass<Object, View>(modelClass: Object.Type) -> HostedViewController<Object, View>.Type? {
+        return registeredViewControllerClasses[_reflect(modelClass).summary] as? HostedViewController<Object, View>.Type
+    }
 }
 
 public protocol DataMediatedViewController {

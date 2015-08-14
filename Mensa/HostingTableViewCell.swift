@@ -9,7 +9,7 @@
 import UIKit.UITableViewCell
 import UIKit.UIView
 
-public class HostingTableViewCell<Object: Equatable, View: HostedView>: UITableViewCell, HostingCell {
+public class HostingTableViewCell<Object, View>: UITableViewCell, HostingCell {
     public var layoutInsets = UIEdgeInsetsZero
     public weak var parentViewController: UIViewController?
     lazy public var hostedViewController: HostedViewController<Object, View> = {
@@ -31,9 +31,5 @@ public class HostingTableViewCell<Object: Equatable, View: HostedView>: UITableV
         
     public var hostingView: UIView {
         return contentView
-    }
-    
-    public class func subclassWithViewControllerClass(viewControllerClass: UIViewController.Type) -> CellClass {
-        return subclassForCellClassWithViewControllerClass(self, viewControllerClass) as! CellClass
     }
 }

@@ -9,6 +9,6 @@
 @import UIKit.UICollectionViewCell;
 @import UIKit.UITableViewCell;
 
-Class subclassForCellClassWithViewControllerClass(Class cellClass, Class viewControllerClass);
+Class subclassForCellClassWithViewControllerClass(Class cellClass, Class viewControllerClass, NSString *modelType);
 UITableViewCell *tableViewCellOfSubclass(Class subclass);
 UICollectionViewCell *collectionViewCellOfSubclass(Class subclass);

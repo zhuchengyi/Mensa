@@ -6,7 +6,7 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-public struct Property<T: Equatable> {
+public struct Property<T> {
     let name: String
     public var value: T {
         didSet {
@@ -16,12 +16,6 @@ public struct Property<T: Equatable> {
 
     let options: PropertyOptions
     let valueChanged: T -> Void
-}
-
-extension Property: Equatable {}
-
-public func ==<T>(lhs: Property<T>, rhs: Property<T>) -> Bool {
-    return lhs.value == rhs.value
 }
 
 struct PropertyOptions: OptionSetType {

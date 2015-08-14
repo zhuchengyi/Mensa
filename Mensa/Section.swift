@@ -6,7 +6,7 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-public struct Section<Object: Equatable> {
+public struct Section<Object> {
     let title: String? = nil
     let summary: String? = nil
     private let objects: [Object]
@@ -24,7 +24,7 @@ public struct Section<Object: Equatable> {
     }
 }
 
-extension Section: Equatable {}
+extension Section {}
 
 extension Section: SequenceType {
     public typealias Generator = AnyGenerator<Object>
@@ -44,8 +44,4 @@ extension Section: ArrayLiteralConvertible {
     public init(arrayLiteral: Object...) {
         self.init(arrayLiteral)
     }
-}
-
-public func ==<T>(lhs: Section<T>, rhs: Section<T>) -> Bool {
-    return lhs.objects == rhs.objects
 }

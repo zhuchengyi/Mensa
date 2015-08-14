@@ -20,7 +20,6 @@
 		17ADFC661B79B712001279F9 /* PropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B9071B7189C9008D1EE8 /* PropertyView.swift */; };
 		17ADFC671B79B715001279F9 /* PropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B9031B700F5B008D1EE8 /* PropertyViewController.swift */; };
 		17ADFC681B79B71A001279F9 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B9091B71A247008D1EE8 /* TableViewController.swift */; };
-		17ADFC691B79B71E001279F9 /* ViewControllerRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B9111B747825008D1EE8 /* ViewControllerRegistry.swift */; };
 		17ADFC6A1B79B722001279F9 /* ViewHosting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B90D1B71AA13008D1EE8 /* ViewHosting.swift */; };
 		17ADFC6B1B79BC67001279F9 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B9281B78F73E008D1EE8 /* DataViewController.swift */; };
 		17B3B8DF1B679A47008D1EE8 /* Mensa.h in Headers */ = {isa = PBXBuildFile; fileRef = 17B3B8DE1B679A47008D1EE8 /* Mensa.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -33,10 +32,14 @@
 		17B3B9011B6822EB008D1EE8 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B9001B6822EB008D1EE8 /* Property.swift */; };
 		17B3B9161B77DACD008D1EE8 /* MNSCellSubclassing.h in Headers */ = {isa = PBXBuildFile; fileRef = 17B3B9151B77D32D008D1EE8 /* MNSCellSubclassing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		17B3B9211B77F81C008D1EE8 /* MNSCellSubclassing.m in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B9201B77F81C008D1EE8 /* MNSCellSubclassing.m */; };
-		17B3B9271B784566008D1EE8 /* NumberTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B9261B784566008D1EE8 /* NumberTableViewController.swift */; };
+		17B3B9271B784566008D1EE8 /* ObjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B9261B784566008D1EE8 /* ObjectTableViewController.swift */; };
 		17B3B92C1B7904EA008D1EE8 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B92A1B7904E6008D1EE8 /* Number.swift */; };
+		17ED27CD1B85219900376A9B /* Mensa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B3B8DB1B679A47008D1EE8 /* Mensa.framework */; };
+		17ED27CE1B85219900376A9B /* Mensa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 17B3B8DB1B679A47008D1EE8 /* Mensa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		17FFDA8C1B79530100B0D8B1 /* NumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FFDA8B1B79530100B0D8B1 /* NumberView.swift */; };
 		17FFDA921B79605000B0D8B1 /* NumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FFDA911B79605000B0D8B1 /* NumberViewController.xib */; };
+		4573EF401B83FD3B009D2547 /* HostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4573EF3F1B83FD3B009D2547 /* HostingViewController.swift */; };
+		4573EF421B857971009D2547 /* MultiHostedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4573EF411B857971009D2547 /* MultiHostedViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,20 @@
 			remoteInfo = Mensa;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		17ED27CF1B85219900376A9B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				17ED27CE1B85219900376A9B /* Mensa.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		172714FC1B7ACD910002D6C5 /* PrimeFlag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeFlag.swift; sourceTree = "<group>"; };
@@ -74,16 +91,17 @@
 		17B3B90B1B71A5A9008D1EE8 /* DataMediator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataMediator.swift; sourceTree = "<group>"; };
 		17B3B90D1B71AA13008D1EE8 /* ViewHosting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewHosting.swift; sourceTree = "<group>"; };
 		17B3B90F1B73D07C008D1EE8 /* HostingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostingTableViewCell.swift; sourceTree = "<group>"; };
-		17B3B9111B747825008D1EE8 /* ViewControllerRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerRegistry.swift; sourceTree = "<group>"; };
 		17B3B9151B77D32D008D1EE8 /* MNSCellSubclassing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNSCellSubclassing.h; sourceTree = "<group>"; };
 		17B3B9201B77F81C008D1EE8 /* MNSCellSubclassing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNSCellSubclassing.m; sourceTree = "<group>"; };
 		17B3B9221B780471008D1EE8 /* HostingCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostingCollectionViewCell.swift; sourceTree = "<group>"; };
 		17B3B9241B7809D5008D1EE8 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
-		17B3B9261B784566008D1EE8 /* NumberTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberTableViewController.swift; sourceTree = "<group>"; };
+		17B3B9261B784566008D1EE8 /* ObjectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectTableViewController.swift; sourceTree = "<group>"; };
 		17B3B9281B78F73E008D1EE8 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		17B3B92A1B7904E6008D1EE8 /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		17FFDA8B1B79530100B0D8B1 /* NumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberView.swift; sourceTree = "<group>"; };
 		17FFDA911B79605000B0D8B1 /* NumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberViewController.xib; sourceTree = "<group>"; };
+		4573EF3F1B83FD3B009D2547 /* HostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostingViewController.swift; sourceTree = "<group>"; };
+		4573EF411B857971009D2547 /* MultiHostedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiHostedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17ED27CD1B85219900376A9B /* Mensa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,15 +173,16 @@
 				17B3B90B1B71A5A9008D1EE8 /* DataMediator.swift */,
 				17B3B9281B78F73E008D1EE8 /* DataViewController.swift */,
 				17B3B9051B700F8B008D1EE8 /* HostedViewController.swift */,
+				4573EF3F1B83FD3B009D2547 /* HostingViewController.swift */,
 				17B3B9221B780471008D1EE8 /* HostingCollectionViewCell.swift */,
 				17B3B90F1B73D07C008D1EE8 /* HostingTableViewCell.swift */,
+				4573EF411B857971009D2547 /* MultiHostedViewController.swift */,
 				17B3B8FE1B682018008D1EE8 /* MultilineLabel.swift */,
 				17B3B9001B6822EB008D1EE8 /* Property.swift */,
 				17B3B9071B7189C9008D1EE8 /* PropertyView.swift */,
 				17B3B9031B700F5B008D1EE8 /* PropertyViewController.swift */,
 				17B3B8FC1B681C4E008D1EE8 /* Section.swift */,
 				17B3B9091B71A247008D1EE8 /* TableViewController.swift */,
-				17B3B9111B747825008D1EE8 /* ViewControllerRegistry.swift */,
 				17B3B90D1B71AA13008D1EE8 /* ViewHosting.swift */,
 				17B3B8E01B679A47008D1EE8 /* Info.plist */,
 			);
@@ -175,7 +195,7 @@
 				172714FA1B7ACC4E0002D6C5 /* Number */,
 				172714FB1B7ACC560002D6C5 /* Prime Flag */,
 				17B3B8EC1B679A72008D1EE8 /* AppDelegate.swift */,
-				17B3B9261B784566008D1EE8 /* NumberTableViewController.swift */,
+				17B3B9261B784566008D1EE8 /* ObjectTableViewController.swift */,
 				17B3B8F31B679A72008D1EE8 /* Assets.xcassets */,
 				17B3B8F01B679A72008D1EE8 /* Main.storyboard */,
 				17B3B8F51B679A72008D1EE8 /* LaunchScreen.storyboard */,
@@ -225,6 +245,7 @@
 				17B3B8E61B679A72008D1EE8 /* Sources */,
 				17B3B8E71B679A72008D1EE8 /* Frameworks */,
 				17B3B8E81B679A72008D1EE8 /* Resources */,
+				17ED27CF1B85219900376A9B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -301,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				17ADFC651B79B70B001279F9 /* HostingTableViewCell.swift in Sources */,
+				4573EF401B83FD3B009D2547 /* HostingViewController.swift in Sources */,
 				17ADFC661B79B712001279F9 /* PropertyView.swift in Sources */,
 				17ADFC621B79B701001279F9 /* DataMediator.swift in Sources */,
 				17ADFC6A1B79B722001279F9 /* ViewHosting.swift in Sources */,
@@ -310,7 +332,7 @@
 				17ADFC6B1B79BC67001279F9 /* DataViewController.swift in Sources */,
 				17B3B8FD1B681C4E008D1EE8 /* Section.swift in Sources */,
 				17ADFC681B79B71A001279F9 /* TableViewController.swift in Sources */,
-				17ADFC691B79B71E001279F9 /* ViewControllerRegistry.swift in Sources */,
+				4573EF421B857971009D2547 /* MultiHostedViewController.swift in Sources */,
 				17ADFC641B79B708001279F9 /* HostingCollectionViewCell.swift in Sources */,
 				17ADFC671B79B715001279F9 /* PropertyViewController.swift in Sources */,
 				17B3B9211B77F81C008D1EE8 /* MNSCellSubclassing.m in Sources */,
@@ -323,7 +345,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				172715041B7ACEFD0002D6C5 /* PrimeFlagView.swift in Sources */,
-				17B3B9271B784566008D1EE8 /* NumberTableViewController.swift in Sources */,
+				17B3B9271B784566008D1EE8 /* ObjectTableViewController.swift in Sources */,
 				177AAEC61B79122C007B627B /* NumberViewController.swift in Sources */,
 				17B3B8ED1B679A72008D1EE8 /* AppDelegate.swift in Sources */,
 				172714FE1B7ACE030002D6C5 /* PrimeFlag.swift in Sources */,
@@ -497,7 +519,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = MensaExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tangible.MensaExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -508,7 +532,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = MensaExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tangible.MensaExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
