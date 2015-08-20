@@ -65,8 +65,8 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
 
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
-        let modelClass = object.dynamicType
-        guard let viewControllerClass: HostedViewController<Object, View>.Type = self.dynamicType.viewControllerClassForModelClass(modelClass) else {
+        let modelType = object.dynamicType
+        guard let viewControllerClass: HostedViewController<Object, View>.Type = self.dynamicType.viewControllerClassForModelType(modelType) else {
             return tableView.dequeueReusableCellWithIdentifier(reuseIdentifier)!
         }
         

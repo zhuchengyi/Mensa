@@ -43,8 +43,8 @@ class ObjectTableViewController: TableViewController<Object, UIView> {
 
     // MARK: HostingViewController
     override static func registerViewControllers() {
-        registerViewControllerClass(NumberViewController.self, forModelClass: Number.self)
-        registerViewControllerClass(PrimeFlagViewController.self, forModelClass: PrimeFlag.self)
+        registerViewControllerClass(NumberViewController.self, forModelType: Number.self)
+        registerViewControllerClass(PrimeFlagViewController.self, forModelType: PrimeFlag.self)
     }
 
     // MARK: DataMedaterDelegate

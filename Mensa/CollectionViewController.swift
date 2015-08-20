@@ -46,8 +46,8 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     
     public override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
-        let modelClass = object.dynamicType
-        guard let viewControllerClass: HostedViewController<Object, View>.Type = self.dynamicType.viewControllerClassForModelClass(modelClass) else {
+        let modelType = object.dynamicType
+        guard let viewControllerClass: HostedViewController<Object, View>.Type = self.dynamicType.viewControllerClassForModelType(modelType) else {
             return collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
         }
         

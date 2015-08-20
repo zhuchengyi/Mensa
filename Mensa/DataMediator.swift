@@ -86,17 +86,17 @@ struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMedia
 
 private extension DataMediator {
     func createMetricsCellForObject(object: Object) -> Cell? {
-        let modelClass = object.dynamicType
-        guard let viewControllerClass: HostedViewController<Object, View>.Type = delegate.dynamicType.viewControllerClassForModelClass(modelClass) else { return nil }
+        let modelType = object.dynamicType
+        guard let viewControllerClass: HostedViewController<Object, View>.Type = delegate.dynamicType.viewControllerClassForModelType(modelType) else { return nil }
 
         var metricsCell: Cell!
         let reuseIdentifier = viewControllerClass.reuseIdentifierForObject(object)
         let cellClass = delegate.cellClass.subclassWithViewControllerClass(viewControllerClass, modelType: object.dynamicType)
         delegate.willUseCellClass(cellClass, forReuseIdentifier: reuseIdentifier)
-        if cellClass is UITableViewCell.Type {
-            metricsCell = tableViewCellOfSubclass(cellClass) as? Cell
-        } else if cellClass is UICollectionViewCell.Type {
-            metricsCell = collectionViewCellOfSubclass(cellClass) as? Cell
+        if let cellClass = cellClass as? UITableViewCell.Type {
+            metricsCell = cellClass.init() as? Cell
+        } else if let cellClass = cellClass as? UICollectionViewCell.Type {
+            metricsCell = cellClass.init() as? Cell
         }
         
         delegate.willLoadHostedViewController(metricsCell.hostedViewController)
@@ -123,31 +123,31 @@ public protocol DataMediatorDelegate {
 }
 
 extension DataMediatorDelegate {
-    public static func registerViewControllerClass<Object, View: UIView>(viewControllerClass: HostedViewController<Object, View>.Type, forModelClass modelClass: Object.Type) {
+    public static func registerViewControllerClass<Object, View: UIView>(viewControllerClass: HostedViewController<Object, View>.Type, forModelType modelType: Object.Type) {
         let registeringClassName = _reflect(self).summary
-        let modelClassName = _reflect(modelClass).summary
-        if let existingModelClass = registeringViewControllerClasses[registeringClassName] {
+        let modelTypeName = _reflect(modelType).summary
+        if let existingModelType = registeringViewControllerClasses[registeringClassName] {
             let viewController = (viewControllerClass as UIViewController.Type).init(nibName: nil, bundle: nil) as! HostedViewController<Object, View>
-            MultiHostedViewController<Object, View>.registerViewController(viewController, forType: modelClass)
+            MultiHostedViewController<Object, View>.registerViewController(viewController, forType: modelType)
 
-            let existingModelClassName = _reflect(existingModelClass).summary
+            let existingModelTypeName = _reflect(existingModelType).summary
             let multiHostedViewControllerClass = MultiHostedViewController<ObjectType, ViewType>.self
             
             register?()
-            registeredViewControllerClasses[modelClassName] = multiHostedViewControllerClass
-            registeredViewControllerClasses[existingModelClassName] = multiHostedViewControllerClass
+            registeredViewControllerClasses[modelTypeName] = multiHostedViewControllerClass
+            registeredViewControllerClasses[existingModelTypeName] = multiHostedViewControllerClass
         } else {
-            registeringViewControllerClasses[registeringClassName] = modelClass
-            registeredViewControllerClasses[modelClassName] = viewControllerClass
+            registeringViewControllerClasses[registeringClassName] = modelType
+            registeredViewControllerClasses[modelTypeName] = viewControllerClass
             register = {
                 register = nil
-                registerViewControllerClass(viewControllerClass, forModelClass: modelClass)
+                registerViewControllerClass(viewControllerClass, forModelType: modelType)
             }
         }
     }
 
-    public static func viewControllerClassForModelClass<Object, View>(modelClass: Object.Type) -> HostedViewController<Object, View>.Type? {
-        return registeredViewControllerClasses[_reflect(modelClass).summary] as? HostedViewController<Object, View>.Type
+    public static func viewControllerClassForModelType<Object, View>(modelType: Object.Type) -> HostedViewController<Object, View>.Type? {
+        return registeredViewControllerClasses[_reflect(modelType).summary] as? HostedViewController<Object, View>.Type
     }
 }
 

@@ -6,6 +6,8 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
+import UIKit.UIView
+
 private var viewControllers: [String: AnyHostedViewController] = [:]
 
 public class MultiHostedViewController<Object, View: UIView>: HostedViewController<Object, View> {
