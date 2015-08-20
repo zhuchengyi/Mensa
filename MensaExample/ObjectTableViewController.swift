@@ -56,7 +56,7 @@ class ObjectTableViewController: TableViewController<Object, UIView> {
     }
 }
 
-class NumberDataViewController: DataViewController {
+class ObjectDataViewController: DataViewController {
     override var dataMediatedViewController: DataMediatedViewController {
         return ObjectTableViewController()
     }

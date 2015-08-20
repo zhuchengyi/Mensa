@@ -16,15 +16,15 @@ struct Number {
     }()
     
     lazy var factors: [Int] = {
-        var i = 1.0
         var factors = Set<Int>()
-        while i < sqrt(Double(self.value)) {
-            let divisor = Int(i)
+        var divisor = 1
+        let max = Int(sqrt(Double(self.value)))
+        while divisor <= max {
             if self.value % divisor == 0 {
                 factors.insert(divisor)
                 factors.insert(self.value / divisor)
             }
-            i++
+            divisor++
         }
         return factors.sort()
     }()
