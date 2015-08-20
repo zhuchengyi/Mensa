@@ -36,7 +36,6 @@
 		17ED27CE1B85219900376A9B /* Mensa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 17B3B8DB1B679A47008D1EE8 /* Mensa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		17FFDA8C1B79530100B0D8B1 /* NumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FFDA8B1B79530100B0D8B1 /* NumberView.swift */; };
 		17FFDA921B79605000B0D8B1 /* NumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FFDA911B79605000B0D8B1 /* NumberViewController.xib */; };
-		4573EF401B83FD3B009D2547 /* HostingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4573EF3F1B83FD3B009D2547 /* HostingViewController.swift */; };
 		4573EF421B857971009D2547 /* MultiHostedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4573EF411B857971009D2547 /* MultiHostedViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -96,7 +95,6 @@
 		17B3B92A1B7904E6008D1EE8 /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		17FFDA8B1B79530100B0D8B1 /* NumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberView.swift; sourceTree = "<group>"; };
 		17FFDA911B79605000B0D8B1 /* NumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberViewController.xib; sourceTree = "<group>"; };
-		4573EF3F1B83FD3B009D2547 /* HostingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostingViewController.swift; sourceTree = "<group>"; };
 		4573EF411B857971009D2547 /* MultiHostedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiHostedViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,11 +161,11 @@
 			isa = PBXGroup;
 			children = (
 				17B3B8DE1B679A47008D1EE8 /* Mensa.h */,
+				17B3B8E01B679A47008D1EE8 /* Info.plist */,
 				17B3B9241B7809D5008D1EE8 /* CollectionViewController.swift */,
 				17B3B90B1B71A5A9008D1EE8 /* DataMediator.swift */,
 				17B3B9281B78F73E008D1EE8 /* DataViewController.swift */,
 				17B3B9051B700F8B008D1EE8 /* HostedViewController.swift */,
-				4573EF3F1B83FD3B009D2547 /* HostingViewController.swift */,
 				17B3B9221B780471008D1EE8 /* HostingCollectionViewCell.swift */,
 				17B3B90F1B73D07C008D1EE8 /* HostingTableViewCell.swift */,
 				4573EF411B857971009D2547 /* MultiHostedViewController.swift */,
@@ -178,7 +176,6 @@
 				17B3B8FC1B681C4E008D1EE8 /* Section.swift */,
 				17B3B9091B71A247008D1EE8 /* TableViewController.swift */,
 				17B3B90D1B71AA13008D1EE8 /* ViewHosting.swift */,
-				17B3B8E01B679A47008D1EE8 /* Info.plist */,
 			);
 			path = Mensa;
 			sourceTree = "<group>";
@@ -315,7 +312,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				17ADFC651B79B70B001279F9 /* HostingTableViewCell.swift in Sources */,
-				4573EF401B83FD3B009D2547 /* HostingViewController.swift in Sources */,
 				17ADFC661B79B712001279F9 /* PropertyView.swift in Sources */,
 				17ADFC621B79B701001279F9 /* DataMediator.swift in Sources */,
 				17ADFC6A1B79B722001279F9 /* ViewHosting.swift in Sources */,

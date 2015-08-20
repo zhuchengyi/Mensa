@@ -61,6 +61,10 @@ private func addEqualityConstraintsToCell<Cell: HostingCell>(cell: Cell) {
     }
 }
 
+protocol HostingViewController {
+    static func registerViewControllers()
+}
+
 public protocol HostingCell: AnyCell {
     typealias ObjectType
     typealias ViewType
