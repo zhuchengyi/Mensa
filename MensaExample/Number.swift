@@ -7,6 +7,7 @@
 //
 
 import Darwin
+import Mensa
 
 struct Number {
     let value: Int

@@ -20,10 +20,6 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
 
     private var dataMediator: DataMediator<Object, View, Cell, TableViewController<Object, View>>!
 
-    public convenience init() {
-        self.init(style: .Plain)
-    }
-
     // MARK: NSObject
     public override class func initialize() {
         var token: dispatch_once_t = 0

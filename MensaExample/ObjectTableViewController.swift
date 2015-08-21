@@ -9,8 +9,8 @@
 import Mensa
 import UIKit.UITableView
 
-private let numberCount = 83
-private let maxFontSize = 105
+private let numberCount = 100
+private let maxFontSize = 114
 
 protocol Object {}
 
@@ -47,7 +47,7 @@ class ObjectTableViewController: TableViewController<Object, UIView> {
         registerViewControllerClass(PrimeFlagViewController.self, forModelType: PrimeFlag.self)
     }
 
-    // MARK: DataMedaterDelegate
+    // MARK: DataMediatorDelegate
     override func didUseViewController(viewController: HostedViewController<Object, UIView>, withObject object: Object) {
         if let number = object as? Number, view = viewController.viewForObject(number) as? NumberView {
             let fontSize = CGFloat(maxFontSize - number.value)
@@ -56,8 +56,8 @@ class ObjectTableViewController: TableViewController<Object, UIView> {
     }
 }
 
-class ObjectDataViewController: DataViewController {
+class ObjectTableDataViewController: DataViewController {
     override var dataMediatedViewController: DataMediatedViewController {
-        return ObjectTableViewController()
+        return ObjectTableViewController(style: .Plain)
     }
 }

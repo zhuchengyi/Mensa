@@ -11,10 +11,6 @@ import UIKit.UIView
 private var viewControllers: [String: AnyHostedViewController] = [:]
 
 public class MultiHostedViewController<Object, View: UIView>: HostedViewController<Object, View> {
-//    required public init() {
-//        super.init()
-//    }
-
     static func registerViewController(viewController: AnyHostedViewController, forType type: Any.Type) -> Void {
         let key = _reflect(type).summary
         viewControllers[key] = viewController

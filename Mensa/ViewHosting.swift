@@ -10,14 +10,14 @@ import UIKit.UIGeometry
 
 public typealias CellClass = AnyCell.Type
 
-func loadHostedViewForObject<Object, View: UIView, Cell: HostingCell where Object == Cell.ObjectType, View == Cell.ViewType, Cell: UIView>(object: Object, inCell cell: Cell) {
+func loadHostedViewForObject<Object, View: UIView, Cell: HostingCell where Object == Cell.ObjectType, View == Cell.ViewType>(object: Object, inCell cell: Cell) {
     let hostedView = cell.hostedViewController.viewForObject(object)
     hostedView.frame = cell.hostingView.bounds
     hostedView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
     cell.hostingView.addSubview(hostedView)
 }
 
-func setParentViewContoller<Object, View: UIView, Cell: HostingCell, ViewController: UIViewController where Object == Cell.ObjectType, View == Cell.ViewType, Cell: UIView>(parentViewController: ViewController, forCell cell: Cell, withObject object: Object) {
+func setParentViewContoller<Object, View: UIView, Cell: HostingCell, ViewController: UIViewController where Object == Cell.ObjectType, View == Cell.ViewType>(parentViewController: ViewController, forCell cell: Cell, withObject object: Object) {
     let hostedViewController = cell.hostedViewController
     if let existingViewController = cell.parentViewController {
         if existingViewController == parentViewController {
@@ -37,7 +37,7 @@ func setParentViewContoller<Object, View: UIView, Cell: HostingCell, ViewControl
 }
 
 
-func adjustLayoutConstraintsForCell<Object, Cell: HostingCell where Object == Cell.ObjectType, Cell: UIView, Cell.ViewType: UIView>(cell: Cell, object: Object) {
+func adjustLayoutConstraintsForCell<Object, Cell: HostingCell where Object == Cell.ObjectType, Cell.ViewType: UIView>(cell: Cell, object: Object) {
     adjustLayoutConstraintsForCell(cell, forObject: object, toPriority: UILayoutPriorityDefaultHigh)
     addEqualityConstraintsToCell(cell)
 }

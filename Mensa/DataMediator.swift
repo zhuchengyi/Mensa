@@ -16,7 +16,7 @@ private var register: (Void -> Void)?
 private var registeringViewControllerClasses: [String: Any.Type] = [:]
 private var registeredViewControllerClasses: [String: HostedViewControllerClass] = [:]
 
-struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMediatorDelegate where Object == Delegate.ObjectType, Object == Cell.ObjectType, View == Cell.ViewType, View == Delegate.ViewType, Cell == Delegate.HostingCellType, Cell: UIView> {
+struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMediatorDelegate where Object == Delegate.ObjectType, Object == Cell.ObjectType, View == Cell.ViewType, View == Delegate.ViewType, Cell == Delegate.HostingCellType> {
     private var metricsCells: [String: Cell] = [:]
     private let delegate: Delegate
 

@@ -37,6 +37,7 @@
 		17FFDA8C1B79530100B0D8B1 /* NumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FFDA8B1B79530100B0D8B1 /* NumberView.swift */; };
 		17FFDA921B79605000B0D8B1 /* NumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FFDA911B79605000B0D8B1 /* NumberViewController.xib */; };
 		4573EF421B857971009D2547 /* MultiHostedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4573EF411B857971009D2547 /* MultiHostedViewController.swift */; };
+		45BFED841B86A03C0047FCC1 /* ObjectCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BFED821B869FEE0047FCC1 /* ObjectCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		17FFDA8B1B79530100B0D8B1 /* NumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberView.swift; sourceTree = "<group>"; };
 		17FFDA911B79605000B0D8B1 /* NumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberViewController.xib; sourceTree = "<group>"; };
 		4573EF411B857971009D2547 /* MultiHostedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiHostedViewController.swift; sourceTree = "<group>"; };
+		45BFED821B869FEE0047FCC1 /* ObjectCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +189,7 @@
 				172714FB1B7ACC560002D6C5 /* Prime Flag */,
 				17B3B8EC1B679A72008D1EE8 /* AppDelegate.swift */,
 				17B3B9261B784566008D1EE8 /* ObjectTableViewController.swift */,
+				45BFED821B869FEE0047FCC1 /* ObjectCollectionViewController.swift */,
 				17B3B8F31B679A72008D1EE8 /* Assets.xcassets */,
 				17B3B8F01B679A72008D1EE8 /* Main.storyboard */,
 				17B3B8F51B679A72008D1EE8 /* LaunchScreen.storyboard */,
@@ -334,6 +337,7 @@
 			files = (
 				172715041B7ACEFD0002D6C5 /* PrimeFlagView.swift in Sources */,
 				17B3B9271B784566008D1EE8 /* ObjectTableViewController.swift in Sources */,
+				45BFED841B86A03C0047FCC1 /* ObjectCollectionViewController.swift in Sources */,
 				177AAEC61B79122C007B627B /* NumberViewController.swift in Sources */,
 				17B3B8ED1B679A72008D1EE8 /* AppDelegate.swift in Sources */,
 				172714FE1B7ACE030002D6C5 /* PrimeFlag.swift in Sources */,

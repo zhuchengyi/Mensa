@@ -94,6 +94,9 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
         return metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
     }
 
+    // MARK: HostingViewController
+    class public func registerViewControllers() {}
+
     // MARK: DataMediatorDelegate
     public func didSelectObject(object: Object) {}
     public func willLoadHostedViewController(viewController: HostedViewController<Object, View>) {}
@@ -105,6 +108,12 @@ private extension CollectionViewController {
         let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
         guard let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? HostingCollectionViewCell<Object, View> else { return nil }
         return (object, cell.hostedViewController)
+    }
+}
+
+extension CollectionViewController: DataMediatedViewController {
+    public var dataView: UIScrollView {
+        return collectionView!
     }
 }
 
