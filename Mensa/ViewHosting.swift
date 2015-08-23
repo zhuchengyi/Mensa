@@ -77,13 +77,13 @@ public protocol HostingCell: AnyCell {
 
 extension HostingCell {
     public static func subclassWithViewControllerClass(viewControllerClass: HostedViewController<ObjectType, ViewType>.Type, modelType: ObjectType.Type) -> CellClass {
-        let modelTypeName = _reflect(modelType).summary
-        let className = NSStringFromClass(self) + NSStringFromClass(viewControllerClass) + modelTypeName
+        let modelTypeName = TypeKey(modelType).localDescription
+        let className = TypeKey<Any>(self, viewControllerClass, modelType).description
         var subclass: AnyClass? = NSClassFromString(className)
         if subclass == nil {
             subclass = objc_allocateClassPair(self, className.cStringUsingEncoding(NSUTF8StringEncoding)!, 0)
             let block: @convention(block) AnyObject -> UIViewController = { _ in
-                let nibName = modelTypeName.characters.split { $0 == "." }.map(String.init).last! + "ViewController"
+                let nibName = modelTypeName + "ViewController"
                 return (viewControllerClass as UIViewController.Type).init(nibName: nibName, bundle: nil)
             }
             let implementation = imp_implementationWithBlock(unsafeBitCast(block, AnyObject.self));

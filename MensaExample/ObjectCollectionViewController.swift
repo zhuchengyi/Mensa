@@ -27,6 +27,12 @@ class ObjectCollectionViewController: CollectionViewController<Object, UIView> {
         }
         super.init(collectionViewLayout: layout)
     }
+    
+    // MARK: HostingViewController
+    override static func registerViewControllers() {
+        registerViewControllerClass(NumberViewController.self, forModelType: Number.self)
+        registerViewControllerClass(PrimeFlagViewController.self, forModelType: PrimeFlag.self)
+    }
 
     // MARK: DataMediatorDelegate
     override func didUseViewController(viewController: HostedViewController<Object, UIView>, withObject object: Object) {

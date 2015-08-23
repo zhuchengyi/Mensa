@@ -20,7 +20,15 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     }
 
     private var dataMediator: DataMediator<Object, View, Cell, CollectionViewController<Object, View>>!
-
+    
+    // MARK: NSObject
+    public override class func initialize() {
+        var token: dispatch_once_t = 0
+        dispatch_once(&token) {
+            registerViewControllers()
+        }
+    }
+    
     // MARK: UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()

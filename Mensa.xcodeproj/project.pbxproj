@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		17003F581B8A38C800830CEB /* TypeKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17003F571B8A38C800830CEB /* TypeKey.swift */; };
 		172714FE1B7ACE030002D6C5 /* PrimeFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172714FC1B7ACD910002D6C5 /* PrimeFlag.swift */; };
 		172715001B7ACE430002D6C5 /* PrimeFlagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172714FF1B7ACE430002D6C5 /* PrimeFlagViewController.xib */; };
 		172715021B7ACEC70002D6C5 /* PrimeFlagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172715011B7ACEC70002D6C5 /* PrimeFlagViewController.swift */; };
@@ -65,6 +66,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		17003F571B8A38C800830CEB /* TypeKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeKey.swift; sourceTree = "<group>"; };
 		172714FC1B7ACD910002D6C5 /* PrimeFlag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeFlag.swift; sourceTree = "<group>"; };
 		172714FF1B7ACE430002D6C5 /* PrimeFlagViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrimeFlagViewController.xib; sourceTree = "<group>"; };
 		172715011B7ACEC70002D6C5 /* PrimeFlagViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeFlagViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				17B3B9031B700F5B008D1EE8 /* PropertyViewController.swift */,
 				17B3B8FC1B681C4E008D1EE8 /* Section.swift */,
 				17B3B9091B71A247008D1EE8 /* TableViewController.swift */,
+				17003F571B8A38C800830CEB /* TypeKey.swift */,
 				17B3B90D1B71AA13008D1EE8 /* ViewHosting.swift */,
 			);
 			path = Mensa;
@@ -314,6 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17003F581B8A38C800830CEB /* TypeKey.swift in Sources */,
 				17ADFC651B79B70B001279F9 /* HostingTableViewCell.swift in Sources */,
 				17ADFC661B79B712001279F9 /* PropertyView.swift in Sources */,
 				17ADFC621B79B701001279F9 /* DataMediator.swift in Sources */,

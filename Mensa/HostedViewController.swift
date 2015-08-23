@@ -10,7 +10,6 @@ import UIKit.UIView
 import UIKit.UIViewController
 
 public class HostedViewController<Object, View>: UIViewController, HostedViewControllerType {
-    
     public func updateView(view: View, withObject object: Object) {}
     public func selectObject(object: Object) {}
     public func canSelectObject(object: Object) -> Bool { return true }
@@ -18,7 +17,8 @@ public class HostedViewController<Object, View>: UIViewController, HostedViewCon
     public func viewForObject(object: Object) -> View { return view as! View }
 
     public static func reuseIdentifierForObject(object: Object) -> String {
-        return "\(_reflect(self).summary)\(object.dynamicType)"
+        let key = TypeKey(self)
+        return "\(key)\(object.dynamicType)"
     }
 }
 

@@ -10,14 +10,14 @@ import UIKit.UITableViewCell
 import UIKit.UIViewController
 
 typealias HostedViewControllerClass = HostedViewControllerType.Type
-typealias HostingViewControllerClass = HostingViewController.Type
+typealias DataMediatorDelegateType = DataMediatorDelegate.Type
 
 private var register: (Void -> Void)?
-private var registeringViewControllerClasses: [String: Any.Type] = [:]
-private var registeredViewControllerClasses: [String: HostedViewControllerClass] = [:]
+private var registeredTypes: [TypeKey<DataMediatorDelegateType>: Any.Type] = [:]
+private var registeredViewControllerClasses: [TypeKey<DataMediatorDelegateType>: [TypeKey<Any>: HostedViewControllerClass]] = [:]
 
 struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMediatorDelegate where Object == Delegate.ObjectType, Object == Cell.ObjectType, View == Cell.ViewType, View == Delegate.ViewType, Cell == Delegate.HostingCellType> {
-    private var metricsCells: [String: Cell] = [:]
+    private var metricsCells: [TypeKey<Object>: Cell] = [:]
     private let delegate: Delegate
 
     var numberOfSections: Int {
@@ -28,7 +28,7 @@ struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMedia
         didSet {
             for section in backingSections {
                 for object in section {
-                    let key = _reflect(object).summary // TODO: Variant
+                    let key = TypeKey(object) // TODO: Variant
                     if metricsCells[key] == nil {
                         if let metricsCell = createMetricsCellForObject(object) {
                             metricsCells[key] = metricsCell
@@ -63,7 +63,7 @@ struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMedia
     }
     
     func metricsCellForObject(object: Object) -> Cell? {
-        let key = _reflect(object).summary
+        let key = TypeKey(object)
         return metricsCells[key]
     }
     
@@ -124,21 +124,25 @@ public protocol DataMediatorDelegate {
 
 extension DataMediatorDelegate {
     public static func registerViewControllerClass<Object, View: UIView>(viewControllerClass: HostedViewController<Object, View>.Type, forModelType modelType: Object.Type) {
-        let registeringClassName = _reflect(self).summary
-        let modelTypeName = _reflect(modelType).summary
-        if let existingModelType = registeringViewControllerClasses[registeringClassName] {
+        let key = TypeKey<DataMediatorDelegateType>(self)
+        let modelTypeKey = TypeKey<Any>(modelType)
+        if let existingModelType = registeredTypes[key] {
             let viewController = (viewControllerClass as UIViewController.Type).init(nibName: nil, bundle: nil) as! HostedViewController<Object, View>
             MultiHostedViewController<Object, View>.registerViewController(viewController, forType: modelType)
 
-            let existingModelTypeName = _reflect(existingModelType).summary
+            let existingModelTypeKey = TypeKey<Any>(existingModelType)
             let multiHostedViewControllerClass = MultiHostedViewController<ObjectType, ViewType>.self
             
             register?()
-            registeredViewControllerClasses[modelTypeName] = multiHostedViewControllerClass
-            registeredViewControllerClasses[existingModelTypeName] = multiHostedViewControllerClass
+            registeredViewControllerClasses[key]?[modelTypeKey] = multiHostedViewControllerClass
+            registeredViewControllerClasses[key]?[existingModelTypeKey] = multiHostedViewControllerClass
         } else {
-            registeringViewControllerClasses[registeringClassName] = modelType
-            registeredViewControllerClasses[modelTypeName] = viewControllerClass
+            if registeredViewControllerClasses[key] == nil {
+                registeredViewControllerClasses[key] = [:]
+            }
+
+            registeredTypes[key] = modelType
+            registeredViewControllerClasses[key]?[modelTypeKey] = viewControllerClass
             register = {
                 register = nil
                 registerViewControllerClass(viewControllerClass, forModelType: modelType)
@@ -147,7 +151,9 @@ extension DataMediatorDelegate {
     }
 
     public static func viewControllerClassForModelType<Object, View>(modelType: Object.Type) -> HostedViewController<Object, View>.Type? {
-        return registeredViewControllerClasses[_reflect(modelType).summary] as? HostedViewController<Object, View>.Type
+        let key = TypeKey<DataMediatorDelegateType>(self)
+        let modelTypeKey = TypeKey<Any>(modelType)
+        return registeredViewControllerClasses[key]?[modelTypeKey] as? HostedViewController<Object, View>.Type
     }
 }
 

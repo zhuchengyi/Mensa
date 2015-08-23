@@ -8,16 +8,16 @@
 
 import UIKit.UIView
 
-private var viewControllers: [String: AnyHostedViewController] = [:]
+private var viewControllers: [TypeKey<Any.Type>: AnyHostedViewController] = [:]
 
 public class MultiHostedViewController<Object, View: UIView>: HostedViewController<Object, View> {
     static func registerViewController(viewController: AnyHostedViewController, forType type: Any.Type) -> Void {
-        let key = _reflect(type).summary
+        let key = TypeKey(type)
         viewControllers[key] = viewController
     }
 
     private func registeredViewControllerForType(type: Object.Type) -> AnyHostedViewController? {
-        let key = _reflect(type).summary
+        let key = TypeKey<Any.Type>(type)
         return viewControllers[key]
     }
 
