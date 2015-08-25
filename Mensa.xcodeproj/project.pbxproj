@@ -33,6 +33,7 @@
 		17B3B9011B6822EB008D1EE8 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B9001B6822EB008D1EE8 /* Property.swift */; };
 		17B3B9271B784566008D1EE8 /* ObjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B9261B784566008D1EE8 /* ObjectTableViewController.swift */; };
 		17B3B92C1B7904EA008D1EE8 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B3B92A1B7904E6008D1EE8 /* Number.swift */; };
+		17BD2A1F1B8CF8A700A2C722 /* ViewControllerRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BD2A1E1B8CF8A700A2C722 /* ViewControllerRegistry.swift */; };
 		17ED27CD1B85219900376A9B /* Mensa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B3B8DB1B679A47008D1EE8 /* Mensa.framework */; };
 		17ED27CE1B85219900376A9B /* Mensa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 17B3B8DB1B679A47008D1EE8 /* Mensa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		17FFDA8C1B79530100B0D8B1 /* NumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FFDA8B1B79530100B0D8B1 /* NumberView.swift */; };
@@ -96,6 +97,7 @@
 		17B3B9261B784566008D1EE8 /* ObjectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectTableViewController.swift; sourceTree = "<group>"; };
 		17B3B9281B78F73E008D1EE8 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		17B3B92A1B7904E6008D1EE8 /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
+		17BD2A1E1B8CF8A700A2C722 /* ViewControllerRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerRegistry.swift; sourceTree = "<group>"; };
 		17FFDA8B1B79530100B0D8B1 /* NumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberView.swift; sourceTree = "<group>"; };
 		17FFDA911B79605000B0D8B1 /* NumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberViewController.xib; sourceTree = "<group>"; };
 		4573EF411B857971009D2547 /* MultiHostedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiHostedViewController.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				17B3B9091B71A247008D1EE8 /* TableViewController.swift */,
 				17003F571B8A38C800830CEB /* TypeKey.swift */,
 				17B3B90D1B71AA13008D1EE8 /* ViewHosting.swift */,
+				17BD2A1E1B8CF8A700A2C722 /* ViewControllerRegistry.swift */,
 			);
 			path = Mensa;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				17ADFC641B79B708001279F9 /* HostingCollectionViewCell.swift in Sources */,
 				17ADFC671B79B715001279F9 /* PropertyViewController.swift in Sources */,
 				17ADFC611B79B6FE001279F9 /* CollectionViewController.swift in Sources */,
+				17BD2A1F1B8CF8A700A2C722 /* ViewControllerRegistry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

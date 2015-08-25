@@ -62,7 +62,7 @@ private func addEqualityConstraintsToCell<Cell: HostingCell>(cell: Cell) {
 }
 
 protocol HostingViewController {
-    static func registerViewControllers()
+    static func registerViewControllers() throws
 }
 
 public protocol HostingCell: AnyCell {

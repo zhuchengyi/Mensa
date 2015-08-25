@@ -42,9 +42,9 @@ class ObjectTableViewController: TableViewController<Object, UIView> {
     }
 
     // MARK: HostingViewController
-    override static func registerViewControllers() {
-        registerViewControllerClass(NumberViewController.self, forModelType: Number.self)
-        registerViewControllerClass(PrimeFlagViewController.self, forModelType: PrimeFlag.self)
+    override static func registerViewControllers() throws {
+        try registerViewControllerClass(NumberViewController.self, forModelType: Number.self)
+        try registerViewControllerClass(PrimeFlagViewController.self, forModelType: PrimeFlag.self)
     }
 
     // MARK: DataMediatorDelegate

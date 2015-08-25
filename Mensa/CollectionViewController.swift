@@ -9,8 +9,6 @@
 import UIKit.UICollectionViewController
 import UIKit.UICollectionViewFlowLayout
 
-private let reuseIdentifier = "CollectionViewCell"
-
 public class CollectionViewController<Object, View: UIView>: UICollectionViewController {
     public typealias Cell = HostingCollectionViewCell<Object, View>
 
@@ -25,15 +23,13 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     public override class func initialize() {
         var token: dispatch_once_t = 0
         dispatch_once(&token) {
-            registerViewControllers()
+            try! registerViewControllers()
         }
     }
     
     // MARK: UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         dataMediator.reloadDataWithUpdate(false)
     }
 
@@ -55,9 +51,7 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     public override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
         let modelType = object.dynamicType
-        guard let viewControllerClass: HostedViewController<Object, View>.Type = self.dynamicType.viewControllerClassForModelType(modelType) else {
-            return collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
-        }
+        let viewControllerClass: HostedViewController<Object, View>.Type = try! self.dynamicType.viewControllerClassForModelType(modelType)
         
         let reuseIdentifer = viewControllerClass.reuseIdentifierForObject(object)
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifer, forIndexPath: indexPath) as! HostingCollectionViewCell<Object, View>
@@ -103,7 +97,7 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     }
 
     // MARK: HostingViewController
-    class public func registerViewControllers() {}
+    class public func registerViewControllers() throws {}
 
     // MARK: DataMediatorDelegate
     public func didSelectObject(object: Object) {}
@@ -134,7 +128,7 @@ extension CollectionViewController: DataMediatorDelegate {
     
     public func didReloadWithUpdate(update: Bool) {
         if (update) {
-            collectionView!.reloadData()
+            collectionView?.reloadData()
         }
     }
     
@@ -143,7 +137,8 @@ extension CollectionViewController: DataMediatorDelegate {
     }
     
     public func willUseMetricsCell(metricsCell: Cell, forObject object: Object) {
-        metricsCell.useAsMetricsCellInCollectionView(collectionView!)
+        guard let collectionView = collectionView else { return }
+        metricsCell.useAsMetricsCellInCollectionView(collectionView)
         adjustLayoutConstraintsForCell(metricsCell, object: object)
     }
 }

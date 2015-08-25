@@ -8,8 +8,6 @@
 
 import UIKit.UITableViewController
 
-private let reuseIdentifier = "TableViewCell"
-
 public class TableViewController<Object, View: UIView>: UITableViewController, HostingViewController {
     public typealias Cell = HostingTableViewCell<Object, View>
 
@@ -24,15 +22,13 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
     public override class func initialize() {
         var token: dispatch_once_t = 0
         dispatch_once(&token) {
-            registerViewControllers()
+            try! registerViewControllers()
         }
     }
 
     // MARK: UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
-
-        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         dataMediator.reloadDataWithUpdate(false)
     }
 
@@ -62,10 +58,8 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
         let modelType = object.dynamicType
-        guard let viewControllerClass: HostedViewController<Object, View>.Type = self.dynamicType.viewControllerClassForModelType(modelType) else {
-            return tableView.dequeueReusableCellWithIdentifier(reuseIdentifier)!
-        }
-        
+        let viewControllerClass: HostedViewController<Object, View>.Type = try! self.dynamicType.viewControllerClassForModelType(modelType)
+
         let reuseIdentifer = viewControllerClass.reuseIdentifierForObject(object)
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifer, forIndexPath: indexPath) as! HostingTableViewCell<Object, View>
         let hostedViewController = cell.hostedViewController
@@ -112,7 +106,7 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
     }
 
     // MARK: HostingViewController
-    class public func registerViewControllers() {}
+    class public func registerViewControllers() throws {}
 
     // MARK: DataMediatorDelegate
     public func didSelectObject(object: Object) {}
