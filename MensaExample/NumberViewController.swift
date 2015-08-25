@@ -15,7 +15,7 @@ class NumberViewController: HostedViewController<Number, NumberView> {
     }
     
     override func selectObject(var number: Number) {
-        let factorsString = ", ".join(number.factors.map { "\($0)" })
+        let factorsString = number.factors.map { "\($0)" }.joinWithSeparator(", ")
         let message = "The factors of \(number.value) are \(factorsString)."
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
         let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)

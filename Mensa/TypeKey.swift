@@ -18,7 +18,7 @@ struct TypeKey<T>: Hashable, CustomStringConvertible {
     }
     
     init(_ types: T...) {
-        description = "".join(types.map { _reflect($0).summary })
+        description = types.map { _reflect($0).summary }.joinWithSeparator("")
     }
 }
 
