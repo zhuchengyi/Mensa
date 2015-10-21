@@ -16,9 +16,13 @@ public class MultiHostedViewController<Object, View: UIView>: HostedViewControll
         viewControllers[key] = viewController
     }
 
-    private func registeredViewControllerForType(type: Object.Type) -> AnyHostedViewController? {
+    static private func registeredViewControllerForType(type: Object.Type) -> AnyHostedViewController? {
         let key = TypeKey<Any.Type>(type)
         return viewControllers[key]
+    }
+    
+    private func registeredViewControllerForType(type: Object.Type) -> AnyHostedViewController? {
+        return self.dynamicType.registeredViewControllerForType(type)
     }
 
     // MARK: HostedViewController
@@ -31,6 +35,19 @@ public class MultiHostedViewController<Object, View: UIView>: HostedViewControll
     public override func selectObject(object: Object) {
         if let viewController = registeredViewControllerForType(object.dynamicType) {
             viewController.downcastSelectObject(object)
+        }
+    }
+    
+    public override func canSelectObject(object: Object) -> Bool {
+        guard let viewController = registeredViewControllerForType(object.dynamicType) else {
+            return super.canSelectObject(object)
+        }
+        return viewController.downcastCanSelectObject(object)
+    }
+    
+    public override func setViewHighlighted(highlighted: Bool, forObject object: Object) {
+        if let viewController = registeredViewControllerForType(object.dynamicType) {
+            viewController.downcastSetViewHighlighted(highlighted, forObject: object)
         }
     }
 }

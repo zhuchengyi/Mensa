@@ -38,9 +38,9 @@ extension RegisterError: CustomStringConvertible {
 
 extension DataMediatorDelegate {
     public static func registerViewControllerClass<Object, View: UIView>(viewControllerClass: HostedViewController<Object, View>.Type, forModelType modelType: Object.Type) throws {
-//        if !(viewControllerClass.View.self is ViewType.Type) {
-//            throw RegisterError.ViewTypeMismatch(viewControllerClass: viewControllerClass, viewType: View.self, hostingViewControllerClass: self, expectedViewType: ViewType.self)
-//        }
+        if !(viewControllerClass.View.self is ViewType.Type) {
+            throw RegisterError.ViewTypeMismatch(viewControllerClass: viewControllerClass, viewType: View.self, hostingViewControllerClass: self, expectedViewType: ViewType.self)
+        }
 
         let key = TypeKey<DataMediatorDelegateType>(self)
         let modelTypeKey = TypeKey<Any>(modelType)

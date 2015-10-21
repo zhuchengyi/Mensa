@@ -6,8 +6,7 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-import UIKit.UITableViewCell
-import UIKit.UIView
+import UIKit
 
 public class HostingTableViewCell<Object, View>: UITableViewCell, HostingCell {
     public var layoutInsets = UIEdgeInsetsZero

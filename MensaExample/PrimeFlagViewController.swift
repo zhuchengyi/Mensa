@@ -9,6 +9,7 @@
 import Mensa
 
 class PrimeFlagViewController: HostedViewController<PrimeFlag, PrimeFlagView> {
+    // MARK: HostedViewController
     override func updateView(view: PrimeFlagView, withObject primeFlag: PrimeFlag) {
         view.textLabel?.text = String(format: view.formatString, arguments: [primeFlag.number.value])
     }

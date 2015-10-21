@@ -22,8 +22,11 @@ class ObjectCollectionViewController: CollectionViewController<Object, UIView> {
     // MARK: UICollectionViewController
     required init(collectionViewLayout layout: UICollectionViewLayout) {
         for index in (1...numberCount) {
-            let number = Number(index)
+            var number = Number(index)
             objects.append(number)
+            if number.prime {
+                objects.append(PrimeFlag(number: number))
+            }
         }
         super.init(collectionViewLayout: layout)
     }
@@ -35,8 +38,15 @@ class ObjectCollectionViewController: CollectionViewController<Object, UIView> {
     }
 
     // MARK: DataMediatorDelegate
+    override func variantForObject(object: Object) -> Int {
+        if object is PrimeFlag {
+            return 1
+        }
+        return super.variantForObject(object)
+    }
+
     override func didUseViewController(viewController: HostedViewController<Object, UIView>, withObject object: Object) {
-        if let number = object as? Number, view = viewController.viewForObject(number) as? NumberView {
+        if let number = object as? Number, view = viewController.view as? NumberView {
             let fontSize = CGFloat(maxFontSize - number.value)
             view.valueLabel.font = view.valueLabel.font.fontWithSize(fontSize)
         }

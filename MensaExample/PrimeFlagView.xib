@@ -4,13 +4,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UIViewController">
-            <connections>
-                <outlet property="view" destination="eD0-yG-nzw" id="bNo-hd-C1c"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view userInteractionEnabled="NO" contentMode="scaleToFill" id="eD0-yG-nzw" userLabel="Default View" customClass="PrimeFlagView" customModule="MensaExample" customModuleProvider="target">
+        <view userInteractionEnabled="NO" contentMode="scaleToFill" id="eD0-yG-nzw" customClass="PrimeFlagView" customModule="MensaExample" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -53,28 +49,29 @@
                 <outlet property="textLabel" destination="Hiz-V7-qBz" id="cI3-ZX-Y0t"/>
             </connections>
         </view>
-        <view contentMode="scaleToFill" id="onH-vk-LwG" userLabel="Compact View" customClass="PrimeFlagView" customModule="MensaExample" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="26" height="26"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+        <view contentMode="scaleToFill" id="Fof-2l-5VZ" userLabel="Compact Prime Flag View" customClass="PrimeFlagView" customModule="MensaExample">
+            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EbQ-kF-ijt" userLabel="Square">
-                    <rect key="frame" x="3" y="3" width="20" height="20"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dw5-2f-mbw">
+                    <rect key="frame" x="8" y="8" width="44" height="44"/>
                     <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="2Ib-a5-ZTB"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="LVO-r7-1wE"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="9AU-9y-bZc"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="Uzw-ci-kXg"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="EbQ-kF-ijt" firstAttribute="top" secondItem="onH-vk-LwG" secondAttribute="top" constant="3" id="9G9-fu-rcg"/>
-                <constraint firstAttribute="bottom" secondItem="EbQ-kF-ijt" secondAttribute="bottom" constant="3" id="U0k-YT-zSo"/>
-                <constraint firstAttribute="trailing" secondItem="EbQ-kF-ijt" secondAttribute="trailing" constant="3" id="US9-gc-u6G"/>
-                <constraint firstItem="EbQ-kF-ijt" firstAttribute="leading" secondItem="onH-vk-LwG" secondAttribute="leading" constant="3" id="ZHJ-vE-3Wj"/>
+                <constraint firstAttribute="trailing" secondItem="dw5-2f-mbw" secondAttribute="trailing" constant="8" id="Qhm-kX-OzC"/>
+                <constraint firstItem="dw5-2f-mbw" firstAttribute="top" secondItem="Fof-2l-5VZ" secondAttribute="top" constant="8" id="aYA-2C-fPe"/>
+                <constraint firstItem="dw5-2f-mbw" firstAttribute="leading" secondItem="Fof-2l-5VZ" secondAttribute="leading" constant="8" id="ens-vs-R8N"/>
+                <constraint firstAttribute="bottom" secondItem="dw5-2f-mbw" secondAttribute="bottom" constant="8" id="kPy-Mk-Iyp"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="233" y="460"/>
         </view>
     </objects>
 </document>

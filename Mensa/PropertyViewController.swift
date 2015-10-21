@@ -21,8 +21,7 @@ class PropertyViewController<T>: HostedViewController<Property<T>, PropertyView>
     }
     
     override func canSelectObject(property: Property<T>) -> Bool {
-        let view = viewForObject(property)
-        return view.inputSwitch.hidden && view.valueLabel.hidden
+        return hostedView.inputSwitch.hidden && hostedView.valueLabel.hidden
     }
     
     private dynamic func inputSwitchValueDidChange(sender: UISwitch) {

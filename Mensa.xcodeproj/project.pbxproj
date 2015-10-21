@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		17003F581B8A38C800830CEB /* TypeKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17003F571B8A38C800830CEB /* TypeKey.swift */; };
 		172714FE1B7ACE030002D6C5 /* PrimeFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172714FC1B7ACD910002D6C5 /* PrimeFlag.swift */; };
-		172715001B7ACE430002D6C5 /* PrimeFlagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172714FF1B7ACE430002D6C5 /* PrimeFlagViewController.xib */; };
+		172715001B7ACE430002D6C5 /* PrimeFlagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172714FF1B7ACE430002D6C5 /* PrimeFlagView.xib */; };
 		172715021B7ACEC70002D6C5 /* PrimeFlagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172715011B7ACEC70002D6C5 /* PrimeFlagViewController.swift */; };
 		172715041B7ACEFD0002D6C5 /* PrimeFlagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172715031B7ACEFD0002D6C5 /* PrimeFlagView.swift */; };
 		177AAEC61B79122C007B627B /* NumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177AAEC41B79120A007B627B /* NumberViewController.swift */; };
@@ -37,7 +37,7 @@
 		17ED27CD1B85219900376A9B /* Mensa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17B3B8DB1B679A47008D1EE8 /* Mensa.framework */; };
 		17ED27CE1B85219900376A9B /* Mensa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 17B3B8DB1B679A47008D1EE8 /* Mensa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		17FFDA8C1B79530100B0D8B1 /* NumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FFDA8B1B79530100B0D8B1 /* NumberView.swift */; };
-		17FFDA921B79605000B0D8B1 /* NumberViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FFDA911B79605000B0D8B1 /* NumberViewController.xib */; };
+		17FFDA921B79605000B0D8B1 /* NumberView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17FFDA911B79605000B0D8B1 /* NumberView.xib */; };
 		4573EF421B857971009D2547 /* MultiHostedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4573EF411B857971009D2547 /* MultiHostedViewController.swift */; };
 		45BFED841B86A03C0047FCC1 /* ObjectCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BFED821B869FEE0047FCC1 /* ObjectCollectionViewController.swift */; };
 /* End PBXBuildFile section */
@@ -69,7 +69,7 @@
 /* Begin PBXFileReference section */
 		17003F571B8A38C800830CEB /* TypeKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeKey.swift; sourceTree = "<group>"; };
 		172714FC1B7ACD910002D6C5 /* PrimeFlag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeFlag.swift; sourceTree = "<group>"; };
-		172714FF1B7ACE430002D6C5 /* PrimeFlagViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrimeFlagViewController.xib; sourceTree = "<group>"; };
+		172714FF1B7ACE430002D6C5 /* PrimeFlagView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrimeFlagView.xib; sourceTree = "<group>"; };
 		172715011B7ACEC70002D6C5 /* PrimeFlagViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeFlagViewController.swift; sourceTree = "<group>"; };
 		172715031B7ACEFD0002D6C5 /* PrimeFlagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimeFlagView.swift; sourceTree = "<group>"; };
 		177AAEC41B79120A007B627B /* NumberViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberViewController.swift; sourceTree = "<group>"; };
@@ -99,7 +99,7 @@
 		17B3B92A1B7904E6008D1EE8 /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		17BD2A1E1B8CF8A700A2C722 /* ViewControllerRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerRegistry.swift; sourceTree = "<group>"; };
 		17FFDA8B1B79530100B0D8B1 /* NumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberView.swift; sourceTree = "<group>"; };
-		17FFDA911B79605000B0D8B1 /* NumberViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberViewController.xib; sourceTree = "<group>"; };
+		17FFDA911B79605000B0D8B1 /* NumberView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberView.xib; sourceTree = "<group>"; };
 		4573EF411B857971009D2547 /* MultiHostedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiHostedViewController.swift; sourceTree = "<group>"; };
 		45BFED821B869FEE0047FCC1 /* ObjectCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,7 +129,7 @@
 				17B3B92A1B7904E6008D1EE8 /* Number.swift */,
 				17FFDA8B1B79530100B0D8B1 /* NumberView.swift */,
 				177AAEC41B79120A007B627B /* NumberViewController.swift */,
-				17FFDA911B79605000B0D8B1 /* NumberViewController.xib */,
+				17FFDA911B79605000B0D8B1 /* NumberView.xib */,
 			);
 			name = Number;
 			sourceTree = "<group>";
@@ -140,7 +140,7 @@
 				172714FC1B7ACD910002D6C5 /* PrimeFlag.swift */,
 				172715031B7ACEFD0002D6C5 /* PrimeFlagView.swift */,
 				172715011B7ACEC70002D6C5 /* PrimeFlagViewController.swift */,
-				172714FF1B7ACE430002D6C5 /* PrimeFlagViewController.xib */,
+				172714FF1B7ACE430002D6C5 /* PrimeFlagView.xib */,
 			);
 			name = "Prime Flag";
 			sourceTree = "<group>";
@@ -305,8 +305,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				172715001B7ACE430002D6C5 /* PrimeFlagViewController.xib in Resources */,
-				17FFDA921B79605000B0D8B1 /* NumberViewController.xib in Resources */,
+				172715001B7ACE430002D6C5 /* PrimeFlagView.xib in Resources */,
+				17FFDA921B79605000B0D8B1 /* NumberView.xib in Resources */,
 				17B3B8F71B679A72008D1EE8 /* LaunchScreen.storyboard in Resources */,
 				17B3B8F41B679A72008D1EE8 /* Assets.xcassets in Resources */,
 				17B3B8F21B679A72008D1EE8 /* Main.storyboard in Resources */,

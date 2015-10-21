@@ -10,35 +10,37 @@ import UIKit.UIView
 import UIKit.UIViewController
 
 public class HostedViewController<Object, View>: UIViewController, HostedViewControllerType {
+    var hostedView: View {
+        return view as! View
+    }
+    
     public func updateView(view: View, withObject object: Object) {}
     public func selectObject(object: Object) {}
     public func canSelectObject(object: Object) -> Bool { return true }
     public func setViewHighlighted(highlighted: Bool, forObject object: Object) {}
-    public func viewForObject(object: Object) -> View { return view as! View }
 
-    public static func reuseIdentifierForObject(object: Object) -> String {
-        let key = TypeKey(self)
-        return "\(key)\(object.dynamicType)"
+    public static func reuseIdentifierForObject(object: Object, variant: Int) -> String {
+        return "\(object.dynamicType)\(variant)"
     }
 }
 
 extension HostedViewController: AnyHostedViewController {
-    public func downcastUpdateView(view: UIView, withObject object: Any) {
+    func downcastUpdateView(view: UIView, withObject object: Any) {
         updateView(view as! View, withObject: object as! Object)
     }
 
-    public func downcastSelectObject(object: Any) {
+    func downcastSelectObject(object: Any) {
         selectObject(object as! Object)
     }
 
-    public func downcastCanSelectObject(object: Any) -> Bool {
+    func downcastCanSelectObject(object: Any) -> Bool {
         return canSelectObject(object as! Object)
     }
 
-    public func downcastSetViewHighlighted(highlighted: Bool, forObject object: Any) {
+    func downcastSetViewHighlighted(highlighted: Bool, forObject object: Any) {
         setViewHighlighted(highlighted, forObject: object as! Object)
     }
-
+    
     public static func downcast<T, U>(object: T, _ view: U) -> (Any, UIView)? {
         if let object = object as? Object, view = view as? View {
             return (object, view as! UIView)
@@ -55,12 +57,11 @@ public protocol HostedViewControllerType {
     func selectObject(object: Object)
     func canSelectObject(object: Object) -> Bool
     func setViewHighlighted(highlighted: Bool, forObject: Object)
-    func viewForObject(object: Object) -> View
 
-    static func reuseIdentifierForObject(object: Object) -> String
+    static func reuseIdentifierForObject(object: Object, variant: Int) -> String
 }
 
-public protocol AnyHostedViewController {
+protocol AnyHostedViewController {
     func downcastUpdateView(view: UIView, withObject object: Any)
     func downcastSelectObject(object: Any)
     func downcastCanSelectObject(object: Any) -> Bool

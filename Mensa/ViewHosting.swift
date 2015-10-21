@@ -6,12 +6,12 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-import UIKit.UIGeometry
+import UIKit
 
 public typealias CellClass = AnyCell.Type
 
 func loadHostedViewForObject<Object, View: UIView, Cell: HostingCell where Object == Cell.ObjectType, View == Cell.ViewType>(object: Object, inCell cell: Cell) {
-    let hostedView = cell.hostedViewController.viewForObject(object)
+    let hostedView = cell.hostedViewController.view
     hostedView.frame = cell.hostingView.bounds
     hostedView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
     cell.hostingView.addSubview(hostedView)
@@ -24,7 +24,7 @@ func setParentViewContoller<Object, View: UIView, Cell: HostingCell, ViewControl
             return
         }
         
-        let hostedView = hostedViewController.viewForObject(object)
+        let hostedView = hostedViewController.view
         hostedViewController.willMoveToParentViewController(nil)
         hostedView.removeFromSuperview()
         hostedViewController.removeFromParentViewController()
@@ -36,14 +36,13 @@ func setParentViewContoller<Object, View: UIView, Cell: HostingCell, ViewControl
     hostedViewController.didMoveToParentViewController(parentViewController)
 }
 
-
 func adjustLayoutConstraintsForCell<Object, Cell: HostingCell where Object == Cell.ObjectType, Cell.ViewType: UIView>(cell: Cell, object: Object) {
     adjustLayoutConstraintsForCell(cell, forObject: object, toPriority: UILayoutPriorityDefaultHigh)
     addEqualityConstraintsToCell(cell)
 }
 
 private func adjustLayoutConstraintsForCell<Object, Cell: HostingCell where Object == Cell.ObjectType, Cell.ViewType: UIView>(cell: Cell, forObject object: Object, toPriority priority: UILayoutPriority) {
-    let hostedView = cell.hostedViewController.viewForObject(object)
+    let hostedView = cell.hostedViewController.view
     for constraint in hostedView.constraints {
         let adjustedConstraint = NSLayoutConstraint(item: constraint.firstItem, attribute: constraint.firstAttribute, relatedBy: constraint.relation, toItem: constraint.secondItem, attribute: constraint.secondAttribute, multiplier: constraint.multiplier, constant: constraint.constant)
         adjustedConstraint.priority = priority
@@ -76,15 +75,19 @@ public protocol HostingCell: AnyCell {
 }
 
 extension HostingCell {
-    public static func subclassWithViewControllerClass(viewControllerClass: HostedViewController<ObjectType, ViewType>.Type, modelType: ObjectType.Type) -> CellClass {
+    public static func subclassWithViewControllerClass(viewControllerClass: HostedViewController<ObjectType, ViewType>.Type, modelType: ObjectType.Type, variant: Int) -> CellClass {
+        let bundle = NSBundle(forClass: self)
         let modelTypeName = TypeKey(modelType).localDescription
         let className = TypeKey<Any>(self, viewControllerClass, modelType).description
         var subclass: AnyClass? = NSClassFromString(className)
         if subclass == nil {
             subclass = objc_allocateClassPair(self, className.cStringUsingEncoding(NSUTF8StringEncoding)!, 0)
             let block: @convention(block) AnyObject -> UIViewController = { _ in
-                let nibName = modelTypeName + "ViewController"
-                return (viewControllerClass as UIViewController.Type).init(nibName: nibName, bundle: nil)
+                let nibName = modelTypeName + "View"
+                let viewController = (viewControllerClass as UIViewController.Type).init()
+                let contents = bundle.loadNibNamed(nibName, owner: viewController, options: nil)
+                viewController.view = contents[variant] as! UIView
+                return viewController
             }
             let implementation = imp_implementationWithBlock(unsafeBitCast(block, AnyObject.self));
             

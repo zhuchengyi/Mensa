@@ -53,13 +53,14 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
         let modelType = object.dynamicType
         let viewControllerClass: HostedViewController<Object, View>.Type = try! self.dynamicType.viewControllerClassForModelType(modelType)
         
-        let reuseIdentifer = viewControllerClass.reuseIdentifierForObject(object)
+        let variant = variantForObject(object)
+        let reuseIdentifer = viewControllerClass.reuseIdentifierForObject(object, variant: variant)
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifer, forIndexPath: indexPath) as! HostingCollectionViewCell<Object, View>
         let hostedViewController = cell.hostedViewController
         
         willLoadHostedViewController(hostedViewController)
         setParentViewContoller(self, forCell: cell, withObject: object)
-        cell.userInteractionEnabled = hostedViewController.viewForObject(object).userInteractionEnabled
+        cell.userInteractionEnabled = hostedViewController.view.userInteractionEnabled
         dataMediator.useViewController(hostedViewController, withObject: object)
         
         return cell
@@ -103,6 +104,7 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     public func didSelectObject(object: Object) {}
     public func willLoadHostedViewController(viewController: HostedViewController<Object, View>) {}
     public func didUseViewController(viewController: HostedViewController<Object, View>, withObject object: Object) {}
+    public func variantForObject(object: Object) -> Int { return 0 }
 }
 
 private extension CollectionViewController {

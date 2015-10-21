@@ -49,7 +49,7 @@ class ObjectTableViewController: TableViewController<Object, UIView> {
 
     // MARK: DataMediatorDelegate
     override func didUseViewController(viewController: HostedViewController<Object, UIView>, withObject object: Object) {
-        if let number = object as? Number, view = viewController.viewForObject(number) as? NumberView {
+        if let number = object as? Number, view = viewController.view as? NumberView {
             let fontSize = CGFloat(maxFontSize - number.value)
             view.valueLabel.font = view.valueLabel.font.fontWithSize(fontSize)
         }
