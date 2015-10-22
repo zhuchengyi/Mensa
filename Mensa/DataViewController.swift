@@ -22,6 +22,7 @@ extension DataViewController {
         guard let childViewController = dataMediatedViewController as? UIViewController else { return }
         addChildViewController(childViewController)
         view.addSubview(childViewController.view)
+        childViewController.view.frame = view.bounds
         childViewController.didMoveToParentViewController(self)
     }
 }
