@@ -17,6 +17,10 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
     }
 
     private var dataMediator: DataMediator<Object, View, Cell, TableViewController<Object, View>>!
+    
+    public func updateDataAndReloadTableView() {
+        dataMediator.reloadDataWithUpdate(true)
+    }
 
     // MARK: NSObject
     public override class func initialize() {
@@ -131,23 +135,21 @@ extension TableViewController: DataMediatedViewController {
 }
 
 extension TableViewController: DataMediatorDelegate {
-    public typealias ViewType = View
-
-    public var cellClass: Cell.Type {
+    var cellClass: Cell.Type {
         return HostingTableViewCell<Object, View>.self
     }
     
-    public func didReloadWithUpdate(update: Bool) {
+    func didReloadWithUpdate(update: Bool) {
         if (update) {
             tableView.reloadData()
         }
     }
     
-    public func willUseCellClass(cellClass: CellClass, forReuseIdentifier reuseIdentifier: String) {
+    func willUseCellClass(cellClass: CellClass, forReuseIdentifier reuseIdentifier: String) {
         tableView.registerClass(cellClass, forCellReuseIdentifier: reuseIdentifier)
     }
     
-    public func willUseMetricsCell(metricsCell: Cell, forObject object: Object) {
+    func willUseMetricsCell(metricsCell: Cell, forObject object: Object) {
         metricsCell.useAsMetricsCellInTableView(tableView)
         adjustLayoutConstraintsForCell(metricsCell, object: object)
     }

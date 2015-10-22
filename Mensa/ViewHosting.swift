@@ -60,8 +60,12 @@ private func addEqualityConstraintsToCell<Cell: HostingCell>(cell: Cell) {
     }
 }
 
-protocol HostingViewController {
+public protocol HostingViewController {
+    typealias ObjectType
+    typealias ViewType: UIView
+    
     static func registerViewControllers() throws
+    static func registerViewControllerClass<Object, View: UIView>(viewControllerClass: HostedViewController<Object, View>.Type, forModelType modelType: Object.Type) throws
 }
 
 public protocol HostingCell: AnyCell {

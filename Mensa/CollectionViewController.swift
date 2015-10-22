@@ -9,7 +9,7 @@
 import UIKit.UICollectionViewController
 import UIKit.UICollectionViewFlowLayout
 
-public class CollectionViewController<Object, View: UIView>: UICollectionViewController {
+public class CollectionViewController<Object, View: UIView>: UICollectionViewController, HostingViewController {
     public typealias Cell = HostingCollectionViewCell<Object, View>
 
     public var sections: [Section<Object>] {
@@ -18,6 +18,10 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     }
 
     private var dataMediator: DataMediator<Object, View, Cell, CollectionViewController<Object, View>>!
+    
+    public func updateDataAndReloadCollectionView() {
+        dataMediator.reloadDataWithUpdate(true)
+    }
     
     // MARK: NSObject
     public override class func initialize() {

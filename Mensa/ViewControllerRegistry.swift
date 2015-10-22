@@ -8,14 +8,16 @@
 
 import UIKit.UIView
 
+typealias HostingViewControllerType = HostingViewController.Type
+
 private var register: (Void -> Void)?
 private var registeredTypes: [TypeKey<DataMediatorDelegateType>: Any.Type] = [:]
 private var registeredViewControllerClasses: [TypeKey<DataMediatorDelegateType>: [TypeKey<Any>: HostedViewControllerClass]] = [:]
 
 enum RegisterError: ErrorType {
     case ViewControllerUnregistered(viewControllerClass: DataMediatorDelegateType, modelType: Any.Type)
-    case ViewTypeMismatch(viewControllerClass: HostedViewControllerClass, viewType: UIView.Type, hostingViewControllerClass: DataMediatorDelegateType, expectedViewType: UIView.Type)
-    case HostingViewControllerUnderspecified(viewControllerClass: HostedViewControllerClass, modelType: Any.Type, hostingViewControllerClass: DataMediatorDelegateType, underspecifiedModeltype: Any.Type)
+    case ViewTypeMismatch(viewControllerClass: HostedViewControllerClass, viewType: UIView.Type, hostingViewControllerClass: HostingViewControllerType, expectedViewType: UIView.Type)
+    case HostingViewControllerUnderspecified(viewControllerClass: HostedViewControllerClass, modelType: Any.Type, hostingViewControllerClass: HostingViewControllerType, underspecifiedModeltype: Any.Type)
     
     var message: String {
         switch self {
@@ -35,14 +37,13 @@ extension RegisterError: CustomStringConvertible {
     }
 }
 
-
-extension DataMediatorDelegate {
+extension HostingViewController {
     public static func registerViewControllerClass<Object, View: UIView>(viewControllerClass: HostedViewController<Object, View>.Type, forModelType modelType: Object.Type) throws {
         if !(viewControllerClass.View.self is ViewType.Type) {
             throw RegisterError.ViewTypeMismatch(viewControllerClass: viewControllerClass, viewType: View.self, hostingViewControllerClass: self, expectedViewType: ViewType.self)
         }
 
-        let key = TypeKey<DataMediatorDelegateType>(self)
+        let key = TypeKey<DataMediatorDelegateType>(self as! DataMediatorDelegateType)
         let modelTypeKey = TypeKey<Any>(modelType)
         if let existingModelType = registeredTypes[key] {
             let viewController = (viewControllerClass as UIViewController.Type).init(nibName: nil, bundle: nil) as! HostedViewController<Object, View>
@@ -67,8 +68,10 @@ extension DataMediatorDelegate {
             }
         }
     }
-    
-    public static func viewControllerClassForModelType<Object, View>(modelType: Object.Type) throws -> HostedViewController<Object, View>.Type {
+}
+
+extension DataMediatorDelegate {
+    static func viewControllerClassForModelType<Object, View>(modelType: Object.Type) throws -> HostedViewController<Object, View>.Type {
         let key = TypeKey<DataMediatorDelegateType>(self)
         let modelTypeKey = TypeKey<Any>(modelType)
         let registeredClass = registeredViewControllerClasses[key]?[modelTypeKey]
@@ -76,7 +79,7 @@ extension DataMediatorDelegate {
         case let viewControllerClass as HostedViewController<Object, View>.Type:
             return viewControllerClass
         case let viewControllerClass?:
-            throw RegisterError.HostingViewControllerUnderspecified(viewControllerClass: viewControllerClass, modelType: modelType, hostingViewControllerClass: self, underspecifiedModeltype: ObjectType.self)
+            throw RegisterError.HostingViewControllerUnderspecified(viewControllerClass: viewControllerClass, modelType: modelType, hostingViewControllerClass: self as! HostingViewControllerType, underspecifiedModeltype: ObjectType.self)
         default:
             throw RegisterError.ViewControllerUnregistered(viewControllerClass: self, modelType: modelType)
         }

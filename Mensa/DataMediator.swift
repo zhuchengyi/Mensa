@@ -41,6 +41,7 @@ struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMedia
     
     mutating func reloadDataWithUpdate(update: Bool) {
         backingSections = delegate.sections
+        delegate.didReloadWithUpdate(update)
     }
     
     func useViewController(viewController: HostedViewController<Object, View>, withObject object: Object) {
@@ -109,7 +110,7 @@ private extension DataMediator {
     }
 }
 
-public protocol DataMediatorDelegate: class {
+protocol DataMediatorDelegate: class {
     typealias ObjectType
     typealias ViewType: UIView
     typealias HostingCellType: HostingCell
