@@ -8,16 +8,16 @@
 
 import UIKit.UILabel
 
-class MultilineLabel: UILabel {}
+public class MultilineLabel: UILabel {}
 
 extension MultilineLabel {
-    override func awakeFromNib() {
+    override public func awakeFromNib() {
         numberOfLines = 0
     }
 }
 
 extension MultilineLabel {
-    override var bounds: CGRect {
+    override public var bounds: CGRect {
         didSet {
             preferredMaxLayoutWidth = CGRectGetWidth(bounds)
         }
