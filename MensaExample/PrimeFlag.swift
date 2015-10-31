@@ -8,8 +8,4 @@
 
 struct PrimeFlag {
     let number: Number
-
-    init(number: Number) {
-        self.number = number
-    }
 }

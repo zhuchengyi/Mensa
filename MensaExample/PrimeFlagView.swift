@@ -13,6 +13,12 @@ class PrimeFlagView: UIView {
     @IBOutlet private(set) weak var textLabel: UILabel?
     private(set) var formatString: String!
     
+    enum Style: Int {
+        case Default
+        case Compact
+    }
+    
+    // MARK: NSObject
     override func awakeFromNib() {
         formatString = textLabel?.text
     }

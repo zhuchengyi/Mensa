@@ -10,6 +10,7 @@ import Mensa
 import UIKit
 
 class NumberViewController: HostedViewController<Number, NumberView> {
+    // MARK: HostedViewController
     override func updateView(view: NumberView, withObject number: Number) {
         view.valueLabel.text = "\(number.value)"
     }

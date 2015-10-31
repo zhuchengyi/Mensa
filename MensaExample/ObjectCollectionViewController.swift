@@ -40,7 +40,7 @@ class ObjectCollectionViewController: CollectionViewController<Object, UIView> {
     // MARK: DataMediatorDelegate
     override func variantForObject(object: Object) -> Int {
         if object is PrimeFlag {
-            return 1
+            return PrimeFlagView.Style.Compact.rawValue
         }
         return super.variantForObject(object)
     }
