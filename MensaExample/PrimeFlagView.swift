@@ -7,7 +7,7 @@
 //
 
 import Mensa
-import UIKit.UIView
+import UIKit
 
 class PrimeFlagView: UIView {
     enum Style: Int {

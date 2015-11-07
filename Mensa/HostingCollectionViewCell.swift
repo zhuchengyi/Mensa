@@ -6,8 +6,7 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-import UIKit.UICollectionViewCell
-import UIKit.UIView
+import UIKit
 
 public class HostingCollectionViewCell<Object, View>: UICollectionViewCell, HostingCell {
     public var layoutInsets = UIEdgeInsetsZero

@@ -6,8 +6,7 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-import UIKit.UITextField
-import UIKit.UIViewController
+import UIKit
 
 class PropertyViewController<T>: HostedViewController<Property<T>, PropertyView>, UITextFieldDelegate {
     private var inputProperty: Property<T>?

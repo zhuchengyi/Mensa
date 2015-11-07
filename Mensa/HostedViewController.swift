@@ -6,8 +6,7 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-import UIKit.UIView
-import UIKit.UIViewController
+import UIKit
 
 public class HostedViewController<Object, View>: UIViewController, HostedViewControllerType {
     var hostedView: View {

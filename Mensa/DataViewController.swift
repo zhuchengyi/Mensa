@@ -6,7 +6,7 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-import UIKit.UIViewController
+import UIKit
 
 public class DataViewController: UIViewController {
     public var dataMediatedViewController: DataMediatedViewController {

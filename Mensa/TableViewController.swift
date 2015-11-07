@@ -6,7 +6,7 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-import UIKit.UITableViewController
+import UIKit
 
 public class TableViewController<Object, View: UIView>: UITableViewController, HostingViewController {
     public typealias Cell = HostingTableViewCell<Object, View>

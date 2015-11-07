@@ -6,8 +6,7 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-import UIKit.UIImageView
-import UIKit.UISwitch
+import UIKit
 
 class PropertyView: UIView {
     @IBOutlet private(set) weak var nameLabel: UILabel!

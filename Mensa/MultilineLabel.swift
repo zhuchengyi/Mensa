@@ -6,7 +6,7 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-import UIKit.UILabel
+import UIKit
 
 public class MultilineLabel: UILabel {}
 

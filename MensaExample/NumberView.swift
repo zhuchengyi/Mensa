@@ -7,7 +7,7 @@
 //
 
 import Mensa
-import UIKit.UIView
+import UIKit
 
 class NumberView: UIView {
     @IBOutlet private(set) weak var valueLabel: UILabel!

@@ -6,8 +6,7 @@
 //  Copyright © 2015 Tangible. All rights reserved.
 //
 
-import UIKit.UICollectionViewController
-import UIKit.UICollectionViewFlowLayout
+import UIKit
 
 public class CollectionViewController<Object, View: UIView>: UICollectionViewController, HostingViewController {
     public typealias Cell = HostingCollectionViewCell<Object, View>

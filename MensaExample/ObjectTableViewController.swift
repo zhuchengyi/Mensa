@@ -7,7 +7,7 @@
 //
 
 import Mensa
-import UIKit.UITableView
+import UIKit
 
 private let numberCount = 100
 private let maxFontSize = 114
