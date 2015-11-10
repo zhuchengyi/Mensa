@@ -43,8 +43,8 @@ struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMedia
         delegate.didReloadWithUpdate(update)
     }
     
-    func useViewController(viewController: HostedViewController<Object, View>, withObject object: Object) {
-        viewController.updateView(viewController.hostedView, withObject: object)
+    func useViewController(viewController: HostedViewController<Object, View>, withObject object: Object, displayed: Bool) {
+        viewController.updateView(viewController.hostedView, withObject: object, displayed: displayed)
         delegate.didUseViewController(viewController, withObject: object)
     }
     

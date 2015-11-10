@@ -11,7 +11,7 @@ import UIKit
 
 class NumberViewController: HostedViewController<Number, NumberView> {
     // MARK: HostedViewController
-    override func updateView(view: NumberView, withObject number: Number) {
+    override func updateView(view: NumberView, withObject number: Number, displayed: Bool) {
         view.valueLabel.text = "\(number.value)"
     }
     

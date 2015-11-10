@@ -64,7 +64,7 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
         willLoadHostedViewController(hostedViewController)
         setParentViewContoller(self, forCell: cell, withObject: object)
         cell.userInteractionEnabled = hostedViewController.view.userInteractionEnabled
-        dataMediator.useViewController(hostedViewController, withObject: object)
+        dataMediator.useViewController(hostedViewController, withObject: object, displayed: true)
         
         return cell
     }
@@ -95,7 +95,7 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
         let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
         guard let metricsCell = dataMediator.metricsCellForObject(object) else { return layout.itemSize }
         
-        dataMediator.useViewController(metricsCell.hostedViewController, withObject: object)
+        dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
         metricsCell.setNeedsUpdateConstraints()
         return metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
     }

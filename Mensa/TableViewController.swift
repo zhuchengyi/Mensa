@@ -72,7 +72,7 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
         willLoadHostedViewController(hostedViewController)
         setParentViewContoller(self, forCell: cell, withObject: object)
         cell.userInteractionEnabled = hostedViewController.view.userInteractionEnabled
-        dataMediator.useViewController(hostedViewController, withObject: object)
+        dataMediator.useViewController(hostedViewController, withObject: object, displayed: true)
         
         return cell
     }
@@ -83,7 +83,7 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
         guard let metricsCell = dataMediator.metricsCellForObject(object) else { return 0.0 }
         
         metricsCell.frame.size.width = CGRectGetWidth(tableView.bounds) - metricsCell.layoutInsets.left - metricsCell.layoutInsets.right - 1.0
-        dataMediator.useViewController(metricsCell.hostedViewController, withObject: object)
+        dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
         metricsCell.setNeedsUpdateConstraints()
         
         let size = metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
