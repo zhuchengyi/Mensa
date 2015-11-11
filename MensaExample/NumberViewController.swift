@@ -22,7 +22,6 @@ class NumberViewController: HostedViewController<Number, NumberView> {
         let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
         alertController.addAction(dismissAction)
 
-        let presenter = UIApplication.sharedApplication().keyWindow?.rootViewController
-        presenter?.presentViewController(alertController, animated: true, completion: nil)
+        presentViewController(alertController, animated: true, completion: nil)
     }
 }

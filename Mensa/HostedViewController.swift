@@ -9,6 +9,8 @@
 import UIKit
 
 public class HostedViewController<Object, View>: UIViewController, HostedViewControllerType {
+    weak var visibleViewController: UIViewController?
+    
     var hostedView: View {
         return view as! View
     }
@@ -20,6 +22,23 @@ public class HostedViewController<Object, View>: UIViewController, HostedViewCon
 
     public static func reuseIdentifierForObject(object: Object, variant: Int) -> String {
         return "\(object.dynamicType)\(variant)"
+    }
+    
+    // MARK: UIViewController
+    public override func addChildViewController(childController: UIViewController) {
+        if let viewController = visibleViewController {
+            viewController.addChildViewController(childController)
+        } else {
+            super.addChildViewController(childController)
+        }
+    }
+    
+    public override func presentViewController(viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
+        if let viewController = visibleViewController {
+            viewController.presentViewController(viewControllerToPresent, animated: flag, completion: completion)
+        } else {
+            super.presentViewController(viewControllerToPresent, animated: flag, completion: completion)
+        }
     }
 }
 
@@ -61,6 +80,8 @@ public protocol HostedViewControllerType {
 }
 
 protocol AnyHostedViewController {
+    var visibleViewController: UIViewController? { get set }
+    
     func downcastUpdateView(view: UIView, withObject object: Any, displayed: Bool)
     func downcastSelectObject(object: Any)
     func downcastCanSelectObject(object: Any) -> Bool

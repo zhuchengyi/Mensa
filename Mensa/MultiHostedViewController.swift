@@ -27,7 +27,10 @@ public class MultiHostedViewController<Object, View: UIView>: HostedViewControll
 
     // MARK: HostedViewController
     public override func updateView(view: View, withObject object: Object, displayed: Bool) {
-        if let viewController = registeredViewControllerForType(object.dynamicType) {
+        if var viewController = registeredViewControllerForType(object.dynamicType) {
+            if displayed {
+                viewController.visibleViewController = self
+            }
             viewController.downcastUpdateView(view, withObject: object, displayed: displayed)
         }
     }
