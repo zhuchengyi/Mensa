@@ -19,7 +19,7 @@ public struct Section<Object> {
         self.objects = objects
     }
     
-    subscript(index: Int) -> Object {
+    public subscript(index: Int) -> Object {
         return objects[index]
     }
 }
