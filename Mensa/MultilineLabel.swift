@@ -13,6 +13,7 @@ public class MultilineLabel: UILabel {}
 extension MultilineLabel {
     override public func awakeFromNib() {
         numberOfLines = 0
+        lineBreakMode = .ByWordWrapping
     }
 }
 
