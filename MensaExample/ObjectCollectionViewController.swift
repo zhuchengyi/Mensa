@@ -38,14 +38,14 @@ class ObjectCollectionViewController: CollectionViewController<Object, UIView> {
     }
 
     // MARK: DataMediatorDelegate
-    override func variantForObject(object: Object) -> Int {
+    override func dataMediator(dataMediator: DataMediatorType, variantForObject object: Object) -> Int {
         if object is PrimeFlag {
             return PrimeFlagView.Style.Compact.rawValue
         }
-        return super.variantForObject(object)
+        return super.dataMediator(dataMediator, variantForObject: object)
     }
 
-    override func didUseViewController(viewController: HostedViewController<Object, UIView>, withObject object: Object) {
+    override func dataMediator(dataMediator: DataMediatorType, didUseViewController viewController: HostedViewController<Object, UIView>, withObject object: Object) {
         if let number = object as? Number, view = viewController.view as? NumberView {
             let fontSize = CGFloat(maxFontSize - number.value)
             view.valueLabel.font = view.valueLabel.font.fontWithSize(fontSize)

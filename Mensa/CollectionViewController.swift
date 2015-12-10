@@ -16,10 +16,10 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
         fatalError()
     }
 
-    private var dataMediator: DataMediator<Object, View, Cell, CollectionViewController<Object, View>>!
+    private var _dataMediator: DataMediator<Object, View, Cell, CollectionViewController<Object, View>>!
     
     public func updateDataAndReloadCollectionView() {
-        dataMediator.reloadDataWithUpdate(true)
+        _dataMediator.reloadDataWithUpdate(true)
     }
     
     // MARK: NSObject
@@ -33,38 +33,38 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     // MARK: UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
-        dataMediator.reloadDataWithUpdate(false)
+        _dataMediator.reloadDataWithUpdate(false)
     }
 
     // MARK: UICollectionViewController
     public required override init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(collectionViewLayout: layout)
-        dataMediator = DataMediator(delegate: self)
+        _dataMediator = DataMediator(delegate: self)
     }
 
     // MARK: UICollectionViewDataSource
     public override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return dataMediator.numberOfSections
+        return _dataMediator.numberOfSections
     }
     
     public override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataMediator.numberOfObjectsInSection(section)
+        return _dataMediator.numberOfObjectsInSection(section)
     }
     
     public override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
+        let object = _dataMediator.backingObjectForRowAtIndexPath(indexPath)
         let modelType = object.dynamicType
         let viewControllerClass: HostedViewController<Object, View>.Type = try! self.dynamicType.viewControllerClassForModelType(modelType)
         
-        let variant = variantForObject(object)
+        let variant = dataMediator(_dataMediator, variantForObject: object)
         let reuseIdentifer = viewControllerClass.reuseIdentifierForObject(object, variant: variant)
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifer, forIndexPath: indexPath) as! HostingCollectionViewCell<Object, View>
         let hostedViewController = cell.hostedViewController
         
-        willLoadHostedViewController(hostedViewController)
+        dataMediator(_dataMediator, willLoadHostedViewController: hostedViewController)
         setParentViewContoller(self, forCell: cell, withObject: object)
         cell.userInteractionEnabled = hostedViewController.view.userInteractionEnabled
-        dataMediator.useViewController(hostedViewController, withObject: object, displayed: true)
+        _dataMediator.useViewController(hostedViewController, withObject: object, displayed: true)
         
         return cell
     }
@@ -72,12 +72,12 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     // MARK: UICollectionViewDelegate
     public override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         guard let (object, hostedViewController) = objectAndHostedViewControllerForItemAtIndexPath(indexPath) else { return false }
-        return dataMediator.canSelectObject(object, forViewController: hostedViewController)
+        return _dataMediator.canSelectObject(object, forViewController: hostedViewController)
     }
     
     public override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         guard let (object, hostedViewController) = objectAndHostedViewControllerForItemAtIndexPath(indexPath) else { return }
-        dataMediator.selectObject(object, forViewController: hostedViewController)
+        _dataMediator.selectObject(object, forViewController: hostedViewController)
     }
     
     public override func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
@@ -92,10 +92,10 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     
     // MARK: UICollectionViewDelegateFlowLayout
     public func collectionView(collectionView: UICollectionView, layout: UICollectionViewFlowLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
-        guard let metricsCell = dataMediator.metricsCellForObject(object) else { return layout.itemSize }
+        let object = _dataMediator.backingObjectForRowAtIndexPath(indexPath)
+        guard let metricsCell = _dataMediator.metricsCellForObject(object) else { return layout.itemSize }
         
-        dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
+        _dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
         metricsCell.setNeedsUpdateConstraints()
         return metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
     }
@@ -104,15 +104,34 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     class public func registerViewControllers() throws {}
 
     // MARK: DataMediatorDelegate
-    public func didSelectObject(object: Object) {}
-    public func willLoadHostedViewController(viewController: HostedViewController<Object, View>) {}
-    public func didUseViewController(viewController: HostedViewController<Object, View>, withObject object: Object) {}
-    public func variantForObject(object: Object) -> Int { return 0 }
+    public func dataMediator(dataMediator: DataMediatorType, didSelectObject object: Object) {}
+    public func dataMediator(dataMediator: DataMediatorType, willLoadHostedViewController viewController: HostedViewController<Object, View>) {}
+    public func dataMediator(dataMediator: DataMediatorType, didUseViewController viewController: HostedViewController<Object, View>, withObject object: Object) {}
+    
+    public func dataMediator(dataMediator: DataMediatorType, didReloadWithUpdate update: Bool) {
+        if (update) {
+            collectionView?.reloadData()
+        }
+    }
+    
+    public func dataMediator(dataMediator: DataMediatorType, variantForObject object: Object) -> Int {
+        return 0
+    }
+    
+    public func dataMediator(dataMediator: DataMediatorType, willUseCellClass cellClass: CellClass, forReuseIdentifier reuseIdentifier: String) {
+        collectionView?.registerClass(cellClass, forCellWithReuseIdentifier: reuseIdentifier)
+    }
+    
+    public func dataMediator(dataMediator: DataMediatorType, willUseMetricsCell metricsCell: Cell, forObject object: Object) {
+        guard let collectionView = collectionView else { return }
+        metricsCell.useAsMetricsCellInCollectionView(collectionView)
+        adjustLayoutConstraintsForCell(metricsCell, object: object)
+    }
 }
 
 private extension CollectionViewController {
     func objectAndHostedViewControllerForItemAtIndexPath(indexPath: NSIndexPath) -> (Object, HostedViewController<Object, View>)? {
-        let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
+        let object = _dataMediator.backingObjectForRowAtIndexPath(indexPath)
         guard let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? HostingCollectionViewCell<Object, View> else { return nil }
         return (object, cell.hostedViewController)
     }
@@ -126,24 +145,8 @@ extension CollectionViewController: DataMediatedViewController {
 
 extension CollectionViewController: DataMediatorDelegate {
     public typealias ViewType = View
-
+    
     public var cellClass: Cell.Type {
         return HostingCollectionViewCell<Object, View>.self
-    }
-    
-    public func didReloadWithUpdate(update: Bool) {
-        if (update) {
-            collectionView?.reloadData()
-        }
-    }
-    
-    public func willUseCellClass(cellClass: CellClass, forReuseIdentifier reuseIdentifier: String) {
-        collectionView?.registerClass(cellClass, forCellWithReuseIdentifier: reuseIdentifier)
-    }
-    
-    public func willUseMetricsCell(metricsCell: Cell, forObject object: Object) {
-        guard let collectionView = collectionView else { return }
-        metricsCell.useAsMetricsCellInCollectionView(collectionView)
-        adjustLayoutConstraintsForCell(metricsCell, object: object)
     }
 }

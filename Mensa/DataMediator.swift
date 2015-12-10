@@ -11,7 +11,7 @@ import UIKit
 typealias HostedViewControllerClass = HostedViewControllerType.Type
 typealias DataMediatorDelegateType = DataMediatorDelegate.Type
 
-struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMediatorDelegate where Object == Delegate.ObjectType, Object == Cell.ObjectType, View == Cell.ViewType, View == Delegate.ViewType, Cell == Delegate.HostingCellType> {
+public struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMediatorDelegate where Object == Delegate.ObjectType, Object == Cell.ObjectType, View == Cell.ViewType, View == Delegate.ViewType, Cell == Delegate.HostingCellType>: DataMediatorType {
     private var metricsCells: [String: Cell] = [:]
     private unowned let delegate: Delegate
 
@@ -40,12 +40,12 @@ struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMedia
     
     mutating func reloadDataWithUpdate(update: Bool) {
         backingSections = delegate.sections
-        delegate.didReloadWithUpdate(update)
+        delegate.dataMediator(self, didReloadWithUpdate: update)
     }
     
     func useViewController(viewController: HostedViewController<Object, View>, withObject object: Object, displayed: Bool) {
         viewController.updateView(viewController.hostedView, withObject: object, displayed: displayed)
-        delegate.didUseViewController(viewController, withObject: object)
+        delegate.dataMediator(self, didUseViewController: viewController, withObject: object)
     }
     
     func canSelectObject(object: Object, forViewController viewController: HostedViewController<Object, View>) -> Bool {
@@ -54,7 +54,7 @@ struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: DataMedia
     
     func selectObject(object: Object, forViewController viewController: HostedViewController<Object, View>) {
         viewController.selectObject(object)
-        delegate.didSelectObject(object)
+        delegate.dataMediator(self, didSelectObject: object)
     }
     
     func metricsCellForObject(object: Object) -> Cell? {
@@ -83,7 +83,7 @@ private extension DataMediator {
     func reuseIdentifierForObject(object: Object) -> String {
         let modelType = object.dynamicType
         let viewControllerClass: HostedViewController<Object, View>.Type = try! delegate.dynamicType.viewControllerClassForModelType(modelType)
-        let variant = delegate.variantForObject(object)
+        let variant = delegate.dataMediator(self, variantForObject: object)
         return viewControllerClass.reuseIdentifierForObject(object, variant: variant)
     }
     
@@ -92,24 +92,26 @@ private extension DataMediator {
         let viewControllerClass: HostedViewController<Object, View>.Type = try! delegate.dynamicType.viewControllerClassForModelType(modelType)
 
         var metricsCell: Cell!
-        let variant = delegate.variantForObject(object)
+        let variant = delegate.dataMediator(self, variantForObject: object)
         let reuseIdentifier = viewControllerClass.reuseIdentifierForObject(object, variant: variant)
         let cellClass = delegate.cellClass.subclassWithViewControllerClass(viewControllerClass, modelType: object.dynamicType, variant: variant)
-        delegate.willUseCellClass(cellClass, forReuseIdentifier: reuseIdentifier)
+        delegate.dataMediator(self, willUseCellClass: cellClass, forReuseIdentifier: reuseIdentifier)
         if let cellClass = cellClass as? UITableViewCell.Type {
             metricsCell = cellClass.init() as? Cell
         } else if let cellClass = cellClass as? UICollectionViewCell.Type {
             metricsCell = cellClass.init() as? Cell
         }
         
-        delegate.willLoadHostedViewController(metricsCell.hostedViewController)
+        delegate.dataMediator(self, willLoadHostedViewController: metricsCell.hostedViewController)
         loadHostedViewForObject(object, inCell: metricsCell)
-        delegate.willUseMetricsCell(metricsCell, forObject: object)
+        delegate.dataMediator(self, willUseMetricsCell: metricsCell, forObject: object)
         return metricsCell
     }
 }
 
-protocol DataMediatorDelegate: class {
+public protocol DataMediatorType {}
+
+public protocol DataMediatorDelegate: class {
     typealias ObjectType
     typealias ViewType: UIView
     typealias HostingCellType: HostingCell
@@ -117,13 +119,13 @@ protocol DataMediatorDelegate: class {
     var sections: [Section<ObjectType>] { get }
     var cellClass: HostingCellType.Type { get }
 
-    func didReloadWithUpdate(update: Bool)
-    func willUseCellClass(cellClass: CellClass, forReuseIdentifier reuseIdentifier: String)
-    func variantForObject(object: ObjectType) -> Int
-    func willUseMetricsCell(metricsCell: HostingCellType, forObject: ObjectType)
-    func didSelectObject(object: ObjectType)
-    func willLoadHostedViewController(viewController: HostedViewController<ObjectType, ViewType>)
-    func didUseViewController(viewController: HostedViewController<ObjectType, ViewType>, withObject object: ObjectType)
+    func dataMediator(dataMediator: DataMediatorType, didReloadWithUpdate update: Bool)
+    func dataMediator(dataMediator: DataMediatorType, willUseCellClass cellClass: CellClass, forReuseIdentifier reuseIdentifier: String)
+    func dataMediator(dataMediator: DataMediatorType, willUseMetricsCell metricsCell: HostingCellType, forObject: ObjectType)
+    func dataMediator(dataMediator: DataMediatorType, variantForObject object: ObjectType) -> Int
+    func dataMediator(dataMediator: DataMediatorType, didSelectObject object: ObjectType)
+    func dataMediator(dataMediator: DataMediatorType, willLoadHostedViewController viewController: HostedViewController<ObjectType, ViewType>)
+    func dataMediator(dataMediator: DataMediatorType, didUseViewController viewController: HostedViewController<ObjectType, ViewType>, withObject object: ObjectType)
 }
 
 public protocol DataMediatedViewController {

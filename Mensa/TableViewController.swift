@@ -16,10 +16,10 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
         fatalError()
     }
 
-    private var dataMediator: DataMediator<Object, View, Cell, TableViewController<Object, View>>!
+    private var _dataMediator: DataMediator<Object, View, Cell, TableViewController<Object, View>>!
     
     public func updateDataAndReloadTableView() {
-        dataMediator.reloadDataWithUpdate(true)
+        _dataMediator.reloadDataWithUpdate(true)
     }
 
     // MARK: NSObject
@@ -33,57 +33,57 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
     // MARK: UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
-        dataMediator.reloadDataWithUpdate(false)
+        _dataMediator.reloadDataWithUpdate(false)
     }
 
     // MARK: UITableViewController
     public required override init(style: UITableViewStyle) {
         super.init(style: style)
-        dataMediator = DataMediator(delegate: self)
+        _dataMediator = DataMediator(delegate: self)
     }
 
     // MARK: UITableViewControllerDataSource
     public override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return dataMediator.numberOfSections
+        return _dataMediator.numberOfSections
     }
     
     public override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataMediator.numberOfObjectsInSection(section)
+        return _dataMediator.numberOfObjectsInSection(section)
     }
     
     public override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return dataMediator.titleForSection(section)
+        return _dataMediator.titleForSection(section)
     }
     
     public override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return dataMediator.summaryForSection(section)
+        return _dataMediator.summaryForSection(section)
     }
 
     public override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
+        let object = _dataMediator.backingObjectForRowAtIndexPath(indexPath)
         let modelType = object.dynamicType
         let viewControllerClass: HostedViewController<Object, View>.Type = try! self.dynamicType.viewControllerClassForModelType(modelType)
 
-        let variant = variantForObject(object)
+        let variant = dataMediator(_dataMediator, variantForObject: object)
         let reuseIdentifier = viewControllerClass.reuseIdentifierForObject(object, variant: variant)
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! HostingTableViewCell<Object, View>
         let hostedViewController = cell.hostedViewController
         
-        willLoadHostedViewController(hostedViewController)
+        dataMediator(_dataMediator, willLoadHostedViewController: hostedViewController)
         setParentViewContoller(self, forCell: cell, withObject: object)
         cell.userInteractionEnabled = hostedViewController.view.userInteractionEnabled
-        dataMediator.useViewController(hostedViewController, withObject: object, displayed: true)
+        _dataMediator.useViewController(hostedViewController, withObject: object, displayed: true)
         
         return cell
     }
     
     // MARK: UITableViewControllerDelegate
     public override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
-        guard let metricsCell = dataMediator.metricsCellForObject(object) else { return 0.0 }
+        let object = _dataMediator.backingObjectForRowAtIndexPath(indexPath)
+        guard let metricsCell = _dataMediator.metricsCellForObject(object) else { return 0.0 }
         
         metricsCell.frame.size.width = CGRectGetWidth(tableView.bounds) - metricsCell.layoutInsets.left - metricsCell.layoutInsets.right - 1.0
-        dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
+        _dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
         metricsCell.setNeedsUpdateConstraints()
         
         let size = metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
@@ -92,12 +92,12 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
     
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let (object, hostedViewController) = objectAndHostedViewControllerForRowAtIndexPath(indexPath) else { return }
-        dataMediator.selectObject(object, forViewController: hostedViewController)
+        _dataMediator.selectObject(object, forViewController: hostedViewController)
     }
     
     public override func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         guard let (object, hostedViewController) = objectAndHostedViewControllerForRowAtIndexPath(indexPath) else { return false }
-        return dataMediator.canSelectObject(object, forViewController: hostedViewController)
+        return _dataMediator.canSelectObject(object, forViewController: hostedViewController)
     }
 
     public override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
@@ -114,15 +114,33 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
     class public func registerViewControllers() throws {}
 
     // MARK: DataMediatorDelegate
-    public func didSelectObject(object: Object) {}
-    public func willLoadHostedViewController(viewController: HostedViewController<Object, View>) {}
-    public func didUseViewController(viewController: HostedViewController<Object, View>, withObject object: Object) {}
-    public func variantForObject(object: Object) -> Int { return 0 }
+    public func dataMediator(dataMediator: DataMediatorType, didSelectObject object: Object) {}
+    public func dataMediator(dataMediator: DataMediatorType, willLoadHostedViewController viewController: HostedViewController<Object, View>) {}
+    public func dataMediator(dataMediator: DataMediatorType, didUseViewController viewController: HostedViewController<Object, View>, withObject object: Object) {}
+    
+    public func dataMediator(dataMediator: DataMediatorType, didReloadWithUpdate update: Bool) {
+        if (update) {
+            tableView.reloadData()
+        }
+    }
+    
+    public func dataMediator(dataMediator: DataMediatorType, variantForObject object: Object) -> Int {
+        return 0
+    }
+    
+    public func dataMediator(dataMediator: DataMediatorType, willUseCellClass cellClass: CellClass, forReuseIdentifier reuseIdentifier: String) {
+        tableView.registerClass(cellClass, forCellReuseIdentifier: reuseIdentifier)
+    }
+    
+    public func dataMediator(dataMediator: DataMediatorType, willUseMetricsCell metricsCell: Cell, forObject object: Object) {
+        metricsCell.useAsMetricsCellInTableView(tableView)
+        adjustLayoutConstraintsForCell(metricsCell, object: object)
+    }
 }
 
 private extension TableViewController {
     func objectAndHostedViewControllerForRowAtIndexPath(indexPath: NSIndexPath) -> (Object, HostedViewController<Object, View>)? {
-        let object = dataMediator.backingObjectForRowAtIndexPath(indexPath)
+        let object = _dataMediator.backingObjectForRowAtIndexPath(indexPath)
         guard let cell = tableView.cellForRowAtIndexPath(indexPath) as? HostingTableViewCell<Object, View> else { return nil }
         return (object, cell.hostedViewController)
     }
@@ -135,22 +153,7 @@ extension TableViewController: DataMediatedViewController {
 }
 
 extension TableViewController: DataMediatorDelegate {
-    var cellClass: Cell.Type {
+    public var cellClass: Cell.Type {
         return HostingTableViewCell<Object, View>.self
-    }
-    
-    func didReloadWithUpdate(update: Bool) {
-        if (update) {
-            tableView.reloadData()
-        }
-    }
-    
-    func willUseCellClass(cellClass: CellClass, forReuseIdentifier reuseIdentifier: String) {
-        tableView.registerClass(cellClass, forCellReuseIdentifier: reuseIdentifier)
-    }
-    
-    func willUseMetricsCell(metricsCell: Cell, forObject object: Object) {
-        metricsCell.useAsMetricsCellInTableView(tableView)
-        adjustLayoutConstraintsForCell(metricsCell, object: object)
     }
 }
