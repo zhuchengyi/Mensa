@@ -97,6 +97,7 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
         
         _dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
         metricsCell.setNeedsUpdateConstraints()
+        metricsCell.contentView.layoutSubviews()
         return metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
     }
 

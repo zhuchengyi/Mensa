@@ -85,6 +85,7 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
         metricsCell.frame.size.width = CGRectGetWidth(tableView.bounds) - metricsCell.layoutInsets.left - metricsCell.layoutInsets.right - 1.0
         _dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
         metricsCell.setNeedsUpdateConstraints()
+        metricsCell.contentView.layoutSubviews()
         
         let size = metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
         return size.height + 1.0
