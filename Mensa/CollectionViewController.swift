@@ -22,6 +22,16 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
         _dataMediator.reloadDataWithUpdate(true)
     }
     
+    public func sizeForItemAtIndexPath(indexPath: NSIndexPath, layout: UICollectionViewFlowLayout) -> CGSize {
+        let object = _dataMediator.backingObjectForRowAtIndexPath(indexPath)
+        guard let metricsCell = _dataMediator.metricsCellForObject(object) else { return layout.itemSize }
+        
+        _dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
+        metricsCell.setNeedsUpdateConstraints()
+        metricsCell.contentView.layoutIfNeeded()
+        return metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
+    }
+    
     // MARK: NSObject
     public override class func initialize() {
         var token: dispatch_once_t = 0
@@ -92,13 +102,7 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     
     // MARK: UICollectionViewDelegateFlowLayout
     public func collectionView(collectionView: UICollectionView, layout: UICollectionViewFlowLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let object = _dataMediator.backingObjectForRowAtIndexPath(indexPath)
-        guard let metricsCell = _dataMediator.metricsCellForObject(object) else { return layout.itemSize }
-        
-        _dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
-        metricsCell.setNeedsUpdateConstraints()
-        metricsCell.contentView.layoutIfNeeded()
-        return metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
+        return sizeForItemAtIndexPath(indexPath, layout: layout)
     }
 
     // MARK: HostingViewController
