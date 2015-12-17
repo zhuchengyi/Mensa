@@ -94,7 +94,7 @@ private extension DataMediator {
         var metricsCell: Cell!
         let variant = delegate.dataMediator(self, variantForObject: object)
         let reuseIdentifier = viewControllerClass.reuseIdentifierForObject(object, variant: variant)
-        let cellClass = delegate.cellClass.subclassWithViewControllerClass(viewControllerClass, modelType: object.dynamicType, variant: variant)
+        let cellClass = delegate.dataMediatorCellClass(self).subclassWithViewControllerClass(viewControllerClass, modelType: object.dynamicType, variant: variant)
         delegate.dataMediator(self, willUseCellClass: cellClass, forReuseIdentifier: reuseIdentifier)
         if let cellClass = cellClass as? UITableViewCell.Type {
             metricsCell = cellClass.init() as? Cell
@@ -116,11 +116,10 @@ public protocol DataMediatorDelegate: class {
     typealias ViewType: UIView
     typealias HostingCellType: HostingCell
 
-    var cellClass: HostingCellType.Type { get }
-
     func dataMediator(dataMediator: DataMediatorType, didReloadWithUpdate update: Bool)
     func dataMediator(dataMediator: DataMediatorType, willUseCellClass cellClass: CellClass, forReuseIdentifier reuseIdentifier: String)
     func dataMediator(dataMediator: DataMediatorType, willUseMetricsCell metricsCell: HostingCellType, forObject: ObjectType)
+    func dataMediatorCellClass(dataMediator: DataMediatorType) -> HostingCellType.Type
     func dataMediator(dataMediator: DataMediatorType, variantForObject object: ObjectType) -> Int
     func dataMediator(dataMediator: DataMediatorType, didSelectObject object: ObjectType)
     func dataMediator(dataMediator: DataMediatorType, willLoadHostedViewController viewController: HostedViewController<ObjectType, ViewType>)

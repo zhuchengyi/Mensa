@@ -153,7 +153,7 @@ extension TableViewController: DataMediatedViewController {
 }
 
 extension TableViewController: DataMediatorDelegate {
-    public var cellClass: Cell.Type {
+    public func dataMediatorCellClass(dataMediator: DataMediatorType) -> Cell.Type {
         return HostingTableViewCell<Object, View>.self
     }
 }

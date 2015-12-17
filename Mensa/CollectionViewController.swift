@@ -148,9 +148,7 @@ extension CollectionViewController: DataMediatedViewController {
 }
 
 extension CollectionViewController: DataMediatorDelegate {
-    public typealias ViewType = View
-    
-    public var cellClass: Cell.Type {
+    public func dataMediatorCellClass(dataMediator: DataMediatorType) -> Cell.Type {
         return HostingCollectionViewCell<Object, View>.self
     }
 }
