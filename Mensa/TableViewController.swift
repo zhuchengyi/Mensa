@@ -12,14 +12,13 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
     public typealias Cell = HostingTableViewCell<Object, View>
 
     public var sections: [Section<Object>] {
-        // Subclasses override
-        fatalError()
+        return []
     }
 
     private var _dataMediator: DataMediator<Object, View, Cell, TableViewController<Object, View>>!
     
-    public func updateDataAndReloadTableView() {
-        _dataMediator.reloadDataWithUpdate(true)
+    public func updateDataAndReloadTableView(data: [Section<Object>]? = nil) {
+        _dataMediator.reloadData(data ?? sections, withUpdate:true)
     }
 
     // MARK: NSObject
@@ -33,7 +32,7 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
     // MARK: UIViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
-        _dataMediator.reloadDataWithUpdate(false)
+        _dataMediator.reloadData(sections, withUpdate: false)
     }
 
     // MARK: UITableViewController

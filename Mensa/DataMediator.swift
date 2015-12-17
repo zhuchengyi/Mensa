@@ -38,8 +38,8 @@ public struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: Da
         self.delegate = delegate
     }
     
-    mutating func reloadDataWithUpdate(update: Bool) {
-        backingSections = delegate.sections
+    mutating func reloadData(data: [Section<Object>], withUpdate update: Bool) {
+        backingSections = data
         delegate.dataMediator(self, didReloadWithUpdate: update)
     }
     
@@ -116,7 +116,6 @@ public protocol DataMediatorDelegate: class {
     typealias ViewType: UIView
     typealias HostingCellType: HostingCell
 
-    var sections: [Section<ObjectType>] { get }
     var cellClass: HostingCellType.Type { get }
 
     func dataMediator(dataMediator: DataMediatorType, didReloadWithUpdate update: Bool)
