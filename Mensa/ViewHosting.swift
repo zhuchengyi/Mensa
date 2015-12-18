@@ -64,8 +64,6 @@ public protocol HostingViewController {
     typealias ObjectType
     typealias ViewType: UIView
     
-    var sections: [Section<ObjectType>] { get }
-    
     static func registerViewControllers() throws
     static func registerViewControllerClass<Object, View: UIView>(viewControllerClass: HostedViewController<Object, View>.Type, forModelType modelType: Object.Type) throws
 }

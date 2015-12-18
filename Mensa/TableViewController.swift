@@ -12,13 +12,14 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
     public typealias Cell = HostingTableViewCell<Object, View>
 
     public var sections: [Section<Object>] {
-        return []
+        // Subclasses override
+        fatalError()
     }
 
     private var _dataMediator: DataMediator<Object, View, Cell, TableViewController<Object, View>>!
     
-    public func updateDataAndReloadTableView(data: [Section<Object>]? = nil) {
-        _dataMediator.reloadData(data ?? sections, withUpdate:true)
+    public func updateDataAndReloadTableView() {
+        _dataMediator.reloadData(sections, withUpdate:true)
     }
 
     // MARK: NSObject

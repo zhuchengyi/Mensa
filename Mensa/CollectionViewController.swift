@@ -12,13 +12,14 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     public typealias Cell = HostingCollectionViewCell<Object, View>
 
     public var sections: [Section<Object>] {
-        return []
+        // Subclasses override
+        fatalError()
     }
 
     private var _dataMediator: DataMediator<Object, View, Cell, CollectionViewController<Object, View>>!
     
-    public func updateDataAndReloadCollectionView(data: [Section<Object>]? = nil) {
-        _dataMediator.reloadData(data ?? sections, withUpdate: true)
+    public func updateDataAndReloadCollectionView() {
+        _dataMediator.reloadData(sections, withUpdate: true)
     }
     
     public func sizeForItemAtIndexPath(indexPath: NSIndexPath, layout: UICollectionViewFlowLayout) -> CGSize {
