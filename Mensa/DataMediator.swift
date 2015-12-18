@@ -123,6 +123,7 @@ public protocol DataMediatorDelegate: class {
     func dataMediator(dataMediator: DataMediatorType, variantForObject object: ObjectType) -> Int
     func dataMediator(dataMediator: DataMediatorType, didSelectObject object: ObjectType)
     func dataMediator(dataMediator: DataMediatorType, willLoadHostedViewController viewController: HostedViewController<ObjectType, ViewType>)
+    func dataMediator(dataMediator: DataMediatorType, willDisplayObject object: ObjectType)
     func dataMediator(dataMediator: DataMediatorType, didUseViewController viewController: HostedViewController<ObjectType, ViewType>, withObject object: ObjectType)
 }
 
