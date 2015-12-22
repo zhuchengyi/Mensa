@@ -79,15 +79,13 @@ public protocol HostingCell: AnyCell {
 }
 
 extension HostingCell {
-    public static func subclassWithViewControllerClass(viewControllerClass: HostedViewController<ObjectType, ViewType>.Type, modelType: ObjectType.Type, variant: Int) -> CellClass {
+    public static func subclassWithViewControllerClass(viewControllerClass: HostedViewController<ObjectType, ViewType>.Type, modelType: ObjectType.Type, nibName: String, variant: Int) -> CellClass {
         let bundle = NSBundle(forClass: self)
-        let modelTypeName = TypeKey(modelType).localDescription
         let className = TypeKey<Any>(self, viewControllerClass, modelType, variant).description
         var subclass: AnyClass? = NSClassFromString(className)
         if subclass == nil {
             subclass = objc_allocateClassPair(self, className.cStringUsingEncoding(NSUTF8StringEncoding)!, 0)
             let block: @convention(block) AnyObject -> UIViewController = { _ in
-                let nibName = modelTypeName + "View"
                 let viewController = (viewControllerClass as UIViewController.Type).init()
                 let contents = bundle.loadNibNamed(nibName, owner: viewController, options: nil)
                 viewController.view = contents[variant] as! UIView

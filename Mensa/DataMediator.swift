@@ -94,7 +94,8 @@ private extension DataMediator {
         var metricsCell: Cell!
         let variant = delegate.dataMediator(self, variantForObject: object)
         let reuseIdentifier = viewControllerClass.reuseIdentifierForObject(object, variant: variant)
-        let cellClass = delegate.dataMediatorCellClass(self).subclassWithViewControllerClass(viewControllerClass, modelType: object.dynamicType, variant: variant)
+        let nibName = nibNameForViewControllerClass(viewControllerClass, modelType: modelType)
+        let cellClass = delegate.dataMediatorCellClass(self).subclassWithViewControllerClass(viewControllerClass, modelType: object.dynamicType, nibName: nibName, variant: variant)
         delegate.dataMediator(self, willUseCellClass: cellClass, forReuseIdentifier: reuseIdentifier)
         if let cellClass = cellClass as? UITableViewCell.Type {
             metricsCell = cellClass.init() as? Cell
@@ -106,6 +107,16 @@ private extension DataMediator {
         loadHostedViewForObject(object, inCell: metricsCell)
         delegate.dataMediator(self, willUseMetricsCell: metricsCell, forObject: object)
         return metricsCell
+    }
+    
+    func nibNameForViewControllerClass(viewControllerClass: HostedViewController<Object, View>.Type, modelType: Object.Type) -> String {
+        let viewControllerName: String
+        if let multiHostedViewControllerClass = viewControllerClass as? MultiHostedViewController<Object, View>.Type {
+            viewControllerName = String(multiHostedViewControllerClass.registeredViewControllerForType(modelType)!.dynamicType)
+        } else {
+            viewControllerName = String(viewControllerClass)
+        }
+        return viewControllerName.stringByReplacingOccurrencesOfString("Controller", withString: "")
     }
 }
 

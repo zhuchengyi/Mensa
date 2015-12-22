@@ -16,7 +16,7 @@ public class MultiHostedViewController<Object, View: UIView>: HostedViewControll
         viewControllers[key] = viewController
     }
 
-    static private func registeredViewControllerForType(type: Object.Type) -> AnyHostedViewController? {
+    static func registeredViewControllerForType(type: Object.Type) -> AnyHostedViewController? {
         let key = TypeKey<Any.Type>(type)
         return viewControllers[key]
     }
