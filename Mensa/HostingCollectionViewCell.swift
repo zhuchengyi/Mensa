@@ -8,6 +8,8 @@
 
 import UIKit
 
+private let attributes = UICollectionViewLayoutAttributes()
+
 public class HostingCollectionViewCell<Object, View>: UICollectionViewCell, HostingCell {
     public var layoutInsets = UIEdgeInsetsZero
     public weak var parentViewController: UIViewController?
@@ -30,5 +32,9 @@ public class HostingCollectionViewCell<Object, View>: UICollectionViewCell, Host
     
     public var hostingView: UIView {
         return contentView
+    }
+    
+    override public func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        return attributes
     }
 }
