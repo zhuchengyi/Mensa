@@ -34,6 +34,10 @@ public class HostingCollectionViewCell<Object, View>: UICollectionViewCell, Host
         return contentView
     }
     
+    public override func layoutSubviews() {
+        return
+    }
+    
     override public func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         return attributes
     }
