@@ -30,7 +30,7 @@ func setParentViewContoller<Object, View: UIView, Cell: HostingCell, ViewControl
         hostedViewController.removeFromParentViewController()
     }
     
-    cell.parentViewController = parentViewController;
+    cell.parentViewController = parentViewController
     parentViewController.addChildViewController(hostedViewController)
     loadHostedViewForObject(object, inCell: cell)
     hostedViewController.didMoveToParentViewController(parentViewController)
@@ -38,25 +38,12 @@ func setParentViewContoller<Object, View: UIView, Cell: HostingCell, ViewControl
 
 func adjustLayoutConstraintsForCell<Object, Cell: HostingCell where Object == Cell.ObjectType, Cell.ViewType: UIView>(cell: Cell, object: Object) {
     adjustLayoutConstraintsForCell(cell, forObject: object, toPriority: UILayoutPriorityDefaultHigh)
-    addEqualityConstraintsToCell(cell)
 }
 
 private func adjustLayoutConstraintsForCell<Object, Cell: HostingCell where Object == Cell.ObjectType, Cell.ViewType: UIView>(cell: Cell, forObject object: Object, toPriority priority: UILayoutPriority) {
     let hostedView = cell.hostedViewController.view
     for constraint in hostedView.constraints {
-        let adjustedConstraint = NSLayoutConstraint(item: constraint.firstItem, attribute: constraint.firstAttribute, relatedBy: constraint.relation, toItem: constraint.secondItem, attribute: constraint.secondAttribute, multiplier: constraint.multiplier, constant: constraint.constant)
-        adjustedConstraint.priority = priority
-        
-        hostedView.removeConstraint(constraint)
-        hostedView.addConstraint(adjustedConstraint)
-    }
-}
-
-private func addEqualityConstraintsToCell<Cell: HostingCell>(cell: Cell) {
-    let attributes: [NSLayoutAttribute] = [.Width, .Height]
-    for attribute in attributes {
-        let constraint = NSLayoutConstraint(item: cell.contentView, attribute: attribute, relatedBy: .Equal, toItem: cell.hostedViewController.view, attribute: attribute, multiplier: 1.0, constant: 0.0)
-        cell.addConstraint(constraint)
+        constraint.priority = priority
     }
 }
 
