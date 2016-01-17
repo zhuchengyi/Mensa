@@ -25,6 +25,10 @@ public class HostedViewController<Object, View>: UIViewController, HostedViewCon
     }
     
     // MARK: UIViewController
+    public override var parentViewController: UIViewController? {
+        return visibleViewController?.parentViewController ?? super.parentViewController
+    }
+    
     public override func addChildViewController(childController: UIViewController) {
         if let viewController = visibleViewController {
             viewController.addChildViewController(childController)
