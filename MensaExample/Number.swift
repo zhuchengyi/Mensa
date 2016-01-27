@@ -25,7 +25,7 @@ struct Number {
                 factors.insert(divisor)
                 factors.insert(self.value / divisor)
             }
-            divisor++
+            divisor += 1
         }
         return factors.sort()
     }()

@@ -31,9 +31,11 @@ extension Section: SequenceType {
     
     public func generate() -> Generator {
         var index = 0
-        return anyGenerator {
+        return AnyGenerator {
             if index < self.objects.count {
-                return self.objects[index++]
+                let object = self.objects[index]
+                index += 1
+                return object
             }
             return nil
         }
