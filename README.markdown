@@ -40,3 +40,7 @@ We also demonstrate this technique within a collection view, using a flow layout
 ## Requirements
 
 Project uses Xcode 5 (specifically the nibs), but the techniques used work fine on iOS 6+.
+
+## License
+
+MIT
