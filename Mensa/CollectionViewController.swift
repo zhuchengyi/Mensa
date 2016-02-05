@@ -118,6 +118,7 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     public func dataMediator(dataMediator: DataMediatorType, willLoadHostedViewController viewController: HostedViewController<Object, View>) {}
     public func dataMediator(dataMediator: DataMediatorType, willDisplayObject object: Object) {}
     public func dataMediator(dataMediator: DataMediatorType, didUseViewController viewController: HostedViewController<Object, View>, withObject object: Object) {}
+    public func dataMediator(dataMediator: DataMediatorType, didDisplayView view: View) {}
     
     public func dataMediator(dataMediator: DataMediatorType, didReloadWithUpdate update: Bool) {
         if (update) {
