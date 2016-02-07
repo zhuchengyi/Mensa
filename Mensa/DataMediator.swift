@@ -47,7 +47,7 @@ public struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: Da
         viewController.updateView(viewController.hostedView, withObject: object, displayed: displayed)
         delegate.dataMediator(self, didUseViewController: viewController, withObject: object)
         if let view = viewController.view as? View where displayed {
-            delegate.dataMediator(self, didDisplayView: view)
+            delegate.dataMediator(self, didDisplayView: view, forObject: object)
         }
     }
     
@@ -137,9 +137,8 @@ public protocol DataMediatorDelegate: class {
     func dataMediator(dataMediator: DataMediatorType, variantForObject object: ObjectType) -> Int
     func dataMediator(dataMediator: DataMediatorType, didSelectObject object: ObjectType)
     func dataMediator(dataMediator: DataMediatorType, willLoadHostedViewController viewController: HostedViewController<ObjectType, ViewType>)
-    func dataMediator(dataMediator: DataMediatorType, willDisplayObject object: ObjectType)
     func dataMediator(dataMediator: DataMediatorType, didUseViewController viewController: HostedViewController<ObjectType, ViewType>, withObject object: ObjectType)
-    func dataMediator(dataMediator: DataMediatorType, didDisplayView view: ViewType)
+    func dataMediator(dataMediator: DataMediatorType, didDisplayView view: ViewType, forObject object: ObjectType)
 }
 
 public protocol DataMediatedViewController {

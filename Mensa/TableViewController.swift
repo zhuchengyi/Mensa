@@ -90,12 +90,7 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
         let size = metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
         return size.height + 1.0
     }
-    
-    public override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        let object = _dataMediator.backingObjectForRowAtIndexPath(indexPath)
-        dataMediator(_dataMediator, willDisplayObject: object)
-    }
-    
+
     public override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let (object, hostedViewController) = objectAndHostedViewControllerForRowAtIndexPath(indexPath) else { return }
         _dataMediator.selectObject(object, forViewController: hostedViewController)
@@ -122,9 +117,8 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
     // MARK: DataMediatorDelegate
     public func dataMediator(dataMediator: DataMediatorType, didSelectObject object: Object) {}
     public func dataMediator(dataMediator: DataMediatorType, willLoadHostedViewController viewController: HostedViewController<Object, View>) {}
-    public func dataMediator(dataMediator: DataMediatorType, willDisplayObject object: Object) {}
     public func dataMediator(dataMediator: DataMediatorType, didUseViewController viewController: HostedViewController<Object, View>, withObject object: Object) {}
-    public func dataMediator(dataMediator: DataMediatorType, didDisplayView view: View) {}
+    public func dataMediator(dataMediator: DataMediatorType, didDisplayView view: View, forObject object: Object) {}
     
     public func dataMediator(dataMediator: DataMediatorType, didReloadWithUpdate update: Bool) {
         if (update) {

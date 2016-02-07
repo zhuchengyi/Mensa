@@ -80,11 +80,6 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     }
     
     // MARK: UICollectionViewDelegate
-    public override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        let object = _dataMediator.backingObjectForRowAtIndexPath(indexPath)
-        dataMediator(_dataMediator, willDisplayObject: object)
-    }
-    
     public override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         guard let (object, hostedViewController) = objectAndHostedViewControllerForItemAtIndexPath(indexPath) else { return false }
         return _dataMediator.canSelectObject(object, forViewController: hostedViewController)
@@ -116,9 +111,8 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     // MARK: DataMediatorDelegate
     public func dataMediator(dataMediator: DataMediatorType, didSelectObject object: Object) {}
     public func dataMediator(dataMediator: DataMediatorType, willLoadHostedViewController viewController: HostedViewController<Object, View>) {}
-    public func dataMediator(dataMediator: DataMediatorType, willDisplayObject object: Object) {}
     public func dataMediator(dataMediator: DataMediatorType, didUseViewController viewController: HostedViewController<Object, View>, withObject object: Object) {}
-    public func dataMediator(dataMediator: DataMediatorType, didDisplayView view: View) {}
+    public func dataMediator(dataMediator: DataMediatorType, didDisplayView view: View, forObject object: Object) {}
     
     public func dataMediator(dataMediator: DataMediatorType, didReloadWithUpdate update: Bool) {
         if (update) {
