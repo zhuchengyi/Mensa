@@ -15,7 +15,8 @@ class NumberViewController: HostedViewController<Number, NumberView> {
         view.valueLabel.text = "\(number.value)"
     }
     
-    override func selectObject(var number: Number) {
+    override func selectObject(var number: Number, displayedWithView view: View) {
+        print(view)
         let factorsString = number.factors.map { "\($0)" }.joinWithSeparator(", ")
         let message = "The factors of \(number.value) are \(factorsString)."
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)

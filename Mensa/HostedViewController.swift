@@ -16,8 +16,8 @@ public class HostedViewController<Object, View>: UIViewController, HostedViewCon
     }
     
     public func updateView(view: View, withObject object: Object, displayed: Bool) {}
-    public func selectObject(object: Object) {}
-    public func canSelectObject(object: Object) -> Bool { return true }
+    public func selectObject(object: Object, displayedWithView view: View) {}
+    public func canSelectObject(object: Object, displayedWithView view: View) -> Bool { return true }
     public func setViewHighlighted(highlighted: Bool, forObject object: Object) {}
 
     public static func reuseIdentifierForObject(object: Object, variant: Int) -> String {
@@ -52,12 +52,12 @@ extension HostedViewController: AnyHostedViewController {
         updateView(view as! View, withObject: object as! Object, displayed: displayed)
     }
 
-    func downcastSelectObject(object: Any) {
-        selectObject(object as! Object)
+    func downcastSelectObject(object: Any, displayedWithView view: UIView) {
+        selectObject(object as! Object, displayedWithView: view as! View)
     }
 
-    func downcastCanSelectObject(object: Any) -> Bool {
-        return canSelectObject(object as! Object)
+    func downcastCanSelectObject(object: Any, displayedWithView view: UIView) -> Bool {
+        return canSelectObject(object as! Object, displayedWithView: view as! View)
     }
 
     func downcastSetViewHighlighted(highlighted: Bool, forObject object: Any) {
@@ -77,8 +77,8 @@ public protocol HostedViewControllerType {
     typealias View
     
     func updateView(view: View, withObject object: Object, displayed: Bool)
-    func selectObject(object: Object)
-    func canSelectObject(object: Object) -> Bool
+    func selectObject(object: Object, displayedWithView view: View)
+    func canSelectObject(object: Object, displayedWithView view: View) -> Bool
     func setViewHighlighted(highlighted: Bool, forObject: Object)
 
     static func reuseIdentifierForObject(object: Object, variant: Int) -> String
@@ -88,8 +88,8 @@ protocol AnyHostedViewController {
     var visibleViewController: UIViewController? { get set }
     
     func downcastUpdateView(view: UIView, withObject object: Any, displayed: Bool)
-    func downcastSelectObject(object: Any)
-    func downcastCanSelectObject(object: Any) -> Bool
+    func downcastSelectObject(object: Any, displayedWithView view: UIView)
+    func downcastCanSelectObject(object: Any, displayedWithView view: UIView) -> Bool
     func downcastSetViewHighlighted(highlighted: Bool, forObject object: Any)
 
     static func downcast<T, U>(object: T, _ view: U) -> (Any, UIView)?

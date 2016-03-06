@@ -35,17 +35,17 @@ public class MultiHostedViewController<Object, View: UIView>: HostedViewControll
         }
     }
 
-    public override func selectObject(object: Object) {
+    public override func selectObject(object: Object, displayedWithView view: View) {
         if let viewController = registeredViewControllerForType(object.dynamicType) {
-            viewController.downcastSelectObject(object)
+            viewController.downcastSelectObject(object, displayedWithView: view)
         }
     }
     
-    public override func canSelectObject(object: Object) -> Bool {
+    public override func canSelectObject(object: Object, displayedWithView view: View) -> Bool {
         guard let viewController = registeredViewControllerForType(object.dynamicType) else {
-            return super.canSelectObject(object)
+            return super.canSelectObject(object, displayedWithView: view)
         }
-        return viewController.downcastCanSelectObject(object)
+        return viewController.downcastCanSelectObject(object, displayedWithView: view)
     }
     
     public override func setViewHighlighted(highlighted: Bool, forObject object: Object) {

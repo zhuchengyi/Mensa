@@ -11,7 +11,7 @@ import UIKit
 class PropertyViewController<T>: HostedViewController<Property<T>, PropertyView>, UITextFieldDelegate {
     private var inputProperty: Property<T>?
     
-    override func selectObject(var property: Property<T>) {
+    override func selectObject(var property: Property<T>, displayedWithView view: PropertyView) {
         if let value = property.value as? Void -> Void {
             value()
         } else if let value = property.value as? Bool {
@@ -19,7 +19,7 @@ class PropertyViewController<T>: HostedViewController<Property<T>, PropertyView>
         }
     }
     
-    override func canSelectObject(property: Property<T>) -> Bool {
+    override func canSelectObject(property: Property<T>, displayedWithView view: PropertyView) -> Bool {
         return hostedView.inputSwitch.hidden && hostedView.valueLabel.hidden
     }
     

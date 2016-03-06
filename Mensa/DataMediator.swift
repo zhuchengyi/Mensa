@@ -52,12 +52,17 @@ public struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: Da
     }
     
     func canSelectObject(object: Object, forViewController viewController: HostedViewController<Object, View>) -> Bool {
-        return viewController.canSelectObject(object)
+        if let view = viewController.view as? View {
+            return viewController.canSelectObject(object, displayedWithView: view)
+        }
+        return false
     }
     
     func selectObject(object: Object, forViewController viewController: HostedViewController<Object, View>) {
-        viewController.selectObject(object)
-        delegate.dataMediator(self, didSelectObject: object)
+        if let view = viewController.view as? View {
+            viewController.selectObject(object, displayedWithView: view)
+            delegate.dataMediator(self, didSelectObject: object)
+        }
     }
     
     func metricsCellForObject(object: Object) -> Cell? {
