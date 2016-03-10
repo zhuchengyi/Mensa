@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class HostingTableViewCell<Object, View>: UITableViewCell, HostingCell {
+public class HostingTableViewCell<Object, View: UIView>: UITableViewCell, HostingCell {
     public var layoutInsets = UIEdgeInsetsZero
     public weak var parentViewController: UIViewController?
     lazy public var hostedViewController: HostedViewController<Object, View> = {

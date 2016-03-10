@@ -10,7 +10,7 @@ import UIKit
 
 private let attributes = UICollectionViewLayoutAttributes()
 
-public class HostingCollectionViewCell<Object, View>: UICollectionViewCell, HostingCell {
+public class HostingCollectionViewCell<Object, View: UIView>: UICollectionViewCell, HostingCell {
     public var layoutInsets = UIEdgeInsetsZero
     public weak var parentViewController: UIViewController?
     lazy public var hostedViewController: HostedViewController<Object, View> = {

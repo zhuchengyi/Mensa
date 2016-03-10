@@ -57,7 +57,7 @@ public protocol HostingViewController {
 
 public protocol HostingCell: AnyCell {
     typealias ObjectType
-    typealias ViewType
+    typealias ViewType: UIView
     
     var hostingView: UIView { get }
     var hostedViewController: HostedViewController<ObjectType, ViewType> { get }
@@ -73,7 +73,7 @@ extension HostingCell {
         if subclass == nil {
             subclass = objc_allocateClassPair(self, className.cStringUsingEncoding(NSUTF8StringEncoding)!, 0)
             let block: @convention(block) AnyObject -> UIViewController = { _ in
-                let viewController = MultiHostedViewController<ObjectType, UIView>(nibName: nil, bundle: nil)
+                let viewController = MultiHostedViewController<ObjectType, ViewType>(nibName: nil, bundle: nil)
                 let contents = bundle.loadNibNamed(nibName, owner: viewController, options: nil)
                 viewController.view = contents[variant] as! UIView
                 return viewController
