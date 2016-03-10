@@ -24,6 +24,10 @@ public class HostedViewController<Object, View>: UIViewController, HostedViewCon
         return "\(object.dynamicType)\(variant)"
     }
     
+    override init(nibName: String?, bundle: NSBundle?) {
+        super.init(nibName: nibName, bundle: bundle)
+    }
+    
     // MARK: UIViewController
     public override var parentViewController: UIViewController? {
         let superParentViewController = super.parentViewController

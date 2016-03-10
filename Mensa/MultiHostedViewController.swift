@@ -35,6 +35,8 @@ public class MultiHostedViewController<Object, View: UIView>: HostedViewControll
         let viewController = (viewControllerClass as! UIViewController.Type).init(nibName: nil, bundle: nil)
         instantiatedViewControllers?[key.hashValue] = viewController
         return viewController as? AnyHostedViewController
+    override init(nibName: String?, bundle: NSBundle?) {
+        super.init(nibName: nibName, bundle: bundle)
     }
 
     // MARK: HostedViewController
