@@ -8,33 +8,32 @@
 
 import UIKit
 
-private var viewControllers: [TypeKey<Any.Type>: AnyHostedViewController.Type] = [:]
+private var viewControllerClasses: [TypeKey<Any.Type>: AnyHostedViewController.Type] = [:]
 
 public class MultiHostedViewController<Object, View: UIView>: HostedViewController<Object, View> {
-    private var instantiatedViewControllers: NSMutableDictionary? = nil
+    private var instantiatedViewControllers: [TypeKey<Any.Type>: AnyHostedViewController] = [:]
     
     static func registerViewControllerClass(viewController: AnyHostedViewController.Type, forType type: Any.Type) -> Void {
         let key = TypeKey(type)
-        viewControllers[key] = viewController
+        viewControllerClasses[key] = viewController
     }
     
     static func registeredViewControllerClassForType(type: Object.Type) -> AnyHostedViewController.Type? {
         let key = TypeKey<Any.Type>(type)
-        return viewControllers[key]
+        return viewControllerClasses[key]
     }
 
     private func registeredViewControllerForType(type: Object.Type) -> AnyHostedViewController? {
         let key = TypeKey<Any.Type>(type)
-        if instantiatedViewControllers == nil {
-            instantiatedViewControllers = NSMutableDictionary()
-        }
-        if let viewController = instantiatedViewControllers?[key.hashValue] {
-            return viewController as? AnyHostedViewController
+        if let viewController = instantiatedViewControllers[key] {
+            return viewController
         }
         let viewControllerClass = self.dynamicType.registeredViewControllerClassForType(type)
-        let viewController = (viewControllerClass as! UIViewController.Type).init(nibName: nil, bundle: nil)
-        instantiatedViewControllers?[key.hashValue] = viewController
-        return viewController as? AnyHostedViewController
+        let viewController = (viewControllerClass as! UIViewController.Type).init(nibName: nil, bundle: nil) as! AnyHostedViewController
+        instantiatedViewControllers[key] = viewController
+        return viewController
+    }
+    
     override init(nibName: String?, bundle: NSBundle?) {
         super.init(nibName: nibName, bundle: bundle)
     }
