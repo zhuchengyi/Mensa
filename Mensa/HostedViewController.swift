@@ -84,7 +84,7 @@ public protocol HostedViewControllerType {
     static func reuseIdentifierForObject(object: Object, variant: Int) -> String
 }
 
-protocol AnyHostedViewController {
+protocol AnyHostedViewController: class {
     var visibleViewController: UIViewController? { get set }
     
     func downcastUpdateView(view: UIView, withObject object: Any, displayed: Bool)

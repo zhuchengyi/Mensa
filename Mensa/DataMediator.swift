@@ -120,7 +120,7 @@ private extension DataMediator {
     func nibNameForViewControllerClass(viewControllerClass: HostedViewController<Object, View>.Type, modelType: Object.Type) -> String {
         let viewControllerName: String
         if let multiHostedViewControllerClass = viewControllerClass as? MultiHostedViewController<Object, View>.Type {
-            viewControllerName = String(multiHostedViewControllerClass.registeredViewControllerForType(modelType)!.dynamicType)
+            viewControllerName = String(multiHostedViewControllerClass.registeredViewControllerClassForType(modelType)!)
         } else {
             viewControllerName = String(viewControllerClass)
         }
