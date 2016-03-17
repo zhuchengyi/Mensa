@@ -16,25 +16,8 @@ public class DataViewController: UIViewController {
     public var dataMediatedViewControllers: [DataMediatedViewController] {
         return []
     }
-}
 
-extension DataViewController {
-    public func showDataMediatedViewController(index: Int) {
-        guard let childViewController = dataMediatedViewControllers[index] as? UIViewController else { return }
-        showDataMediatedViewController(childViewController)
-    }
-    
-    // MARK: UIViewController
-    override public func viewDidLoad() {
-        super.viewDidLoad()
-        
-        guard let childViewController = (dataMediatedViewController ?? dataMediatedViewControllers.first) as? UIViewController else { return }
-        showDataMediatedViewController(childViewController)
-    }
-}
-
-private extension DataViewController {
-    func showDataMediatedViewController(viewController: UIViewController) {
+    public func showDataMediatedViewController(viewController: UIViewController) {
         if let currentViewController = (childViewControllers.filter { $0 is DataMediatedViewController }).first {
             currentViewController.willMoveToParentViewController(nil)
             currentViewController.view.removeFromSuperview()
@@ -45,5 +28,18 @@ private extension DataViewController {
         view.addSubview(viewController.view)
         viewController.view.frame = view.bounds
         viewController.didMoveToParentViewController(self)
+    }
+
+    public func showDataMediatedViewControllerAtIndex(index: Int) {
+        guard let childViewController = dataMediatedViewControllers[index] as? UIViewController else { return }
+        showDataMediatedViewController(childViewController)
+    }
+    
+    // MARK: UIViewController
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+        
+        guard let childViewController = (dataMediatedViewController ?? dataMediatedViewControllers.first) as? UIViewController else { return }
+        showDataMediatedViewController(childViewController)
     }
 }
