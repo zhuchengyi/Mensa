@@ -24,4 +24,8 @@ class NumberViewController: HostedViewController<Number, NumberView> {
 
         presentViewController(alertController, animated: true, completion: nil)
     }
+    
+    override func highlightView(view: NumberView, highlighted: Bool, forObject object: Number) {
+        print(highlighted, view.valueLabel.text)
+    }
 }

@@ -18,7 +18,7 @@ public class HostedViewController<Object, View>: UIViewController, HostedViewCon
     public func updateView(view: View, withObject object: Object, displayed: Bool) {}
     public func selectObject(object: Object, displayedWithView view: View) {}
     public func canSelectObject(object: Object, displayedWithView view: View) -> Bool { return true }
-    public func setViewHighlighted(highlighted: Bool, forObject object: Object) {}
+    public func highlightView(view: View, highlighted: Bool, forObject object: Object) {}
 
     public static func reuseIdentifierForObject(object: Object, variant: Int) -> String {
         return "\(object.dynamicType)\(variant)"
@@ -73,8 +73,8 @@ extension HostedViewController: AnyHostedViewController {
         return canSelectObject(object as! Object, displayedWithView: view as! View)
     }
 
-    func downcastSetViewHighlighted(highlighted: Bool, forObject object: Any) {
-        setViewHighlighted(highlighted, forObject: object as! Object)
+    func downcastHighlightView(view: UIView, highlighted: Bool, forObject object: Any) {
+        highlightView(view as! View, highlighted: highlighted, forObject: object as! Object)
     }
     
     public static func downcast<T, U>(object: T, _ view: U) -> (Any, UIView)? {
@@ -92,7 +92,7 @@ public protocol HostedViewControllerType {
     func updateView(view: View, withObject object: Object, displayed: Bool)
     func selectObject(object: Object, displayedWithView view: View)
     func canSelectObject(object: Object, displayedWithView view: View) -> Bool
-    func setViewHighlighted(highlighted: Bool, forObject: Object)
+    func highlightView(view: View, highlighted: Bool, forObject object: Object)
 
     static func reuseIdentifierForObject(object: Object, variant: Int) -> String
 }
@@ -103,7 +103,7 @@ protocol AnyHostedViewController: class {
     func downcastUpdateView(view: UIView, withObject object: Any, displayed: Bool)
     func downcastSelectObject(object: Any, displayedWithView view: UIView)
     func downcastCanSelectObject(object: Any, displayedWithView view: UIView) -> Bool
-    func downcastSetViewHighlighted(highlighted: Bool, forObject object: Any)
+    func downcastHighlightView(view: UIView, highlighted: Bool, forObject object: Any)
 
     static func downcast<T, U>(object: T, _ view: U) -> (Any, UIView)?
 }

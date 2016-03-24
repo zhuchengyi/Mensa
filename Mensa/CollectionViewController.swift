@@ -92,12 +92,12 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     
     public override func collectionView(collectionView: UICollectionView, didHighlightItemAtIndexPath indexPath: NSIndexPath) {
         guard let (object, hostedViewController) = objectAndHostedViewControllerForItemAtIndexPath(indexPath) else { return }
-        hostedViewController.setViewHighlighted(true, forObject: object)
+        _dataMediator.setViewHighlighted(true, withObject: object, forViewController: hostedViewController)
     }
     
     public override func collectionView(collectionView: UICollectionView, didUnhighlightItemAtIndexPath indexPath: NSIndexPath) {
         guard let (object, hostedViewController) = objectAndHostedViewControllerForItemAtIndexPath(indexPath) else { return }
-        hostedViewController.setViewHighlighted(false, forObject: object)
+        _dataMediator.setViewHighlighted(false, withObject: object, forViewController: hostedViewController)
     }
     
     // MARK: UICollectionViewDelegateFlowLayout

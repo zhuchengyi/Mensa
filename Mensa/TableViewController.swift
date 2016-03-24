@@ -103,12 +103,12 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
 
     public override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
         guard let (object, hostedViewController) = objectAndHostedViewControllerForRowAtIndexPath(indexPath) else { return }
-        hostedViewController.setViewHighlighted(true, forObject: object)
+        _dataMediator.setViewHighlighted(true, withObject: object, forViewController: hostedViewController)
     }
 
     public override func tableView(tableView: UITableView, didUnhighlightRowAtIndexPath indexPath: NSIndexPath) {
         guard let (object, hostedViewController) = objectAndHostedViewControllerForRowAtIndexPath(indexPath) else { return }
-        hostedViewController.setViewHighlighted(false, forObject: object)
+        _dataMediator.setViewHighlighted(false, withObject: object, forViewController: hostedViewController)
     }
 
     // MARK: HostingViewController

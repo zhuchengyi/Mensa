@@ -65,6 +65,13 @@ public struct DataMediator<Object, View: UIView, Cell: HostingCell, Delegate: Da
         }
     }
     
+    func setViewHighlighted(highlighted: Bool, withObject object: Object, forViewController viewController: HostedViewController<Object, View>) {
+        if let view = viewController.view as? View {
+            viewController.highlightView(view, highlighted: highlighted, forObject: object)
+        }
+    }
+
+    
     func metricsCellForObject(object: Object) -> Cell? {
         let reuseIdentifier = reuseIdentifierForObject(object)
         return metricsCells[reuseIdentifier]

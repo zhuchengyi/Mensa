@@ -61,9 +61,9 @@ public class MultiHostedViewController<Object, View: UIView>: HostedViewControll
         return viewController.downcastCanSelectObject(object, displayedWithView: view)
     }
     
-    public override func setViewHighlighted(highlighted: Bool, forObject object: Object) {
+    public override func highlightView(view: View, highlighted: Bool, forObject object: Object) {
         if let viewController = registeredViewControllerForType(object.dynamicType) {
-            viewController.downcastSetViewHighlighted(highlighted, forObject: object)
+            viewController.downcastHighlightView(view, highlighted: highlighted, forObject: object)
         }
     }
 }
