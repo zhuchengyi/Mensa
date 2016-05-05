@@ -13,22 +13,22 @@ private var viewControllerClasses: [TypeKey<Any.Type>: AnyHostedViewController.T
 public class MultiHostedViewController<Object, View: UIView>: HostedViewController<Object, View> {
     private var instantiatedViewControllers: [TypeKey<Any.Type>: AnyHostedViewController] = [:]
     
-    static func registerViewControllerClass(viewController: AnyHostedViewController.Type, forType type: Any.Type) -> Void {
-        let key = TypeKey(type)
+    static func registerViewControllerClass(viewController: AnyHostedViewController.Type, forType type: Any.Type, hostingViewControllerClass: HostingViewControllerType) -> Void {
+        let key = TypeKey(type, hostingViewControllerClass)
         viewControllerClasses[key] = viewController
     }
     
-    static func registeredViewControllerClassForType(type: Object.Type) -> AnyHostedViewController.Type? {
-        let key = TypeKey<Any.Type>(type)
+    static func registeredViewControllerClassForType(type: Object.Type, hostingViewControllerClass: HostingViewControllerType) -> AnyHostedViewController.Type? {
+        let key = TypeKey<Any.Type>(type, hostingViewControllerClass)
         return viewControllerClasses[key]
     }
 
-    private func registeredViewControllerForType(type: Object.Type) -> AnyHostedViewController? {
-        let key = TypeKey<Any.Type>(type)
+    private func registeredViewControllerForType(type: Object.Type, hostingViewControllerClass: HostingViewControllerType) -> AnyHostedViewController? {
+        let key = TypeKey<Any.Type>(type, hostingViewControllerClass)
         if let viewController = instantiatedViewControllers[key] {
             return viewController
         }
-        let viewControllerClass = self.dynamicType.registeredViewControllerClassForType(type)
+        let viewControllerClass = self.dynamicType.registeredViewControllerClassForType(type, hostingViewControllerClass: hostingViewControllerClass)
         let viewController = (viewControllerClass as! UIViewController.Type).init(nibName: nil, bundle: nil) as! AnyHostedViewController
         instantiatedViewControllers[key] = viewController
         return viewController
@@ -40,29 +40,34 @@ public class MultiHostedViewController<Object, View: UIView>: HostedViewControll
 
     // MARK: HostedViewController
     public override func updateView(view: View, withObject object: Object, displayed: Bool) {
-        if let viewController = registeredViewControllerForType(object.dynamicType) {
-            if displayed {
-                viewController.visibleViewController = self
-            }
-            viewController.downcastUpdateView(view, withObject: object, displayed: displayed)
+        if let hostingViewControllerClass = (parentViewController?.dynamicType as? HostingViewControllerType) {
+            if let viewController = registeredViewControllerForType(object.dynamicType, hostingViewControllerClass: hostingViewControllerClass) {
+                if displayed {
+                    viewController.visibleViewController = self
+                }
+                viewController.downcastUpdateView(view, withObject: object, displayed: displayed)
+            }            
         }
     }
 
     public override func selectObject(object: Object, displayedWithView view: View) {
-        if let viewController = registeredViewControllerForType(object.dynamicType) {
+        let hostingViewControllerClass = (parentViewController!.dynamicType as! HostingViewControllerType)
+        if let viewController = registeredViewControllerForType(object.dynamicType, hostingViewControllerClass: hostingViewControllerClass) {
             viewController.downcastSelectObject(object, displayedWithView: view)
         }
     }
 
     public override func canSelectObject(object: Object, displayedWithView view: View) -> Bool {
-        guard let viewController = registeredViewControllerForType(object.dynamicType) else {
+        let hostingViewControllerClass = (parentViewController!.dynamicType as! HostingViewControllerType)
+        guard let viewController = registeredViewControllerForType(object.dynamicType, hostingViewControllerClass: hostingViewControllerClass) else {
             return super.canSelectObject(object, displayedWithView: view)
         }
         return viewController.downcastCanSelectObject(object, displayedWithView: view)
     }
     
     public override func highlightView(view: View, highlighted: Bool, forObject object: Object) {
-        if let viewController = registeredViewControllerForType(object.dynamicType) {
+        let hostingViewControllerClass = (parentViewController!.dynamicType as! HostingViewControllerType)
+        if let viewController = registeredViewControllerForType(object.dynamicType, hostingViewControllerClass: hostingViewControllerClass) {
             viewController.downcastHighlightView(view, highlighted: highlighted, forObject: object)
         }
     }

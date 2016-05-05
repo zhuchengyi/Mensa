@@ -46,7 +46,7 @@ extension HostingViewController {
         let key = TypeKey<DataMediatorDelegateType>(self as! DataMediatorDelegateType)
         let modelTypeKey = TypeKey<Any>(modelType)
         if let existingModelType = registeredTypes[key] {
-            MultiHostedViewController<Object, View>.registerViewControllerClass(viewControllerClass, forType: modelType)
+            MultiHostedViewController<Object, View>.registerViewControllerClass(viewControllerClass, forType: modelType, hostingViewControllerClass: self)
             
             let existingModelTypeKey = TypeKey<Any>(existingModelType)
             let multiHostedViewControllerClass = MultiHostedViewController<ObjectType, ViewType>.self
