@@ -82,11 +82,14 @@ public class TableViewController<Object, View: UIView>: UITableViewController, H
         let object = _dataMediator.backingObjectForRowAtIndexPath(indexPath)
         guard let metricsCell = _dataMediator.metricsCellForObject(object) else { return 0.0 }
         
+        let multiHostedViewController = metricsCell.hostedViewController as? MultiHostedViewController
         metricsCell.frame.size.width = CGRectGetWidth(tableView.bounds) - metricsCell.layoutInsets.left - metricsCell.layoutInsets.right - 1.0
+        multiHostedViewController?.hostingViewControllerType = self.dynamicType
         _dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
+        multiHostedViewController?.hostingViewControllerType = nil
+        
         metricsCell.setNeedsUpdateConstraints()
         metricsCell.contentView.layoutIfNeeded()
-        
         let size = metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
         return size.height + 1.0
     }

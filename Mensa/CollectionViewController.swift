@@ -26,7 +26,11 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
         let object = _dataMediator.backingObjectForRowAtIndexPath(indexPath)
         guard let metricsCell = _dataMediator.metricsCellForObject(object) else { return layout.itemSize }
         
+        let multiHostedViewController = metricsCell.hostedViewController as? MultiHostedViewController
+        multiHostedViewController?.hostingViewControllerType = self.dynamicType
         _dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
+        multiHostedViewController?.hostingViewControllerType = nil
+        
         metricsCell.setNeedsUpdateConstraints()
         metricsCell.contentView.layoutIfNeeded()
         return metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)

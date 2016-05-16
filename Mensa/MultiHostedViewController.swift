@@ -11,6 +11,7 @@ import UIKit
 private var viewControllerClasses: [TypeKey<Any.Type>: AnyHostedViewController.Type] = [:]
 
 public class MultiHostedViewController<Object, View: UIView>: HostedViewController<Object, View> {
+    var hostingViewControllerType: HostingViewControllerType?
     private var instantiatedViewControllers: [TypeKey<Any.Type>: AnyHostedViewController] = [:]
     
     static func registerViewControllerClass(viewController: AnyHostedViewController.Type, forType type: Any.Type, hostingViewControllerClass: HostingViewControllerType) -> Void {
@@ -40,7 +41,7 @@ public class MultiHostedViewController<Object, View: UIView>: HostedViewControll
 
     // MARK: HostedViewController
     public override func updateView(view: View, withObject object: Object, displayed: Bool) {
-        if let hostingViewControllerClass = (parentViewController?.dynamicType as? HostingViewControllerType) {
+        if let hostingViewControllerClass = (parentViewController?.dynamicType as? HostingViewControllerType) ?? hostingViewControllerType {
             if let viewController = registeredViewControllerForType(object.dynamicType, hostingViewControllerClass: hostingViewControllerClass) {
                 if displayed {
                     viewController.visibleViewController = self
