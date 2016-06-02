@@ -8,8 +8,15 @@
 
 import UIKit
 
+public enum FlowDirection {
+    case Vertical
+    case Horizontal
+}
+
 public class CollectionViewController<Object, View: UIView>: UICollectionViewController, HostingViewController {
     public typealias Cell = HostingCollectionViewCell<Object, View>
+    
+    public let flowDirection: FlowDirection?
 
     public var sections: [Section<Object>] {
         // Subclasses override
@@ -27,6 +34,15 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
         guard let metricsCell = _dataMediator.metricsCellForObject(object) else { return layout.itemSize }
         
         let multiHostedViewController = metricsCell.hostedViewController as? MultiHostedViewController
+        switch flowDirection {
+        case .Vertical?:
+            metricsCell.frame.size.width = collectionView!.bounds.width
+        case .Horizontal?:
+            metricsCell.frame.size.height = collectionView!.bounds.height
+        default:
+            break
+        }
+        
         multiHostedViewController?.hostingViewControllerType = self.dynamicType
         _dataMediator.useViewController(metricsCell.hostedViewController, withObject: object, displayed: false)
         multiHostedViewController?.hostingViewControllerType = nil
@@ -34,6 +50,12 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
         metricsCell.setNeedsUpdateConstraints()
         metricsCell.contentView.layoutIfNeeded()
         return metricsCell.contentView.systemLayoutSizeFittingSize(UILayoutFittingCompressedSize)
+    }
+    
+    public required init(collectionViewLayout layout: UICollectionViewLayout, flowDirection: FlowDirection? = nil) {
+        self.flowDirection = flowDirection
+        super.init(collectionViewLayout: layout)
+        _dataMediator = DataMediator(delegate: self)
     }
     
     // MARK: NSObject
@@ -48,12 +70,6 @@ public class CollectionViewController<Object, View: UIView>: UICollectionViewCon
     public override func viewDidLoad() {
         super.viewDidLoad()
         _dataMediator.reloadData(sections, withUpdate: false)
-    }
-
-    // MARK: UICollectionViewController
-    public required override init(collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(collectionViewLayout: layout)
-        _dataMediator = DataMediator(delegate: self)
     }
 
     // MARK: UICollectionViewDataSource
