@@ -2,38 +2,34 @@
 //  Section.swift
 //  Mensa
 //
-//  Created by Jordan Kay on 7/28/15.
-//  Copyright © 2015 Jordan Kay. All rights reserved.
+//  Created by Jordan Kay on 6/21/16.
+//  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
-public struct Section<Object> {
+public struct Section<Item> {
     let title: String? = nil
     let summary: String? = nil
-    private let objects: [Object]
+    private let items: [Item]
     
     var count: Int {
-        return objects.count
-    }
-
-    public init(_ objects: [Object], title: String? = nil, summary: String? = nil) {
-        self.objects = objects
+        return items.count
     }
     
-    public subscript(index: Int) -> Object {
-        return objects[index]
+    public init(_ items: [Item], title: String? = nil, summary: String? = nil) {
+        self.items = items
+    }
+    
+    public subscript(index: Int) -> Item {
+        return items[index]
     }
 }
 
-extension Section {}
-
-extension Section: SequenceType {
-    public typealias Generator = AnyGenerator<Object>
-    
-    public func generate() -> Generator {
+extension Section: Sequence {
+    public func makeIterator() -> AnyIterator<Item> {
         var index = 0
-        return anyGenerator {
-            if index < self.objects.count {
-                let object = self.objects[index]
+        return AnyIterator {
+            if index < self.items.count {
+                let object = self.items[index]
                 index += 1
                 return object
             }
@@ -43,7 +39,7 @@ extension Section: SequenceType {
 }
 
 extension Section: ArrayLiteralConvertible {
-    public init(arrayLiteral: Object...) {
+    public init(arrayLiteral: Item...) {
         self.init(arrayLiteral)
     }
 }

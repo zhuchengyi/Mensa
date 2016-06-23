@@ -2,13 +2,13 @@
 //  NumberView.swift
 //  Mensa
 //
-//  Created by Jordan Kay on 8/10/15.
-//  Copyright © 2015 Jordan Kay. All rights reserved.
+//  Created by Jordan Kay on 6/21/16.
+//  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
-import Mensa
 import UIKit
 
 class NumberView: UIView {
-    @IBOutlet private(set) weak var valueLabel: UILabel!
+    @IBOutlet private(set) weak var
+        valueLabel: UILabel!
 }

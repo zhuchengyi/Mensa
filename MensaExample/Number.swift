@@ -2,12 +2,11 @@
 //  Number.swift
 //  Mensa
 //
-//  Created by Jordan Kay on 8/10/15.
-//  Copyright © 2015 Jordan Kay. All rights reserved.
+//  Created by Jordan Kay on 6/21/16.
+//  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
 import Darwin
-import Mensa
 
 struct Number {
     let value: Int
@@ -27,7 +26,7 @@ struct Number {
             }
             divisor += 1
         }
-        return factors.sort()
+        return factors.sorted()
     }()
     
     init(_ value: Int) {

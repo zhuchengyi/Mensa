@@ -2,24 +2,17 @@
 //  PrimeFlagView.swift
 //  Mensa
 //
-//  Created by Jordan Kay on 8/11/15.
-//  Copyright © 2015 Jordan Kay. All rights reserved.
+//  Created by Jordan Kay on 6/21/16.
+//  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
 import Mensa
 import UIKit
 
 class PrimeFlagView: UIView {
-    enum Style: Int {
-        case Default
-        case Compact
+    enum Context: Int, DisplayVariant {
+        case regular, compact
     }
-
-    @IBOutlet private(set) weak var textLabel: UILabel?
-    private(set) var formatString: String!
     
-    // MARK: NSObject
-    override func awakeFromNib() {
-        formatString = textLabel?.text
-    }
+    @IBOutlet private(set) weak var textLabel: UILabel?
 }

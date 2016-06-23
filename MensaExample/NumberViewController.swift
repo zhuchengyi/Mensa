@@ -2,26 +2,28 @@
 //  NumberViewController.swift
 //  Mensa
 //
-//  Created by Jordan Kay on 8/10/15.
-//  Copyright © 2015 Jordan Kay. All rights reserved.
+//  Created by Jordan Kay on 6/21/16.
+//  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
 import Mensa
-import UIKit
 
-class NumberViewController: HostedViewController<Number, NumberView> {
-    // MARK: HostedViewController
-    override func updateView(view: NumberView, withObject number: Number, displayed: Bool) {
+class NumberViewController: UIViewController, ItemDisplaying {
+    typealias Item = Number
+    typealias View = NumberView
+    
+    func update(with number: Number) {
         view.valueLabel.text = "\(number.value)"
     }
     
-    override func selectObject(var number: Number, displayedWithView view: View) {
-        let factorsString = number.factors.map { "\($0)" }.joinWithSeparator(", ")
+    func selectItem(_ number: Number) {
+        var number = number
+        let factorsString = number.factors.map { "\($0)" }.joined(separator: ", ")
         let message = "The factors of \(number.value) are \(factorsString)."
-        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
-        let dismissAction = UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil)
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
         alertController.addAction(dismissAction)
-
-        presentViewController(alertController, animated: true, completion: nil)
+        
+        present(alertController, animated: true, completion: nil)
     }
 }
