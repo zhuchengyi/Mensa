@@ -58,9 +58,13 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
             return TableViewCell<Item>(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant, reuseIdentifier: identifier)
         }()
         
-        displayItemWithView(item, cell.hostedViewController.view as! View)
+        let view = cell.hostedViewController.view as! View
+        displayItemWithView(item, view)
         cell.hostedViewController.update(with: item)
-        return cell as! UITableViewCell
+        
+        let tableViewCell = cell as! UITableViewCell
+        tableViewCell.isUserInteractionEnabled = view.isUserInteractionEnabled
+        return tableViewCell
     }
     
     // MARK: UITableViewDelegate

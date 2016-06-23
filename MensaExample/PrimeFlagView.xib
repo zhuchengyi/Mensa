@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="Sf0-gB-afY" customClass="PrimeFlagView" customModule="MensaExample" customModuleProvider="target">
+        <view userInteractionEnabled="NO" contentMode="scaleToFill" id="Sf0-gB-afY" customClass="PrimeFlagView" customModule="MensaExample" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="418" height="60"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -48,7 +48,7 @@
             </connections>
             <point key="canvasLocation" x="61" y="-256"/>
         </view>
-        <view contentMode="scaleToFill" id="IFH-Lb-wN5" userLabel="Compact Prime Flag View" customClass="PrimeFlagView" customModule="MensaExample" customModuleProvider="target">
+        <view userInteractionEnabled="NO" contentMode="scaleToFill" id="IFH-Lb-wN5" userLabel="Compact Prime Flag View" customClass="PrimeFlagView" customModule="MensaExample" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
