@@ -6,7 +6,7 @@
 //  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
-class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     typealias Sections = () -> [Section<Item>]
     typealias Variant = (Item) -> DisplayVariant?
     typealias DisplayItemWithView = (Item, View) -> Void

@@ -8,12 +8,8 @@
 
 import UIKit
 
+/// Label that can be used in table and collection view cells that will properly size for multiple lines of text.
 public class MultilineLabel: UILabel {
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        translatesAutoresizingMaskIntoConstraints = false
-    }
-    
     // MARK: UIView
     override public var bounds: CGRect {
         didSet {

@@ -6,6 +6,7 @@
 //  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
+/// Section of data that can be displayed in a data view.
 public struct Section<Item> {
     let title: String? = nil
     let summary: String? = nil

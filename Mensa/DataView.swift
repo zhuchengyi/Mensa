@@ -6,6 +6,7 @@
 //  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
+/// UITableView or UICollectionView, used for displaying data.
 public protocol DataView: class {
     init()
     func reloadData()

@@ -6,6 +6,7 @@
 //  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
+/// Displays a single item using a view, updating the view based on the item’s properties.
 public protocol ItemDisplaying: Displaying {
     func update(with item: Item)
     func selectItem(_ item: Item)
@@ -21,7 +22,8 @@ extension ItemDisplaying where Self: UIViewController {
     }
 }
 
-class ItemDisplayingViewController: UIViewController {
+/// Type-erasing view controller subclass that displays an item.  
+final class ItemDisplayingViewController: UIViewController {
     typealias Item = Any
     typealias View = UIView
 
