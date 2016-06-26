@@ -21,7 +21,7 @@ class ExampleTableViewController: UIViewController {
     // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-        setDisplayContext(.tableView)
+        setDisplayContext(.tableView(separatorInset: nil))
     }
 }
 

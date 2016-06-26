@@ -35,6 +35,7 @@ final class TableViewCell<Item>: UITableViewCell, HostingCell {
         self.hostedViewController = hostedViewController
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         hostContent(parentViewController: parentViewController, variant: variant)
+        preservesSuperviewLayoutMargins = false
     }
 }
 

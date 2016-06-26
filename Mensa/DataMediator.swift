@@ -14,6 +14,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private let sections: Sections
     private let variant: Variant
     private let displayItemWithView: DisplayItemWithView
+    private let tableViewCellSeparatorInset: CGFloat?
     
     private var registeredIdentifiers = Set<String>()
     private var viewControllerTypes: [String: () -> ItemDisplayingViewController] = [:]
@@ -22,11 +23,12 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     private weak var parentViewController: UIViewController!
     
-    init(parentViewController: UIViewController, sections: Sections, variant: Variant, displayItemWithView: DisplayItemWithView) {
+    init(parentViewController: UIViewController, sections: Sections, variant: Variant, displayItemWithView: DisplayItemWithView, tableViewCellSeparatorInset: CGFloat?) {
         self.parentViewController = parentViewController
         self.sections = sections
         self.variant = variant
         self.displayItemWithView = displayItemWithView
+        self.tableViewCellSeparatorInset = tableViewCellSeparatorInset
         super.init()
     }
     
@@ -55,7 +57,12 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         let (item, variant, identifier) = info(for: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? HostingCell ?? {
             let hostedViewController = viewController(for: item.dynamicType)
-            return TableViewCell<Item>(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant, reuseIdentifier: identifier)
+            let cell = TableViewCell<Item>(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant, reuseIdentifier: identifier)
+            if let inset = tableViewCellSeparatorInset {
+                cell.separatorInset.left = inset
+                cell.layoutMargins.left = inset
+            }
+            return cell
         }()
         
         let view = cell.hostedViewController.view as! View
