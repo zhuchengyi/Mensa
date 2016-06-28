@@ -24,7 +24,7 @@ public protocol DataDisplaying: Displaying {
 public enum DataDisplayContext {
     case tableView(separatorInset: CGFloat?)
     case collectionView(layout: UICollectionViewLayout)
-    case custom(subclass: () -> DataView)
+    case custom(subclass: DataView)
 }
 
 /// Values that conform can be used to differentiate between different ways to display a given item.
@@ -64,7 +64,7 @@ extension DataDisplaying where Self: UIViewController {
         case .collectionView(let layout):
             dataView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         case .custom(let subclass):
-            dataView = subclass()
+            dataView = subclass
         }
     
         if let dataView = dataView as? UIView {
