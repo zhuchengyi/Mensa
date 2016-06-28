@@ -116,6 +116,11 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let defaultSize = CGSize(width: 50, height: 50)
+        if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout where flowLayout.itemSize != defaultSize {
+            return flowLayout.itemSize
+        }
+        
         return sizes[indexPath] ?? {
             let size = viewSize(at: indexPath)
             sizes[indexPath] = size
