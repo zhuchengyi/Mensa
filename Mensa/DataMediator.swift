@@ -67,7 +67,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         
         let view = cell.hostedViewController.view as! View
         displayItemWithView(item, view)
-        cell.hostedViewController.update(with: item)
+        cell.hostedViewController.update(with: item, displayed: true)
         
         let tableViewCell = cell as! UITableViewCell
         tableViewCell.isUserInteractionEnabled = view.isUserInteractionEnabled
@@ -104,7 +104,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         }
         
         displayItemWithView(item, cell.hostedViewController.view as! View)
-        cell.hostedViewController.update(with: item)
+        cell.hostedViewController.update(with: item, displayed: true)
         return cell
     }
     
@@ -116,13 +116,18 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var insets: UIEdgeInsets = .zero
         let defaultSize = CGSize(width: 50, height: 50)
-        if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout where flowLayout.itemSize != defaultSize {
-            return flowLayout.itemSize
+        if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
+            guard flowLayout.itemSize == defaultSize else {
+                return flowLayout.itemSize
+            }
+            insets = flowLayout.sectionInset
         }
         
         return sizes[indexPath] ?? {
-            let size = viewSize(at: indexPath)
+            let contentSize = UIEdgeInsetsInsetRect(collectionView.bounds, insets).size
+            let size = viewSize(at: indexPath, withContentSize: contentSize)
             sizes[indexPath] = size
             return size
         }()
@@ -142,7 +147,11 @@ private extension DataMediator {
         return viewControllerTypes[key]!()
     }
     
-    func viewSize(at indexPath: NSIndexPath) -> CGSize {
+    func hostedViewController(for cell: UITableViewCell) -> UIViewController? {
+        return (cell as? HostingCell)?.hostedViewController
+    }
+    
+    func viewSize(at indexPath: NSIndexPath, withContentSize contentSize: CGSize) -> CGSize {
         let (item, variant, identifier) = info(for: indexPath)
         let metricsViewController = metricsViewControllers[identifier] ?? {
             let viewController = self.viewController(for: item.dynamicType)
@@ -151,13 +160,35 @@ private extension DataMediator {
             return viewController
         }()
         
+        var size: CGSize = .zero
         let metricsView = metricsViewController.view as! View
-        displayItemWithView(item, metricsView)
-        metricsViewController.update(with: item)
-        return metricsView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-    }
-    
-    func hostedViewController(for cell: UITableViewCell) -> UIViewController? {
-        return (cell as? HostingCell)?.hostedViewController
+        let strategy = metricsViewController.itemSizingStrategy(displayedWith: variant)
+        
+        var fittedSize: CGSize? = nil
+        if strategy.widthReference == .constraints || strategy.heightReference == .constraints {
+            displayItemWithView(item, metricsView)
+            metricsViewController.update(with: item, displayed: false)
+            fittedSize = metricsView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        }
+
+        switch strategy.widthReference {
+        case .constraints:
+            size.width = fittedSize!.width
+        case .containerView:
+            size.width = contentSize.width
+        case .template:
+            size.width = metricsView.bounds.width
+        }
+
+        switch strategy.heightReference {
+        case .constraints:
+            size.height = fittedSize!.height
+        case .containerView:
+            size.height = contentSize.height
+        case .template:
+            size.height = metricsView.bounds.height
+        }
+
+        return size
     }
 }
