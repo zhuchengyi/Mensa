@@ -12,10 +12,6 @@ class PrimeFlagViewController: UIViewController, ItemDisplaying {
     typealias Item = PrimeFlag
     typealias View = PrimeFlagView
     
-    func update(with primeFlag: PrimeFlag, displayed: Bool) {
-        view.textLabel?.text = "The number \(primeFlag.number.value) above is prime."
-    }
-    
     func itemSizingStrategy(displayedWith variant: DisplayVariant?) -> ItemSizingStrategy {
         return ItemSizingStrategy(widthReference: .template, heightReference: .template)
     }

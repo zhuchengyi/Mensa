@@ -6,9 +6,12 @@
 //  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
-import UIKit
+import Mensa
 
-class NumberView: UIView {
-    @IBOutlet private(set) weak var
-        valueLabel: UILabel!
+class NumberView: UIView, Displayed {
+    @IBOutlet private(set) weak var valueLabel: UILabel!
+    
+    func update(with number: Number) {
+        valueLabel.text = "\(number.value)"
+    }
 }

@@ -24,7 +24,7 @@
 		172341171D19EF4200011CA6 /* Mensa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1772ABBA1D188BA0007DC99F /* Mensa.framework */; };
 		172341181D19EF4200011CA6 /* Mensa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1772ABBA1D188BA0007DC99F /* Mensa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		172341231D19F78200011CA6 /* DataDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172341221D19F78200011CA6 /* DataDisplaying.swift */; };
-		172341251D1A07AE00011CA6 /* Displaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172341241D1A07AE00011CA6 /* Displaying.swift */; };
+		172341251D1A07AE00011CA6 /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172341241D1A07AE00011CA6 /* Display.swift */; };
 		172341281D1A390E00011CA6 /* NumberView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172341201D19F59500011CA6 /* NumberView.xib */; };
 		1723412A1D1A3D5B00011CA6 /* ItemDisplaying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172341291D1A3D5B00011CA6 /* ItemDisplaying.swift */; };
 		173AC6EF1D1A75E40053446D /* PrimeFlagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 173AC6EE1D1A75E40053446D /* PrimeFlagView.xib */; };
@@ -75,7 +75,7 @@
 		172341101D19E5E100011CA6 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		172341201D19F59500011CA6 /* NumberView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberView.xib; sourceTree = "<group>"; };
 		172341221D19F78200011CA6 /* DataDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataDisplaying.swift; sourceTree = "<group>"; };
-		172341241D1A07AE00011CA6 /* Displaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Displaying.swift; sourceTree = "<group>"; };
+		172341241D1A07AE00011CA6 /* Display.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
 		172341291D1A3D5B00011CA6 /* ItemDisplaying.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDisplaying.swift; sourceTree = "<group>"; };
 		172EA9E21D1B114200CD5E1A /* Association.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Association.swift; sourceTree = "<group>"; };
 		173AC6EE1D1A75E40053446D /* PrimeFlagView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrimeFlagView.xib; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 				172341221D19F78200011CA6 /* DataDisplaying.swift */,
 				1723410A1D19DF7A00011CA6 /* DataMediator.swift */,
 				1723410E1D19E07700011CA6 /* DataView.swift */,
-				172341241D1A07AE00011CA6 /* Displaying.swift */,
+				172341241D1A07AE00011CA6 /* Display.swift */,
 				1704D15D1D1A817F00DA15E6 /* HostingCell.swift */,
 				172341291D1A3D5B00011CA6 /* ItemDisplaying.swift */,
 				179C60CB1D1A8A91002A3AA6 /* MultilineLabel.swift */,
@@ -307,7 +307,7 @@
 			files = (
 				172341111D19E5E100011CA6 /* Section.swift in Sources */,
 				1723410B1D19DF7A00011CA6 /* DataMediator.swift in Sources */,
-				172341251D1A07AE00011CA6 /* Displaying.swift in Sources */,
+				172341251D1A07AE00011CA6 /* Display.swift in Sources */,
 				1723412A1D1A3D5B00011CA6 /* ItemDisplaying.swift in Sources */,
 				179C60CC1D1A8A91002A3AA6 /* MultilineLabel.swift in Sources */,
 				1704D15E1D1A817F00DA15E6 /* HostingCell.swift in Sources */,

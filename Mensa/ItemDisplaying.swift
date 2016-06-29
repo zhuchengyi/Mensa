@@ -32,6 +32,7 @@ public struct ItemSizingStrategy {
 
 extension ItemDisplaying {
     public func selectItem(_ item: Item) {}
+    
     public func itemSizingStrategy(displayedWith variant: DisplayVariant?) -> ItemSizingStrategy {
         return ItemSizingStrategy(widthReference: .constraints, heightReference: .constraints)
     }
@@ -40,6 +41,12 @@ extension ItemDisplaying {
 extension ItemDisplaying where Self: UIViewController {
     public var view: View {
         return view as! View
+    }
+}
+
+extension ItemDisplaying where Self: UIViewController, View: Displayed, Item == View.Item {
+    public func update(with item: Item, displayed: Bool) {
+        view.update(with: item)
     }
 }
 

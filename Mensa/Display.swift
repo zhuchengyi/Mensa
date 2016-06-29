@@ -1,5 +1,5 @@
 //
-//  Displaying.swift
+//  Display.swift
 //  Mensa
 //
 //  Created by Jordan Kay on 6/21/16.
@@ -10,4 +10,10 @@
 public protocol Displaying: class {
     associatedtype Item
     associatedtype View: UIView
+}
+
+/// Type that is displayed with an item, which can be updated.
+public protocol Displayed: class {
+    associatedtype Item
+    func update(with item: Item)
 }
