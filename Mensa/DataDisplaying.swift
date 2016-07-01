@@ -101,6 +101,21 @@ extension DataDisplaying where Self: UIViewController {
         dataMediator?.reset()
         dataView?.reloadData()
     }
+    
+    // Call this method from the view controller to insert items into the data view.
+    public func insertItems(at indexPaths: [IndexPath], animated: Bool = false) {
+        if let tableView = dataView as? UITableView {
+            let animation: UITableViewRowAnimation = animated ? .fade : .none
+            tableView.insertRows(at: indexPaths, with: animation)
+        } else if let collectionView = dataView as? UICollectionView {
+            let insert = { collectionView.insertItems(at: indexPaths) }
+            if animated {
+                insert()
+            } else {
+                UIView.performWithoutAnimation(insert)
+            }
+        }
+    }
 }
 
 private extension UITableView {
