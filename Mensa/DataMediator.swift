@@ -15,6 +15,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private let variant: Variant
     private let displayItemWithView: DisplayItemWithView
     private let tableViewCellSeparatorInset: CGFloat?
+    private let collectionViewSectionInsets: [Int: UIEdgeInsets]?
     
     private var registeredIdentifiers = Set<String>()
     private var viewControllerTypes: [String: () -> ItemDisplayingViewController] = [:]
@@ -23,12 +24,13 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     private weak var parentViewController: UIViewController!
     
-    init(parentViewController: UIViewController, sections: Sections, variant: Variant, displayItemWithView: DisplayItemWithView, tableViewCellSeparatorInset: CGFloat?) {
+    init(parentViewController: UIViewController, sections: Sections, variant: Variant, displayItemWithView: DisplayItemWithView, tableViewCellSeparatorInset: CGFloat?, collectionViewSectionInsets: [Int: UIEdgeInsets]?) {
         self.parentViewController = parentViewController
         self.sections = sections
         self.variant = variant
         self.displayItemWithView = displayItemWithView
         self.tableViewCellSeparatorInset = tableViewCellSeparatorInset
+        self.collectionViewSectionInsets = collectionViewSectionInsets
         super.init()
     }
     
@@ -122,7 +124,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
             guard flowLayout.itemSize == defaultSize else {
                 return flowLayout.itemSize
             }
-            insets = flowLayout.sectionInset
+            insets = collectionViewInset(for: indexPath.section, with: flowLayout)
         }
         
         return sizes[indexPath] ?? {
@@ -131,6 +133,13 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
             sizes[indexPath] = size
             return size
         }()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
+            return collectionViewInset(for: section, with: flowLayout)
+        }
+        return .zero
     }
 }
 
@@ -149,6 +158,10 @@ private extension DataMediator {
     
     func hostedViewController(for cell: UITableViewCell) -> UIViewController? {
         return (cell as? HostingCell)?.hostedViewController
+    }
+    
+    func collectionViewInset(for section: Int, with layout: UICollectionViewFlowLayout) -> UIEdgeInsets {
+        return collectionViewSectionInsets?[section] ?? layout.sectionInset
     }
     
     func viewSize(at indexPath: NSIndexPath, withContentSize contentSize: CGSize) -> CGSize {

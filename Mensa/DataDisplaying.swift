@@ -23,7 +23,7 @@ public protocol DataDisplaying: Displaying {
 /// Context in which to display data. UITableView and UICollectionView are the default views used.
 public enum DataDisplayContext {
     case tableView(separatorInset: CGFloat?)
-    case collectionView(layout: UICollectionViewLayout)
+    case collectionView(layout: UICollectionViewLayout, insetsForSections: [Int: UIEdgeInsets]?)
     case custom(subclass: DataView)
 }
 
@@ -57,12 +57,14 @@ extension DataDisplaying where Self: UIViewController {
     // Call this method to set up a display context in a view controller by adding an appropriate data view as a subview.
     public func setDisplayContext(_ context: DataDisplayContext, dataViewSetup: ((UIView) -> Void)? = nil) {
         var tableViewCellSeparatorInset: CGFloat? = nil
+        var collectionViewSectionInsets: [Int: UIEdgeInsets]? = nil
         switch context {
         case .tableView(let separatorInset):
             dataView = UITableView()
             tableViewCellSeparatorInset = separatorInset
-        case .collectionView(let layout):
+        case let .collectionView(layout, insetsForSections):
             dataView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            collectionViewSectionInsets = insetsForSections
         case .custom(let subclass):
             dataView = subclass
         }
@@ -75,7 +77,7 @@ extension DataDisplaying where Self: UIViewController {
         }
         
         let sections = { [unowned self] in self.sections }
-        let dataMediator = DataMediator(parentViewController: self, sections: sections, variant: variant, displayItemWithView: displayItem, tableViewCellSeparatorInset: tableViewCellSeparatorInset)
+        let dataMediator = DataMediator(parentViewController: self, sections: sections, variant: variant, displayItemWithView: displayItem, tableViewCellSeparatorInset: tableViewCellSeparatorInset, collectionViewSectionInsets: collectionViewSectionInsets)
         setAssociatedObject(dataMediator, for: &dataMediatorKey)
         
         if let tableView = dataView as? UITableView {
