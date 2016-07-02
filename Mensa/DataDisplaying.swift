@@ -14,10 +14,13 @@ public protocol DataDisplaying: Displaying {
     func registerItemTypeViewControllerTypePairs()
     
     // Optional functionality implementors can specify to modify a view that will be used to display a given item.
-    func displayItem(_ item: Item, with view: View)
+    func display(_ item: Item, with view: View)
     
     // Specify which display variant should be used for the given item, other than the default.
     func variant(for item: Item) -> DisplayVariant?
+    
+    // Handle scroll events.
+    func handle(_ scrollEvent: ScrollEvent)
 }
 
 /// Context in which to display data. UITableView and UICollectionView are the default views used.
@@ -35,8 +38,9 @@ private var dataViewKey = "displayViewKey"
 private var dataMediatorKey = "dataMediatorKey"
 
 extension DataDisplaying {
-    public func displayItem(_ item: Item, with view: View) {}
+    public func display(_ item: Item, with view: View) {}
     public func variant(for item: Item) -> DisplayVariant? { return nil }
+    public func handle(_ scrollEvent: ScrollEvent) {}
 }
 
 extension DataDisplaying where Self: UIViewController {
@@ -76,7 +80,7 @@ extension DataDisplaying where Self: UIViewController {
         }
         
         let sections = { [unowned self] in self.sections }
-        let dataMediator = DataMediator(parentViewController: self, sections: sections, variant: variant, displayItemWithView: displayItem, tableViewCellSeparatorInset: tableViewCellSeparatorInset, collectionViewSectionInsets: collectionViewSectionInsets)
+        let dataMediator = DataMediator(parentViewController: self, sections: sections, variant: variant, displayItemWithView: display, handleScrollEvent: handle, tableViewCellSeparatorInset: tableViewCellSeparatorInset, collectionViewSectionInsets: collectionViewSectionInsets)
         setAssociatedObject(dataMediator, for: &dataMediatorKey)
         
         if let tableView = dataView as? UITableView {

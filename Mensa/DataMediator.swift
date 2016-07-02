@@ -6,14 +6,16 @@
 //  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
-final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     typealias Sections = () -> [Section<Item>]
     typealias Variant = (Item) -> DisplayVariant?
     typealias DisplayItemWithView = (Item, View) -> Void
+    typealias HandleScrollEvent = (ScrollEvent) -> Void
     
     private let sections: Sections
     private let variant: Variant
     private let displayItemWithView: DisplayItemWithView
+    private let handleScrollEvent: HandleScrollEvent
     private let tableViewCellSeparatorInset: CGFloat?
     private let collectionViewSectionInsets: [Int: UIEdgeInsets]?
     
@@ -24,11 +26,12 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     private weak var parentViewController: UIViewController!
     
-    init(parentViewController: UIViewController, sections: Sections, variant: Variant, displayItemWithView: DisplayItemWithView, tableViewCellSeparatorInset: CGFloat?, collectionViewSectionInsets: [Int: UIEdgeInsets]?) {
+    init(parentViewController: UIViewController, sections: Sections, variant: Variant, displayItemWithView: DisplayItemWithView, handleScrollEvent: HandleScrollEvent, tableViewCellSeparatorInset: CGFloat?, collectionViewSectionInsets: [Int: UIEdgeInsets]?) {
         self.parentViewController = parentViewController
         self.sections = sections
         self.variant = variant
         self.displayItemWithView = displayItemWithView
+        self.handleScrollEvent = handleScrollEvent
         self.tableViewCellSeparatorInset = tableViewCellSeparatorInset
         self.collectionViewSectionInsets = collectionViewSectionInsets
         super.init()
@@ -141,6 +144,16 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         }
         return .zero
     }
+    
+    // MARK: UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll(scrollView)) }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll(scrollView)) }
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) { handleScrollEvent(.didScroll(scrollView)) }
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) { handleScrollEvent(.didScroll(scrollView)) }
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll(scrollView)) }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll(scrollView)) }
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll(scrollView)) }
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll(scrollView)) }
 }
 
 private extension DataMediator {

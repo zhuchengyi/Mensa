@@ -37,7 +37,7 @@ extension ExampleTableViewController: DataDisplaying {
         return nil
     }
     
-    func displayItem(_ item: Item, with view: View) {
+    func display(_ item: Item, with view: View) {
         if let number = item as? Number, numberView = view as? NumberView {
             let size = CGFloat(maxFontSize - number.value)
             numberView.valueLabel.font = UIFont.systemFont(ofSize: size)
