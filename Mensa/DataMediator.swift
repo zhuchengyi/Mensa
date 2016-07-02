@@ -146,14 +146,14 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     }
     
     // MARK: UIScrollViewDelegate
-    func scrollViewDidScroll(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll(scrollView)) }
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll(scrollView)) }
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) { handleScrollEvent(.didScroll(scrollView)) }
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) { handleScrollEvent(.didScroll(scrollView)) }
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll(scrollView)) }
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll(scrollView)) }
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll(scrollView)) }
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll(scrollView)) }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) { handleScrollEvent(.didScroll) }
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) { handleScrollEvent(.willBeginDragging) }
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) { handleScrollEvent(.willEndDragging(velocity: velocity, targetContentOffset: targetContentOffset)) }
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) { handleScrollEvent(.didEndDragging(decelerate: decelerate)) }
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) { handleScrollEvent(.willBeginDragging) }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) { handleScrollEvent(.didEndDecelerating) }
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) { handleScrollEvent(.didEndScrollingAnimation) }
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) { handleScrollEvent(.didScrollToTop) }
 }
 
 private extension DataMediator {
