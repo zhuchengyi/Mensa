@@ -117,6 +117,21 @@ extension DataDisplaying where Self: UIViewController {
             }
         }
     }
+    
+    // Call this method from the view controller to remove items from the data view.
+    public func removeItems(at indexPaths: [IndexPath], animated: Bool = false) {
+        if let tableView = dataView as? UITableView {
+            let animation: UITableViewRowAnimation = animated ? .fade : .none
+            tableView.deleteRows(at: indexPaths, with: animation)
+        } else if let collectionView = dataView as? UICollectionView {
+            let delete = { collectionView.deleteItems(at: indexPaths) }
+            if animated {
+                delete()
+            } else {
+                UIView.performWithoutAnimation(delete)
+            }
+        }
+    }
 }
 
 private extension UITableView {
