@@ -24,7 +24,6 @@ public protocol DataDisplaying: Displaying {
 public enum DataDisplayContext {
     case tableView(separatorInset: CGFloat?)
     case collectionView(layout: UICollectionViewLayout, insetsForSections: [Int: UIEdgeInsets]?)
-    case custom(subclass: DataView)
 }
 
 /// Values that conform can be used to differentiate between different ways to display a given item.
@@ -63,10 +62,10 @@ extension DataDisplaying where Self: UIViewController {
             dataView = UITableView()
             tableViewCellSeparatorInset = separatorInset
         case let .collectionView(layout, insetsForSections):
-            dataView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            collectionView.backgroundColor = .clear()
+            dataView = collectionView
             collectionViewSectionInsets = insetsForSections
-        case .custom(let subclass):
-            dataView = subclass
         }
     
         if let dataView = dataView as? UIView {
