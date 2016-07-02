@@ -117,6 +117,21 @@ extension DataDisplaying where Self: UIViewController {
         dataView?.reloadData()
     }
     
+    // Call this method from the view controller to reload the data at specific index paths in the data view.
+    public func reloadItems(at indexPaths: [IndexPath], animated: Bool = false) {
+        if let tableView = dataView as? UITableView {
+            let animation: UITableViewRowAnimation = animated ? .fade : .none
+            tableView.reloadRows(at: indexPaths, with: animation)
+        } else if let collectionView = dataView as? UICollectionView {
+            let reload = { collectionView.reloadItems(at: indexPaths) }
+            if animated {
+                reload()
+            } else {
+                UIView.performWithoutAnimation(reload)
+            }
+        }
+    }
+    
     // Call this method from the view controller to insert items into the data view.
     public func insertItems(at indexPaths: [IndexPath], animated: Bool = false) {
         if let tableView = dataView as? UITableView {
