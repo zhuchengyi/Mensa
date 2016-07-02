@@ -46,7 +46,9 @@ extension ItemDisplaying where Self: UIViewController {
 
 extension ItemDisplaying where Self: UIViewController, View: Displayed, Item == View.Item {
     public func update(with item: Item, displayed: Bool) {
-        view.update(with: item)
+        if displayed {
+            view.update(with: item)
+        }
     }
 }
 

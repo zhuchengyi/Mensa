@@ -8,10 +8,6 @@
 
 import Mensa
 
-class NumberView: UIView, Displayed {
+class NumberView: UIView {
     @IBOutlet private(set) weak var valueLabel: UILabel!
-    
-    func update(with number: Number) {
-        valueLabel.text = "\(number.value)"
-    }
 }

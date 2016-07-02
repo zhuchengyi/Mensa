@@ -12,6 +12,10 @@ class NumberViewController: UIViewController, ItemDisplaying {
     typealias Item = Number
     typealias View = NumberView
     
+    func update(with number: Number, displayed: Bool) {
+        view.valueLabel.text = "\(number.value)"
+    }
+    
     func selectItem(_ number: Number) {
         var number = number
         let factorsString = number.factors.map { "\($0)" }.joined(separator: ", ")

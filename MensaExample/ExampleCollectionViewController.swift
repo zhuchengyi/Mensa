@@ -16,13 +16,14 @@ class ExampleCollectionViewController: UIViewController {
     typealias Item = NumberOrPrimeFlag
     typealias View = UIView
     
-    let items = sampleItems(count: 100)
+    let items = sampleItems(count: itemCount)
     
     // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         let layout = UICollectionViewFlowLayout()
         setDisplayContext(.collectionView(layout: layout, insetsForSections: nil))
+        view.backgroundColor = .black()
     }
 }
 
