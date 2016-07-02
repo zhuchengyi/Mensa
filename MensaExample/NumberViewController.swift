@@ -12,7 +12,7 @@ class NumberViewController: UIViewController, ItemDisplaying {
     typealias Item = Number
     typealias View = NumberView
     
-    func update(with number: Number, displayed: Bool) {
+    func update(with number: Number, variant: DisplayVariant?, displayed: Bool) {
         view.valueLabel.text = "\(number.value)"
     }
     

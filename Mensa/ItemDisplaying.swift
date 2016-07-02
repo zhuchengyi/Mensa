@@ -9,7 +9,7 @@
 /// Displays a single item using a view, updating the view based on the item’s properties.
 public protocol ItemDisplaying: Displaying {
     // TODO: Pass in variant?
-    func update(with item: Item, displayed: Bool)
+    func update(with item: Item, variant: DisplayVariant?, displayed: Bool)
     func selectItem(_ item: Item)
     func itemSizingStrategy(displayedWith variant: DisplayVariant?) -> ItemSizingStrategy
 }
@@ -45,9 +45,9 @@ extension ItemDisplaying where Self: UIViewController {
 }
 
 extension ItemDisplaying where Self: UIViewController, View: Displayed, Item == View.Item {
-    public func update(with item: Item, displayed: Bool) {
+    public func update(with item: Item, variant: DisplayVariant?, displayed: Bool) {
         if displayed {
-            view.update(with: item)
+            view.update(with: item, variant: variant)
         }
     }
 }
@@ -58,7 +58,7 @@ final class ItemDisplayingViewController: UIViewController {
     typealias View = UIView
 
     private let viewName: String
-    private let update: (Any, Bool) -> Void
+    private let update: (Any, DisplayVariant?, Bool) -> Void
     private let select: (Any) -> Void
     private let itemSizingStrategy: (DisplayVariant?) -> ItemSizingStrategy
     
@@ -68,7 +68,7 @@ final class ItemDisplayingViewController: UIViewController {
         self.viewController = viewController
         
         viewName = String(viewController.dynamicType).replacingOccurrences(of: "ViewController", with: "View")
-        update = { viewController.update(with: $0 as! V.Item, displayed: $1) }
+        update = { viewController.update(with: $0 as! V.Item, variant: $1, displayed: $2) }
         select = { viewController.selectItem($0 as! V.Item) }
         itemSizingStrategy = { viewController.itemSizingStrategy(displayedWith: $0) }
         
@@ -97,8 +97,8 @@ final class ItemDisplayingViewController: UIViewController {
 }
 
 extension ItemDisplayingViewController: ItemDisplaying {
-    func update(with item: Any, displayed: Bool) {
-        update(item, displayed)
+    func update(with item: Any, variant: DisplayVariant?, displayed: Bool) {
+        update(item, variant, displayed)
     }
     
     func selectItem(_ item: Any) {

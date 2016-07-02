@@ -78,7 +78,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         
         let view = cell.hostedViewController.view as! View
         displayItemWithView(item, view)
-        cell.hostedViewController.update(with: item, displayed: true)
+        cell.hostedViewController.update(with: item, variant: variant, displayed: true)
         
         let tableViewCell = cell as! UITableViewCell
         tableViewCell.isUserInteractionEnabled = view.isUserInteractionEnabled
@@ -115,7 +115,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         }
         
         displayItemWithView(item, cell.hostedViewController.view as! View)
-        cell.hostedViewController.update(with: item, displayed: true)
+        cell.hostedViewController.update(with: item, variant: variant, displayed: true)
         return cell
     }
     
@@ -199,7 +199,7 @@ private extension DataMediator {
         var fittedSize: CGSize? = nil
         if strategy.widthReference == .constraints || strategy.heightReference == .constraints {
             displayItemWithView(item, metricsView)
-            metricsViewController.update(with: item, displayed: false)
+            metricsViewController.update(with: item, variant: variant, displayed: false)
             fittedSize = metricsView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
         }
 

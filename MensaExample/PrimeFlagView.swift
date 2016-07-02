@@ -17,7 +17,7 @@ class PrimeFlagView: UIView, Displayed {
     
     @IBOutlet private(set) weak var textLabel: UILabel?
     
-    func update(with primeFlag: PrimeFlag) {
+    func update(with primeFlag: PrimeFlag, variant: DisplayVariant?) {
         textLabel?.text = "The number \(primeFlag.number.value) above is prime."
     }
 }
