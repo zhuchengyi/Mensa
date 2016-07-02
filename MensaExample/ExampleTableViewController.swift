@@ -43,9 +43,4 @@ extension ExampleTableViewController: DataDisplaying {
             numberView.valueLabel.font = UIFont.systemFont(ofSize: size)
         }
     }
-    
-    func registerItemTypeViewControllerTypePairs() {
-        register(Number.self, with: NumberViewController.self)
-        register(PrimeFlag.self, with: PrimeFlagViewController.self)
-    }
 }

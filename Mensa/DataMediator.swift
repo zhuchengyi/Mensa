@@ -6,6 +6,8 @@
 //  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
+private var globalViewControllerTypes: [String: () -> ItemDisplayingViewController] = [:]
+
 final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     typealias Sections = () -> [Section<Item>]
     typealias Variant = (Item) -> DisplayVariant?
@@ -20,7 +22,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private let collectionViewSectionInsets: [Int: UIEdgeInsets]?
     
     private var registeredIdentifiers = Set<String>()
-    private var viewControllerTypes: [String: () -> ItemDisplayingViewController] = [:]
+    private var viewControllerTypes: [String: () -> ItemDisplayingViewController] = globalViewControllerTypes
     private var metricsViewControllers: [String: ItemDisplayingViewController] = [:]
     private var sizes: [IndexPath: CGSize] = [:]
     
@@ -47,6 +49,10 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     func reset() {
         sizes = [:]
+    }
+    
+    static func globallyRegister<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
+        
     }
 
     // MARK: UITableViewDataSource
@@ -216,5 +222,13 @@ private extension DataMediator {
         }
 
         return size
+    }
+}
+
+func dataMediatorGloballyRegister<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
+    let key = String(itemType)
+    globalViewControllerTypes[key] = {
+        let viewController = viewControllerType.init()
+        return ItemDisplayingViewController(viewController)
     }
 }

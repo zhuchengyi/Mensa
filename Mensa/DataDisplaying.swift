@@ -34,10 +34,16 @@ public protocol DisplayVariant {
     var rawValue: Int { get }
 }
 
+// Globally register a view controller type to use to display an item type.
+public func globallyRegister<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
+    dataMediatorGloballyRegister(itemType, with: viewControllerType)
+}
+
 private var dataViewKey = "displayViewKey"
 private var dataMediatorKey = "dataMediatorKey"
 
 extension DataDisplaying {
+    public func registerItemTypeViewControllerTypePairs() {}
     public func display(_ item: Item, with view: View) {}
     public func variant(for item: Item) -> DisplayVariant? { return nil }
     public func handle(_ scrollEvent: ScrollEvent) {}
