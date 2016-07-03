@@ -147,7 +147,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         }
         
         return sizes[indexPath] ?? {
-            let contentSize = UIEdgeInsetsInsetRect(collectionView.bounds, insets).size
+            let contentSize = UIEdgeInsetsInsetRect(collectionView.superview!.bounds, insets).size
             let size = viewSize(at: indexPath, withContentSize: contentSize)
             sizes[indexPath] = size
             return size
