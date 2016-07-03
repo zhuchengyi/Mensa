@@ -17,3 +17,9 @@ public protocol Displayed: class {
     associatedtype Item
     func update(with item: Item, variant: DisplayVariant)
 }
+
+extension Displayed {
+    public func update(with item: Item) {
+        update(with: item, variant: DefaultDisplayVariant())
+    }
+}
