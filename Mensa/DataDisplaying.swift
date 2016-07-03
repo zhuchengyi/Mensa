@@ -83,6 +83,9 @@ extension DataDisplaying where Self: UIViewController {
         case let .collectionView(layout, insetsForSections):
             let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             collectionView.backgroundColor = .clear()
+            if #available (iOS 10, *) {
+                collectionView.isPrefetchingEnabled = false
+            }
             dataView = collectionView
             collectionViewSectionInsets = insetsForSections
         }
