@@ -39,7 +39,7 @@ extension ExampleCollectionViewController: DataDisplaying {
         }
     }
     
-    func variant(for item: Item, viewType: UIView.Type) -> DisplayVariant {
+    func variant(for item: Item, viewType: View.Type) -> DisplayVariant {
         if viewType == PrimeFlagView.self {
             return PrimeFlagView.Context.compact
         }

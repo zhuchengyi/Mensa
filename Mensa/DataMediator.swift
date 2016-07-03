@@ -11,7 +11,7 @@ private var globalViewControllerTypes: [String: () -> ItemDisplayingViewControll
 
 final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     typealias Sections = () -> [Section<Item>]
-    typealias Variant = (Item, UIView.Type) -> DisplayVariant
+    typealias Variant = (Item, View.Type) -> DisplayVariant
     typealias DisplayItemWithView = (Item, View) -> Void
     typealias HandleScrollEvent = (ScrollEvent) -> Void
     
@@ -23,7 +23,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private let collectionViewSectionInsets: [Int: UIEdgeInsets]?
     
     private var registeredIdentifiers = Set<String>()
-    private var viewTypes: [String: UIView.Type] = globalViewTypes
+    private var viewTypes: [String: View.Type] = [:]
     private var viewControllerTypes: [String: () -> ItemDisplayingViewController] = globalViewControllerTypes
     private var metricsViewControllers: [String: ItemDisplayingViewController] = [:]
     private var sizes: [IndexPath: CGSize] = [:]
@@ -38,12 +38,19 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         self.handleScrollEvent = handleScrollEvent
         self.tableViewCellSeparatorInset = tableViewCellSeparatorInset
         self.collectionViewSectionInsets = collectionViewSectionInsets
+        
         super.init()
+        
+        for (key, value) in globalViewTypes {
+            if value is View.Type {
+                viewTypes[key] = value as? View.Type
+            }
+        }
     }
     
     func register<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
         let key = String(itemType)
-        viewTypes[key] = viewControllerType.viewType
+        viewTypes[key] = viewControllerType.viewType as? View.Type
         viewControllerTypes[key] = {
             let viewController = viewControllerType.init()
             return ItemDisplayingViewController(viewController)

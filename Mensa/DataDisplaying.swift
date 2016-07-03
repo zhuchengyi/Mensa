@@ -20,7 +20,7 @@ public protocol DataDisplaying: Displaying {
     func handle(_ scrollEvent: ScrollEvent)
     
     // Specify which display variant should be used for the given item, other than the default.
-    func variant(for item: Item, viewType: UIView.Type) -> DisplayVariant
+    func variant(for item: Item, viewType: View.Type) -> DisplayVariant
 }
 
 /// Context in which to display data. UITableView and UICollectionView are the default views used.
@@ -51,7 +51,7 @@ extension DataDisplaying {
     public func registerItemTypeViewControllerTypePairs() {}
     public func display(_ item: Item, with view: View) {}
     public func handle(_ scrollEvent: ScrollEvent) {}
-    public func variant(for item: Item, viewType: UIView.Type) -> DisplayVariant { return DefaultDisplayVariant() }
+    public func variant(for item: Item, viewType: View.Type) -> DisplayVariant { return DefaultDisplayVariant() }
 }
 
 extension DataDisplaying where Self: UIViewController {
