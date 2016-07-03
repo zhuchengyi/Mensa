@@ -15,5 +15,5 @@ public protocol Displaying: class {
 /// Type that is displayed with an item, which can be updated.
 public protocol Displayed: class {
     associatedtype Item
-    func update(with item: Item, variant: DisplayVariant?)
+    func update(with item: Item, variant: DisplayVariant)
 }

@@ -12,7 +12,7 @@ class PrimeFlagViewController: UIViewController, ItemDisplaying {
     typealias Item = PrimeFlag
     typealias View = PrimeFlagView
     
-    func itemSizingStrategy(displayedWith variant: DisplayVariant?) -> ItemSizingStrategy {
+    func itemSizingStrategy(displayedWith variant: DisplayVariant) -> ItemSizingStrategy {
         return ItemSizingStrategy(widthReference: .template, heightReference: .template)
     }
 }

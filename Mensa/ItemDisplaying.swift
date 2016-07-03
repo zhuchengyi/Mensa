@@ -9,9 +9,9 @@
 /// Displays a single item using a view, updating the view based on the item’s properties.
 public protocol ItemDisplaying: Displaying {
     // TODO: Pass in variant?
-    func update(with item: Item, variant: DisplayVariant?, displayed: Bool)
+    func update(with item: Item, variant: DisplayVariant, displayed: Bool)
     func selectItem(_ item: Item)
-    func itemSizingStrategy(displayedWith variant: DisplayVariant?) -> ItemSizingStrategy
+    func itemSizingStrategy(displayedWith variant: DisplayVariant) -> ItemSizingStrategy
 }
 
 public struct ItemSizingStrategy {
@@ -33,7 +33,7 @@ public struct ItemSizingStrategy {
 extension ItemDisplaying {
     public func selectItem(_ item: Item) {}
     
-    public func itemSizingStrategy(displayedWith variant: DisplayVariant?) -> ItemSizingStrategy {
+    public func itemSizingStrategy(displayedWith variant: DisplayVariant) -> ItemSizingStrategy {
         return ItemSizingStrategy(widthReference: .constraints, heightReference: .constraints)
     }
 }
@@ -45,7 +45,7 @@ extension ItemDisplaying where Self: UIViewController {
 }
 
 extension ItemDisplaying where Self: UIViewController, View: Displayed, Item == View.Item {
-    public func update(with item: Item, variant: DisplayVariant?, displayed: Bool) {
+    public func update(with item: Item, variant: DisplayVariant, displayed: Bool) {
         if displayed {
             view.update(with: item, variant: variant)
         }
@@ -58,9 +58,9 @@ final class ItemDisplayingViewController: UIViewController {
     typealias View = UIView
 
     private let viewName: String
-    private let update: (Any, DisplayVariant?, Bool) -> Void
+    private let update: (Any, DisplayVariant, Bool) -> Void
     private let select: (Any) -> Void
-    private let itemSizingStrategy: (DisplayVariant?) -> ItemSizingStrategy
+    private let itemSizingStrategy: (DisplayVariant) -> ItemSizingStrategy
     
     private weak var viewController: UIViewController!
     
@@ -79,8 +79,8 @@ final class ItemDisplayingViewController: UIViewController {
         fatalError()
     }
     
-    func loadViewFromNib(for variant: DisplayVariant?) {
-        let index = variant.map { $0.rawValue } ?? 0
+    func loadViewFromNib(for variant: DisplayVariant) {
+        let index = variant.rawValue
         view = Bundle.main().loadNibNamed(viewName, owner: nil, options: nil)[index] as? View
     }
     
@@ -97,7 +97,7 @@ final class ItemDisplayingViewController: UIViewController {
 }
 
 extension ItemDisplayingViewController: ItemDisplaying {
-    func update(with item: Any, variant: DisplayVariant?, displayed: Bool) {
+    func update(with item: Any, variant: DisplayVariant, displayed: Bool) {
         update(item, variant, displayed)
     }
     
@@ -105,7 +105,7 @@ extension ItemDisplayingViewController: ItemDisplaying {
         select(item)
     }
     
-    func itemSizingStrategy(displayedWith variant: DisplayVariant?) -> ItemSizingStrategy {
+    func itemSizingStrategy(displayedWith variant: DisplayVariant) -> ItemSizingStrategy {
         return itemSizingStrategy(variant)
     }
 }

@@ -6,11 +6,12 @@
 //  Copyright © 2016 Jordan Kay. All rights reserved.
 //
 
+private var globalViewTypes: [String: UIView.Type] = [:]
 private var globalViewControllerTypes: [String: () -> ItemDisplayingViewController] = [:]
 
 final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     typealias Sections = () -> [Section<Item>]
-    typealias Variant = (Item) -> DisplayVariant?
+    typealias Variant = (Item, UIView.Type) -> DisplayVariant
     typealias DisplayItemWithView = (Item, View) -> Void
     typealias HandleScrollEvent = (ScrollEvent) -> Void
     
@@ -22,6 +23,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private let collectionViewSectionInsets: [Int: UIEdgeInsets]?
     
     private var registeredIdentifiers = Set<String>()
+    private var viewTypes: [String: UIView.Type] = globalViewTypes
     private var viewControllerTypes: [String: () -> ItemDisplayingViewController] = globalViewControllerTypes
     private var metricsViewControllers: [String: ItemDisplayingViewController] = [:]
     private var sizes: [IndexPath: CGSize] = [:]
@@ -41,6 +43,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     func register<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
         let key = String(itemType)
+        viewTypes[key] = viewControllerType.viewType
         viewControllerTypes[key] = {
             let viewController = viewControllerType.init()
             return ItemDisplayingViewController(viewController)
@@ -163,10 +166,11 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
 }
 
 private extension DataMediator {
-    func info(for indexPath: NSIndexPath) -> (Item, DisplayVariant?, String) {
+    func info(for indexPath: NSIndexPath) -> (Item, DisplayVariant, String) {
         let item = sections()[indexPath.section][indexPath.row]
-        let variant = self.variant(item)
-        let identifier = String(item.dynamicType) + String(variant.map { $0.rawValue } ?? 0)
+        let key = String(item.dynamicType)
+        let variant = self.variant(item, viewTypes[key]!)
+        let identifier = key + String(variant.rawValue)
         return (item, variant, identifier)
     }
     
@@ -225,8 +229,19 @@ private extension DataMediator {
     }
 }
 
+private extension UIViewController {
+    static var viewType: UIView.Type {
+        let name = String(self).replacingOccurrences(of: "ViewController", with: "View")
+        let bundle = Bundle(for: self)
+        let namespace = bundle.objectForInfoDictionaryKey("CFBundleName") as! String
+        let className = "\(namespace).\(name)"
+        return NSClassFromString(className) as! UIView.Type
+    }
+}
+
 func dataMediatorGloballyRegister<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
     let key = String(itemType)
+    globalViewTypes[key] = viewControllerType.viewType
     globalViewControllerTypes[key] = {
         let viewController = viewControllerType.init()
         return ItemDisplayingViewController(viewController)

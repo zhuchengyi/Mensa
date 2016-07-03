@@ -16,11 +16,11 @@ public protocol DataDisplaying: Displaying {
     // Optional functionality implementors can specify to modify a view that will be used to display a given item.
     func display(_ item: Item, with view: View)
     
-    // Specify which display variant should be used for the given item, other than the default.
-    func variant(for item: Item) -> DisplayVariant?
-    
     // Handle scroll events.
     func handle(_ scrollEvent: ScrollEvent)
+    
+    // Specify which display variant should be used for the given item, other than the default.
+    func variant(for item: Item, viewType: UIView.Type) -> DisplayVariant
 }
 
 /// Context in which to display data. UITableView and UICollectionView are the default views used.
@@ -34,6 +34,11 @@ public protocol DisplayVariant {
     var rawValue: Int { get }
 }
 
+public struct DefaultDisplayVariant: DisplayVariant {
+    public init() {}
+    public var rawValue: Int { return 0 }
+}
+
 // Globally register a view controller type to use to display an item type.
 public func globallyRegister<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
     dataMediatorGloballyRegister(itemType, with: viewControllerType)
@@ -45,8 +50,8 @@ private var dataMediatorKey = "dataMediatorKey"
 extension DataDisplaying {
     public func registerItemTypeViewControllerTypePairs() {}
     public func display(_ item: Item, with view: View) {}
-    public func variant(for item: Item) -> DisplayVariant? { return nil }
     public func handle(_ scrollEvent: ScrollEvent) {}
+    public func variant(for item: Item, viewType: UIView.Type) -> DisplayVariant { return DefaultDisplayVariant() }
 }
 
 extension DataDisplaying where Self: UIViewController {

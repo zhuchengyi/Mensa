@@ -10,11 +10,11 @@ protocol HostingCell {
     var contentView: UIView { get }
     var hostedViewController: ItemDisplayingViewController! { get }
     
-    init(parentViewController: UIViewController, hostedViewController: ItemDisplayingViewController, variant: DisplayVariant?, reuseIdentifier: String)
+    init(parentViewController: UIViewController, hostedViewController: ItemDisplayingViewController, variant: DisplayVariant, reuseIdentifier: String)
 }
 
 extension HostingCell {
-    func hostContent(parentViewController: UIViewController, variant: DisplayVariant?) {
+    func hostContent(parentViewController: UIViewController, variant: DisplayVariant) {
         hostedViewController.loadViewFromNib(for: variant)
         parentViewController.addChildViewController(hostedViewController)
         hostedViewController.didMove(toParentViewController: parentViewController)
@@ -31,7 +31,7 @@ extension HostingCell {
 final class TableViewCell<Item>: UITableViewCell, HostingCell {
     let hostedViewController: ItemDisplayingViewController!
     
-    init(parentViewController: UIViewController, hostedViewController: ItemDisplayingViewController, variant: DisplayVariant?, reuseIdentifier: String) {
+    init(parentViewController: UIViewController, hostedViewController: ItemDisplayingViewController, variant: DisplayVariant, reuseIdentifier: String) {
         self.hostedViewController = hostedViewController
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         hostContent(parentViewController: parentViewController, variant: variant)
@@ -43,12 +43,12 @@ final class CollectionViewCell<Item>: UICollectionViewCell, HostingCell {
     var hostedViewController: ItemDisplayingViewController!
     private(set) var hostingContent = false
     
-    init(parentViewController: UIViewController, hostedViewController: ItemDisplayingViewController, variant: DisplayVariant?, reuseIdentifier: String) {
+    init(parentViewController: UIViewController, hostedViewController: ItemDisplayingViewController, variant: DisplayVariant, reuseIdentifier: String) {
         super.init(frame: .zero)
         setup(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant)
     }
     
-    func setup(parentViewController: UIViewController, hostedViewController: ItemDisplayingViewController, variant: DisplayVariant?) {
+    func setup(parentViewController: UIViewController, hostedViewController: ItemDisplayingViewController, variant: DisplayVariant) {
         guard !hostingContent else { return }
         self.hostedViewController = hostedViewController
         hostContent(parentViewController: parentViewController, variant: variant)

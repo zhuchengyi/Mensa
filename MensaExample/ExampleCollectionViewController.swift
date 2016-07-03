@@ -32,17 +32,17 @@ extension ExampleCollectionViewController: DataDisplaying {
         return [Section(items)]
     }
     
-    func variant(for item: Item) -> DisplayVariant? {
-        if item is PrimeFlag {
-            return PrimeFlagView.Context.compact
-        }
-        return nil
-    }
-    
     func display(_ item: Item, with view: View) {
         if let number = item as? Number, numberView = view as? NumberView {
             let size = CGFloat(maxFontSize - number.value)
             numberView.valueLabel.font = UIFont.systemFont(ofSize: size)
         }
+    }
+    
+    func variant(for item: Item, viewType: UIView.Type) -> DisplayVariant {
+        if viewType == PrimeFlagView.self {
+            return PrimeFlagView.Context.compact
+        }
+        return DefaultDisplayVariant()
     }
 }
