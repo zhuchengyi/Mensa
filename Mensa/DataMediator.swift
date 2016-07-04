@@ -11,6 +11,7 @@ private var globalViewControllerTypes: [String: () -> ItemDisplayingViewControll
 
 final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     typealias Sections = () -> [Section<Item>]
+    typealias SectionInsets = (Int) -> UIEdgeInsets?
     typealias Variant = (Item, View.Type) -> DisplayVariant
     typealias DisplayItemWithView = (Item, View) -> Void
     typealias HandleScrollEvent = (ScrollEvent) -> Void
@@ -20,7 +21,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private let displayItemWithView: DisplayItemWithView
     private let handleScrollEvent: HandleScrollEvent
     private let tableViewCellSeparatorInset: CGFloat?
-    private let collectionViewSectionInsets: [Int: UIEdgeInsets]?
+    private let collectionViewSectionInsets: SectionInsets?
     
     private var registeredIdentifiers = Set<String>()
     private var viewTypes: [String: View.Type] = [:]
@@ -30,7 +31,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     private weak var parentViewController: UIViewController!
     
-    init(parentViewController: UIViewController, sections: Sections, variant: Variant, displayItemWithView: DisplayItemWithView, handleScrollEvent: HandleScrollEvent, tableViewCellSeparatorInset: CGFloat?, collectionViewSectionInsets: [Int: UIEdgeInsets]?) {
+    init(parentViewController: UIViewController, sections: Sections, variant: Variant, displayItemWithView: DisplayItemWithView, handleScrollEvent: HandleScrollEvent, tableViewCellSeparatorInset: CGFloat?, collectionViewSectionInsets: SectionInsets?) {
         self.parentViewController = parentViewController
         self.sections = sections
         self.variant = variant
@@ -192,14 +193,7 @@ private extension DataMediator {
     }
     
     func collectionViewInset(for section: Int, with layout: UICollectionViewFlowLayout) -> UIEdgeInsets {
-        let indexPath = IndexPath(item: 0, section: section)
-        let (_, variant, identifier) = info(for: indexPath)
-        if let strategy = metricsViewControllers[identifier]?.itemSizingStrategy(displayedWith: variant) {
-            if strategy.heightReference == .scrollView || strategy.widthReference == .scrollView {
-                return .zero
-            }
-        }
-        return collectionViewSectionInsets?[section] ?? layout.sectionInset
+        return collectionViewSectionInsets?(section) ?? layout.sectionInset
     }
     
     func viewSize(at indexPath: NSIndexPath, withContainerSize containerSize: CGSize, scrollViewSize: CGSize) -> CGSize {

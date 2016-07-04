@@ -21,12 +21,15 @@ public protocol DataDisplaying: Displaying {
     
     // Specify which display variant should be used for the given item, other than the default.
     func variant(for item: Item, viewType: View.Type) -> DisplayVariant
+    
+    //
+    func insets(for section: Int) -> UIEdgeInsets?
 }
 
 /// Context in which to display data. UITableView and UICollectionView are the default views used.
 public enum DataDisplayContext {
     case tableView(separatorInset: CGFloat?)
-    case collectionView(layout: UICollectionViewLayout, insetsForSections: [Int: UIEdgeInsets]?)
+    case collectionView(layout: UICollectionViewLayout)
 }
 
 /// Values that conform can be used to differentiate between different ways to display a given item.
@@ -52,6 +55,7 @@ extension DataDisplaying {
     public func display(_ item: Item, with view: View) {}
     public func handle(_ scrollEvent: ScrollEvent) {}
     public func variant(for item: Item, viewType: View.Type) -> DisplayVariant { return DefaultDisplayVariant() }
+    public func insets(for section: Int) -> UIEdgeInsets? { return nil }
 }
 
 extension DataDisplaying where Self: UIViewController {
@@ -75,19 +79,17 @@ extension DataDisplaying where Self: UIViewController {
     // Call this method to set up a display context in a view controller by adding an appropriate data view as a subview.
     public func setDisplayContext(_ context: DataDisplayContext, dataViewSetup: ((UIView) -> Void)? = nil) {
         var tableViewCellSeparatorInset: CGFloat? = nil
-        var collectionViewSectionInsets: [Int: UIEdgeInsets]? = nil
         switch context {
         case .tableView(let separatorInset):
             dataView = UITableView()
             tableViewCellSeparatorInset = separatorInset
-        case let .collectionView(layout, insetsForSections):
+        case let .collectionView(layout):
             let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             collectionView.backgroundColor = .clear()
             if #available (iOS 10, *) {
                 collectionView.isPrefetchingEnabled = false
             }
             dataView = collectionView
-            collectionViewSectionInsets = insetsForSections
         }
     
         if let dataView = dataView as? UIView {
@@ -98,7 +100,7 @@ extension DataDisplaying where Self: UIViewController {
         }
         
         let sections = { [unowned self] in self.sections }
-        let dataMediator = DataMediator(parentViewController: self, sections: sections, variant: variant, displayItemWithView: display, handleScrollEvent: handle, tableViewCellSeparatorInset: tableViewCellSeparatorInset, collectionViewSectionInsets: collectionViewSectionInsets)
+        let dataMediator = DataMediator(parentViewController: self, sections: sections, variant: variant, displayItemWithView: display, handleScrollEvent: handle, tableViewCellSeparatorInset: tableViewCellSeparatorInset, collectionViewSectionInsets: insets)
         setAssociatedObject(dataMediator, for: &dataMediatorKey)
         
         if let tableView = dataView as? UITableView {
