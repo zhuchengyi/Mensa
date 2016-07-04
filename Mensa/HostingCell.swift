@@ -55,3 +55,9 @@ final class CollectionViewCell<Item>: UICollectionViewCell, HostingCell {
         hostingContent = true
     }
 }
+
+extension UIView {
+    public var cell: UIView? {
+        return superview?.superview as? HostingCell as? UIView
+    }
+}
