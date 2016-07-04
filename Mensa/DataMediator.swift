@@ -147,8 +147,9 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         }
         
         return sizes[indexPath] ?? {
-            let contentSize = UIEdgeInsetsInsetRect(collectionView.superview!.bounds, insets).size
-            let size = viewSize(at: indexPath, withContentSize: contentSize)
+            let containerSize = UIEdgeInsetsInsetRect(collectionView.superview!.bounds, insets).size
+            let scrollViewSize = UIEdgeInsetsInsetRect(collectionView.bounds, collectionView.scrollIndicatorInsets).size
+            let size = viewSize(at: indexPath, withContainerSize: containerSize, scrollViewSize: scrollViewSize)
             sizes[indexPath] = size
             return size
         }()
@@ -191,10 +192,17 @@ private extension DataMediator {
     }
     
     func collectionViewInset(for section: Int, with layout: UICollectionViewFlowLayout) -> UIEdgeInsets {
+        let indexPath = IndexPath(item: 0, section: section)
+        let (_, variant, identifier) = info(for: indexPath)
+        if let strategy = metricsViewControllers[identifier]?.itemSizingStrategy(displayedWith: variant) {
+            if strategy.heightReference == .scrollView || strategy.widthReference == .scrollView {
+                return .zero
+            }
+        }
         return collectionViewSectionInsets?[section] ?? layout.sectionInset
     }
     
-    func viewSize(at indexPath: NSIndexPath, withContentSize contentSize: CGSize) -> CGSize {
+    func viewSize(at indexPath: NSIndexPath, withContainerSize containerSize: CGSize, scrollViewSize: CGSize) -> CGSize {
         let (item, variant, identifier) = info(for: indexPath)
         let metricsViewController = metricsViewControllers[identifier] ?? {
             let viewController = self.viewController(for: item.dynamicType)
@@ -218,7 +226,9 @@ private extension DataMediator {
         case .constraints:
             size.width = fittedSize!.width
         case .containerView:
-            size.width = contentSize.width
+            size.width = containerSize.width
+        case .scrollView:
+            size.width = scrollViewSize.width
         case .template:
             size.width = metricsView.bounds.width
         }
@@ -227,7 +237,9 @@ private extension DataMediator {
         case .constraints:
             size.height = fittedSize!.height
         case .containerView:
-            size.height = contentSize.height
+            size.height = containerSize.height
+        case .scrollView:
+            size.height = scrollViewSize.height
         case .template:
             size.height = metricsView.bounds.height
         }

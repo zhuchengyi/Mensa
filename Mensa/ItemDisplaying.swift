@@ -18,6 +18,7 @@ public struct ItemSizingStrategy {
     public enum DimensionReference {
         case constraints
         case containerView
+        case scrollView
         case template
     }
     
