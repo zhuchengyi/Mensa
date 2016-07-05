@@ -99,8 +99,15 @@ extension DataDisplaying where Self: UIViewController {
             dataViewSetup?(dataView)
         }
         
-        let sections = { [unowned self] in self.sections }
-        let dataMediator = DataMediator(parentViewController: self, sections: sections, variant: variant, displayItemWithView: display, handleScrollEvent: handle, tableViewCellSeparatorInset: tableViewCellSeparatorInset, collectionViewSectionInsets: insets)
+        let dataMediator = DataMediator(
+            parentViewController: self,
+            sections: { [unowned self] in self.sections },
+            variant: { [unowned self] in self.variant(for: $0, viewType: $1) },
+            displayItemWithView: { [unowned self] in self.display($0, with: $1) },
+            handleScrollEvent: { [unowned self] in self.handle($0) },
+            tableViewCellSeparatorInset: tableViewCellSeparatorInset,
+            collectionViewSectionInsets: { [unowned self] in self.insets(for: $0) }
+        )
         setAssociatedObject(dataMediator, for: &dataMediatorKey)
         
         if let tableView = dataView as? UITableView {
