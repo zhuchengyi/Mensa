@@ -61,10 +61,6 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     func reset() {
         sizes = [:]
     }
-    
-    static func globallyRegister<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
-        
-    }
 
     // MARK: UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
