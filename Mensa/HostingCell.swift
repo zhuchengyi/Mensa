@@ -9,8 +9,6 @@
 protocol HostingCell {
     var contentView: UIView { get }
     var hostedViewController: ItemDisplayingViewController! { get }
-    
-    init(parentViewController: UIViewController, hostedViewController: ItemDisplayingViewController, variant: DisplayVariant, reuseIdentifier: String)
 }
 
 extension HostingCell {
@@ -47,22 +45,12 @@ final class TableViewCell<Item>: UITableViewCell, HostingCell {
 final class CollectionViewCell<Item>: UICollectionViewCell, HostingCell {
     var hostedViewController: ItemDisplayingViewController!
     private(set) var hostingContent = false
-    
-    init(parentViewController: UIViewController, hostedViewController: ItemDisplayingViewController, variant: DisplayVariant, reuseIdentifier: String) {
-        super.init(frame: .zero)
-        setup(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant)
-    }
-    
+
     func setup(parentViewController: UIViewController, hostedViewController: ItemDisplayingViewController, variant: DisplayVariant) {
         guard !hostingContent else { return }
         self.hostedViewController = hostedViewController
         hostContent(parentViewController: parentViewController, variant: variant)
         hostingContent = true
-    }
-    
-    // MARK: NSObject
-    required init?(coder: NSCoder) {
-        fatalError()
     }
 }
 
