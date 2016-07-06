@@ -82,7 +82,7 @@ final class ItemDisplayingViewController: UIViewController {
     
     func loadViewFromNib(for variant: DisplayVariant) {
         let index = variant.rawValue
-        view = Bundle.main().loadNibNamed(viewName, owner: nil, options: nil)[index] as? View
+        view = Bundle.main.loadNibNamed(viewName, owner: nil, options: nil)[index] as? View
     }
     
     // MARK: UIViewController

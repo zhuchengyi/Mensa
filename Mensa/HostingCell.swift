@@ -37,6 +37,11 @@ final class TableViewCell<Item>: UITableViewCell, HostingCell {
         hostContent(parentViewController: parentViewController, variant: variant)
         preservesSuperviewLayoutMargins = false
     }
+    
+    // MARK: NSObject
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
 }
 
 final class CollectionViewCell<Item>: UICollectionViewCell, HostingCell {
@@ -53,6 +58,11 @@ final class CollectionViewCell<Item>: UICollectionViewCell, HostingCell {
         self.hostedViewController = hostedViewController
         hostContent(parentViewController: parentViewController, variant: variant)
         hostingContent = true
+    }
+    
+    // MARK: NSObject
+    required init?(coder: NSCoder) {
+        fatalError()
     }
 }
 
