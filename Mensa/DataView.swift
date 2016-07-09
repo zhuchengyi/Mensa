@@ -25,3 +25,5 @@ public enum ScrollEvent {
     case didEndScrollingAnimation
     case didScrollToTop
 }
+
+var isDataViewScrollingToTop = false
