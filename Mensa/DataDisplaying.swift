@@ -136,6 +136,7 @@ extension DataDisplaying where Self: UIViewController {
     
     // Call this method from the view controller to reload the data at specific index paths in the data view.
     public func reloadItems(at indexPaths: [IndexPath], animated: Bool = false) {
+        dataMediator?.reset()
         if let tableView = dataView as? UITableView {
             let animation: UITableViewRowAnimation = animated ? .fade : .none
             tableView.reloadRows(at: indexPaths, with: animation)
@@ -151,6 +152,7 @@ extension DataDisplaying where Self: UIViewController {
     
     // Call this method from the view controller to insert items into the data view.
     public func insertItems(at indexPaths: [IndexPath], animated: Bool = false) {
+        dataMediator?.reset()
         if let tableView = dataView as? UITableView {
             let animation: UITableViewRowAnimation = animated ? .fade : .none
             tableView.insertRows(at: indexPaths, with: animation)
@@ -166,6 +168,7 @@ extension DataDisplaying where Self: UIViewController {
     
     // Call this method from the view controller to remove items from the data view.
     public func removeItems(at indexPaths: [IndexPath], animated: Bool = false) {
+        dataMediator?.reset()
         if let tableView = dataView as? UITableView {
             let animation: UITableViewRowAnimation = animated ? .fade : .none
             tableView.deleteRows(at: indexPaths, with: animation)

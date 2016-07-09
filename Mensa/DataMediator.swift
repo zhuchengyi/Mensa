@@ -23,6 +23,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private let tableViewCellSeparatorInset: CGFloat?
     private let collectionViewSectionInsets: SectionInsets?
     
+    private var currentSections: [Section<Item>]
     private var registeredIdentifiers = Set<String>()
     private var viewTypes: [String: View.Type] = [:]
     private var viewControllerTypes: [String: () -> ItemDisplayingViewController] = globalViewControllerTypes
@@ -39,6 +40,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         self.handleScrollEvent = handleScrollEvent
         self.tableViewCellSeparatorInset = tableViewCellSeparatorInset
         self.collectionViewSectionInsets = collectionViewSectionInsets
+        self.currentSections = sections()
         
         super.init()
         
@@ -60,15 +62,16 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     func reset() {
         sizes = [:]
+        currentSections = sections()
     }
 
     // MARK: UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections().count
+        return currentSections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections()[section].count
+        return currentSections[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -102,11 +105,11 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
 
     // MARK: UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sections().count
+        return currentSections.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return sections()[section].count
+        return currentSections[section].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -172,7 +175,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
 
 private extension DataMediator {
     func info(for indexPath: NSIndexPath) -> (Item, DisplayVariant, String) {
-        let item = sections()[indexPath.section][indexPath.row]
+        let item = currentSections[indexPath.section][indexPath.row]
         let key = String(item.dynamicType)
         let variant = self.variant(item, viewTypes[key]!)
         let identifier = key + String(variant.rawValue)
