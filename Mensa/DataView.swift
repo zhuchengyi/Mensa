@@ -23,7 +23,6 @@ public enum ScrollEvent {
     case willBeginDecelerating
     case didEndDecelerating
     case didEndScrollingAnimation
+    case willScrollToTop
     case didScrollToTop
 }
-
-var isDataViewScrollingToTop = false
