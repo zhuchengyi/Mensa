@@ -37,6 +37,10 @@ public protocol DisplayVariant {
     var rawValue: Int { get }
 }
 
+public func ==(lhs: DisplayVariant, rhs: DisplayVariant) -> Bool {
+    return lhs.rawValue == rhs.rawValue
+}
+
 public struct DefaultDisplayVariant: DisplayVariant {
     public init() {}
     public var rawValue: Int { return 0 }
