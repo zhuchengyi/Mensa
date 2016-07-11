@@ -108,7 +108,7 @@ extension DataDisplaying where Self: UIViewController {
             sections: { [unowned self] in self.sections },
             variant: { [unowned self] in self.variant(for: $0, viewType: $1) },
             displayItemWithView: { [unowned self] in self.display($0, with: $1) },
-            handleScrollEvent: { [unowned self] in self.handle($0) },
+            handleScrollEvent: { [weak self] in self?.handle($0) },
             tableViewCellSeparatorInset: tableViewCellSeparatorInset,
             collectionViewSectionInsets: { [unowned self] in self.insets(for: $0) }
         )
