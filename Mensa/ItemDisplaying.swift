@@ -86,7 +86,7 @@ final class ItemDisplayingViewController: UIViewController {
     }
     
     // MARK: UIViewController
-    override var view: UIView? {
+    override var view: UIView! {
         get { return viewController.view }
         set { viewController.view = newValue }
     }
