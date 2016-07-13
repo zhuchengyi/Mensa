@@ -102,6 +102,10 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         cell?.hostedViewController.selectItem(item)
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.backgroundColor = tableView.backgroundColor
+    }
 
     // MARK: UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
