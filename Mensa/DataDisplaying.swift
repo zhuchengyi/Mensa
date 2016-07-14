@@ -23,7 +23,10 @@ public protocol DataDisplaying: Displaying {
     func variant(for item: Item, viewType: View.Type) -> DisplayVariant
     
     //
-    func insets(for section: Int) -> UIEdgeInsets?
+    func sectionInsets(for section: Int) -> UIEdgeInsets?
+    
+    //
+    func sizeInsets(for indexPath: IndexPath) -> UIEdgeInsets
 }
 
 /// Context in which to display data. UITableView and UICollectionView are the default views used.
@@ -65,7 +68,8 @@ extension DataDisplaying {
     public func display(_ item: Item, with view: View) {}
     public func handle(_ scrollEvent: ScrollEvent) {}
     public func variant(for item: Item, viewType: View.Type) -> DisplayVariant { return DefaultDisplayVariant() }
-    public func insets(for section: Int) -> UIEdgeInsets? { return nil }
+    public func sectionInsets(for section: Int) -> UIEdgeInsets? { return nil }
+    public func sizeInsets(for indexPath: IndexPath) -> UIEdgeInsets { return .zero }
 }
 
 extension DataDisplaying where Self: UIViewController {
@@ -127,7 +131,8 @@ extension DataDisplaying where Self: UIViewController {
             handleScrollEvent: { [weak self] in self?.handle($0) },
             tableViewCellSeparatorInset: tableViewCellSeparatorInset,
             hidesLastTableViewCellSeparator: hidesLastTableViewCellSeparator,
-            collectionViewSectionInsets: { [unowned self] in self.insets(for: $0) }
+            collectionViewSectionInsets: { [unowned self] in self.sectionInsets(for: $0) },
+            collectionViewSizeInsets: { [unowned self] in self.sizeInsets(for: $0) }
         )
         setAssociatedObject(dataMediator, for: &dataMediatorKey)
         
