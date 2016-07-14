@@ -58,7 +58,7 @@ final class ItemDisplayingViewController: UIViewController {
     typealias Item = Any
     typealias View = UIView
 
-    private let viewName: String
+    private let nib: UINib
     private let update: (Any, DisplayVariant, Bool) -> Void
     private let select: (Any) -> Void
     private let itemSizingStrategy: (DisplayVariant) -> ItemSizingStrategy
@@ -68,7 +68,13 @@ final class ItemDisplayingViewController: UIViewController {
     init<V: UIViewController where V: ItemDisplaying>(_ viewController: V) {
         self.viewController = viewController
         
-        viewName = String(viewController.dynamicType).replacingOccurrences(of: "ViewController", with: "View")
+        let viewName = String(viewController.dynamicType).replacingOccurrences(of: "ViewController", with: "View")
+        nib = nibs[viewName] ?? {
+            let nib = UINib(nibName: viewName, bundle: Bundle.main)
+            nibs[viewName] = nib
+            return nib
+        }()
+        
         update = { viewController.update(with: $0 as! V.Item, variant: $1, displayed: $2) }
         select = { viewController.selectItem($0 as! V.Item) }
         itemSizingStrategy = { viewController.itemSizingStrategy(displayedWith: $0) }
@@ -82,7 +88,7 @@ final class ItemDisplayingViewController: UIViewController {
     
     func loadViewFromNib(for variant: DisplayVariant) {
         let index = variant.rawValue
-        view = Bundle.main.loadNibNamed(viewName, owner: nil, options: nil)[index] as? View
+        view = nib.instantiate(withOwner: nil, options: nil)[index] as? View
     }
     
     // MARK: UIViewController
@@ -110,3 +116,5 @@ extension ItemDisplayingViewController: ItemDisplaying {
         return itemSizingStrategy(variant)
     }
 }
+
+private var nibs: [String: UINib] = [:]
