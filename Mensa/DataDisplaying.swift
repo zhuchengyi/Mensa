@@ -86,6 +86,10 @@ extension DataDisplaying where Self: UIViewController {
         return dataView as! UIScrollView
     }
     
+    public var sectionCount: Int {
+        return dataMediator?.sectionCount ?? 0
+    }
+    
     // Call this method to set up a display context in a view controller by adding an appropriate data view as a subview.
     public func setDisplayContext(_ context: DataDisplayContext, dataViewSetup: ((UIView) -> Void)? = nil) {
         var tableViewCellSeparatorInset: CGFloat? = nil

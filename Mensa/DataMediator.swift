@@ -53,6 +53,10 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         }
     }
     
+    var sectionCount: Int {
+        return currentSections.count
+    }
+    
     func register<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
         let key = String(itemType)
         viewTypes[key] = viewControllerType.viewType as? View.Type
