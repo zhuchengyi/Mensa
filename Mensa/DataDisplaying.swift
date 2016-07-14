@@ -28,8 +28,14 @@ public protocol DataDisplaying: Displaying {
 
 /// Context in which to display data. UITableView and UICollectionView are the default views used.
 public enum DataDisplayContext {
-    case tableView(separatorInset: CGFloat?)
+    case tableView(separatorInset: CGFloat?, separatorPlacement: SeparatorPlacement)
     case collectionView(layout: UICollectionViewLayout)
+}
+
+public enum SeparatorPlacement {
+    case `default`
+    case allCells
+    case allCellsButLast
 }
 
 /// Values that conform can be used to differentiate between different ways to display a given item.
@@ -83,10 +89,16 @@ extension DataDisplaying where Self: UIViewController {
     // Call this method to set up a display context in a view controller by adding an appropriate data view as a subview.
     public func setDisplayContext(_ context: DataDisplayContext, dataViewSetup: ((UIView) -> Void)? = nil) {
         var tableViewCellSeparatorInset: CGFloat? = nil
+        var hidesLastTableViewCellSeparator = false
         switch context {
-        case .tableView(let separatorInset):
-            dataView = UITableView()
+        case .tableView(let separatorInset, let separatorPlacement):
+            let tableView = UITableView()
             tableViewCellSeparatorInset = separatorInset
+            hidesLastTableViewCellSeparator = (separatorPlacement == .allCellsButLast)
+            if separatorPlacement != .default {
+                tableView.tableFooterView = UIView()
+            }
+            dataView = tableView
         case let .collectionView(layout):
             let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
             collectionView.backgroundColor = .clear()
@@ -110,6 +122,7 @@ extension DataDisplaying where Self: UIViewController {
             displayItemWithView: { [unowned self] in self.display($0, with: $1) },
             handleScrollEvent: { [weak self] in self?.handle($0) },
             tableViewCellSeparatorInset: tableViewCellSeparatorInset,
+            hidesLastTableViewCellSeparator: hidesLastTableViewCellSeparator,
             collectionViewSectionInsets: { [unowned self] in self.insets(for: $0) }
         )
         setAssociatedObject(dataMediator, for: &dataMediatorKey)

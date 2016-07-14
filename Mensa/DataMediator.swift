@@ -21,6 +21,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private let displayItemWithView: DisplayItemWithView
     private let handleScrollEvent: HandleScrollEvent
     private let tableViewCellSeparatorInset: CGFloat?
+    private let hidesLastTableViewCellSeparator: Bool
     private let collectionViewSectionInsets: SectionInsets?
     
     private var currentSections: [Section<Item>]
@@ -32,13 +33,14 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     private weak var parentViewController: UIViewController!
     
-    init(parentViewController: UIViewController, sections: Sections, variant: Variant, displayItemWithView: DisplayItemWithView, handleScrollEvent: HandleScrollEvent, tableViewCellSeparatorInset: CGFloat?, collectionViewSectionInsets: SectionInsets?) {
+    init(parentViewController: UIViewController, sections: Sections, variant: Variant, displayItemWithView: DisplayItemWithView, handleScrollEvent: HandleScrollEvent, tableViewCellSeparatorInset: CGFloat?, hidesLastTableViewCellSeparator: Bool, collectionViewSectionInsets: SectionInsets?) {
         self.parentViewController = parentViewController
         self.sections = sections
         self.variant = variant
         self.displayItemWithView = displayItemWithView
         self.handleScrollEvent = handleScrollEvent
         self.tableViewCellSeparatorInset = tableViewCellSeparatorInset
+        self.hidesLastTableViewCellSeparator = hidesLastTableViewCellSeparator
         self.collectionViewSectionInsets = collectionViewSectionInsets
         self.currentSections = sections()
         
@@ -105,6 +107,12 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = tableView.backgroundColor
+        if hidesLastTableViewCellSeparator {
+            let isLastCell = (indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1)
+            if isLastCell {
+                cell.separatorInset.left = cell.bounds.width
+            }
+        }
     }
 
     // MARK: UICollectionViewDataSource
