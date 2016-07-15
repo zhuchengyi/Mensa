@@ -87,8 +87,9 @@ final class ItemDisplayingViewController: UIViewController {
     }
     
     func loadViewFromNib(for variant: DisplayVariant) {
-        let index = variant.rawValue
-        view = nib.instantiate(withOwner: nil, options: nil)[index] as? View
+        let views = nib.instantiate(withOwner: nil, options: nil)
+        let index = min(variant.rawValue, views.count - 1)
+        view = views[index] as? View
     }
     
     // MARK: UIViewController
