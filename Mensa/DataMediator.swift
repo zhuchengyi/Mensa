@@ -32,6 +32,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private var viewControllerTypes: [String: () -> ItemDisplayingViewController] = globalViewControllerTypes
     private var metricsViewControllers: [String: ItemDisplayingViewController] = [:]
     private var sizes: [IndexPath: CGSize] = [:]
+    private var prefetchedCells: [IndexPath: HostingCell]?
     
     private weak var parentViewController: UIViewController!
     
@@ -69,6 +70,19 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         }
     }
     
+    func prefetchContent(at indexPaths: [IndexPath], in scrollView: UIScrollView) {
+        if prefetchedCells == nil {
+            prefetchedCells = [:]
+            for indexPath in indexPaths {
+                if let tableView = scrollView as? UITableView {
+                    prefetchedCells?[indexPath] = self.tableView(tableView, cellForRowAt: indexPath) as? HostingCell
+                } else if let collectionView = scrollView as? UICollectionView {
+                    prefetchedCells?[indexPath] = self.collectionView(collectionView, cellForItemAt: indexPath) as? HostingCell
+                }
+            }
+        }
+    }
+    
     func reset() {
         sizes = [:]
         currentSections = sections()
@@ -84,6 +98,11 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = prefetchedCells?[indexPath] as? UITableViewCell {
+            prefetchedCells?[indexPath] = nil
+            return cell
+        }
+        
         let (item, variant, identifier) = info(for: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? HostingCell ?? {
             let hostedViewController = viewController(for: item.dynamicType)
@@ -132,6 +151,11 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = prefetchedCells?[indexPath] as? UICollectionViewCell {
+            prefetchedCells?[indexPath] = nil
+            return cell
+        }
+        
         let (item, variant, identifier) = info(for: indexPath)
         if !registeredIdentifiers.contains(identifier) {
             collectionView.register(CollectionViewCell<Item>.self, forCellWithReuseIdentifier: identifier)
@@ -141,6 +165,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         if !cell.hostingContent {
             let hostedViewController = viewController(for: item.dynamicType)
             cell.setup(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant)
+            print("Setting up cell at \(indexPath).")
         }
         
         displayItemWithView(item, cell.hostedViewController.view as! View)
