@@ -181,21 +181,22 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var insets: UIEdgeInsets = .zero
+        var sectionInsets: UIEdgeInsets = .zero
         let defaultSize = CGSize(width: 50, height: 50)
+        let sizeInsets = collectionViewSizeInsets(indexPath)
         if let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout {
             guard flowLayout.itemSize == defaultSize else {
-                return flowLayout.itemSize
+                let size = flowLayout.itemSize
+                return CGSize(width: size.width - sizeInsets.left - sizeInsets.right, height: size.height - sizeInsets.top - sizeInsets.bottom)
             }
-            insets = collectionViewSectionInset(for: indexPath.section, with: flowLayout)
+            sectionInsets = collectionViewSectionInset(for: indexPath.section, with: flowLayout)
         }
         
         return sizes[indexPath] ?? {
-            let containerSize = UIEdgeInsetsInsetRect(collectionView.superview!.bounds, insets).size
+            let containerSize = UIEdgeInsetsInsetRect(collectionView.superview!.bounds, sectionInsets).size
             let scrollViewSize = UIEdgeInsetsInsetRect(collectionView.bounds, collectionView.scrollIndicatorInsets).size
             let size = viewSize(at: indexPath, withContainerSize: containerSize, scrollViewSize: scrollViewSize)
-            let insets = collectionViewSizeInsets(indexPath)
-            let insetSize = CGSize(width: size.width - insets.left - insets.right, height: size.height - insets.top - insets.bottom)
+            let insetSize = CGSize(width: size.width - sizeInsets.left - sizeInsets.right, height: size.height - sizeInsets.top - sizeInsets.bottom)
             sizes[indexPath] = insetSize
             return insetSize
         }()
