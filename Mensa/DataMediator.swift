@@ -179,7 +179,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         if !cell.hostingContent {
             let hostedViewController = viewController(for: item.dynamicType)
             cell.setup(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant)
-            print("Setting up cell at \(indexPath).")
+            print("Setting up cell at \(indexPath) in \(hostedViewController.parent) for \(item.dynamicType).")
         }
         
         displayItemWithView(item, cell.hostedViewController.view as! View)
