@@ -33,6 +33,7 @@
 		1772ABD11D188BB9007DC99F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1772ABCF1D188BB9007DC99F /* Main.storyboard */; };
 		1772ABD31D188BB9007DC99F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1772ABD21D188BB9007DC99F /* Assets.xcassets */; };
 		179C60CC1D1A8A91002A3AA6 /* MultilineLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179C60CB1D1A8A91002A3AA6 /* MultilineLabel.swift */; };
+		17C406451D429C3000B5F1DB /* Scrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C406441D429C3000B5F1DB /* Scrolling.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		1772ABD21D188BB9007DC99F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1772ABD71D188BB9007DC99F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		179C60CB1D1A8A91002A3AA6 /* MultilineLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultilineLabel.swift; sourceTree = "<group>"; };
+		17C406441D429C3000B5F1DB /* Scrolling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrolling.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 				1704D15D1D1A817F00DA15E6 /* HostingCell.swift */,
 				172341291D1A3D5B00011CA6 /* ItemDisplaying.swift */,
 				179C60CB1D1A8A91002A3AA6 /* MultilineLabel.swift */,
+				17C406441D429C3000B5F1DB /* Scrolling.swift */,
 				172341101D19E5E100011CA6 /* Section.swift */,
 				1772ABBF1D188BA0007DC99F /* Info.plist */,
 			);
@@ -310,6 +313,7 @@
 				172341251D1A07AE00011CA6 /* Display.swift in Sources */,
 				1723412A1D1A3D5B00011CA6 /* ItemDisplaying.swift in Sources */,
 				179C60CC1D1A8A91002A3AA6 /* MultilineLabel.swift in Sources */,
+				17C406451D429C3000B5F1DB /* Scrolling.swift in Sources */,
 				1704D15E1D1A817F00DA15E6 /* HostingCell.swift in Sources */,
 				171441BF1D1B19E100300658 /* Association.swift in Sources */,
 				172341231D19F78200011CA6 /* DataDisplaying.swift in Sources */,

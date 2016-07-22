@@ -33,6 +33,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private var metricsViewControllers: [String: ItemDisplayingViewController] = [:]
     private var sizes: [IndexPath: CGSize] = [:]
     private var prefetchedCells: [IndexPath: HostingCell]?
+    private var prelayoutCellsSnapshotView: UIView!
     
     private weak var parentViewController: UIViewController!
     
@@ -80,6 +81,19 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
                     prefetchedCells?[indexPath] = self.collectionView(collectionView, cellForItemAt: indexPath) as? HostingCell
                 }
             }
+        }
+    }
+    
+    func prelayoutCells(in scrollView: UIScrollView) {
+        scrollView.isScrollEnabled = false
+        let indexPath = IndexPath(item: 0, section: sectionCount - 1)
+        prelayoutCellsSnapshotView = scrollView.superview!.snapshotView(afterScreenUpdates: false)
+        scrollView.superview!.addSubview(self.prelayoutCellsSnapshotView)
+
+        if let tableView = scrollView as? UITableView {
+            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        } else if let collectionView = scrollView as? UICollectionView {
+            collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
         }
     }
     
@@ -216,9 +230,17 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) { handleScrollEvent(.didEndDragging(decelerate: decelerate)) }
     func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) { handleScrollEvent(.willBeginDecelerating) }
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) { handleScrollEvent(.didEndDecelerating) }
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) { handleScrollEvent(.didEndScrollingAnimation) }
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool { handleScrollEvent(.willScrollToTop); return true }
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) { handleScrollEvent(.didScrollToTop) }
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        handleScrollEvent(.didEndScrollingAnimation)
+        if scrollView.isScrolledToTop {
+            prelayoutCellsSnapshotView.removeFromSuperview()
+            scrollView.isScrollEnabled = true
+        } else {
+            scrollView.scrollToTop()
+        }
+    }
 }
 
 private extension DataMediator {

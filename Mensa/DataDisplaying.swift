@@ -158,6 +158,10 @@ extension DataDisplaying where Self: UIViewController {
         dataMediator?.prefetchContent(at: indexPaths, in: scrollView)
     }
     
+    public func prelayoutCells() {
+        dataMediator?.prelayoutCells(in: scrollView)
+    }
+    
     // Call this method from the view controller to reload the data view.
     public func reloadData() {
         dataMediator?.reset()
