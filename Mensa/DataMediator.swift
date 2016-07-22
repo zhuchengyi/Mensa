@@ -33,7 +33,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private var metricsViewControllers: [String: ItemDisplayingViewController] = [:]
     private var sizes: [IndexPath: CGSize] = [:]
     private var prefetchedCells: [IndexPath: HostingCell]?
-    private var prelayoutCellsSnapshotView: UIView!
+    private var prelayoutCellsSnapshotView: UIView?
     
     private weak var parentViewController: UIViewController!
     
@@ -88,7 +88,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         scrollView.isScrollEnabled = false
         let indexPath = IndexPath(item: 0, section: sectionCount - 1)
         prelayoutCellsSnapshotView = scrollView.superview!.snapshotView(afterScreenUpdates: false)
-        scrollView.superview!.addSubview(self.prelayoutCellsSnapshotView)
+        scrollView.superview!.addSubview(self.prelayoutCellsSnapshotView!)
 
         if let tableView = scrollView as? UITableView {
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
@@ -235,7 +235,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         handleScrollEvent(.didEndScrollingAnimation)
         if scrollView.isScrolledToTop {
-            prelayoutCellsSnapshotView.removeFromSuperview()
+            prelayoutCellsSnapshotView?.removeFromSuperview()
             scrollView.isScrollEnabled = true
         } else {
             scrollView.scrollToTop()
