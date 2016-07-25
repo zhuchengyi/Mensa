@@ -162,6 +162,10 @@ extension DataDisplaying where Self: UIViewController {
         dataMediator?.prelayoutCells(in: scrollView)
     }
     
+    public func setCellCapacity(_ capacity: Int) {
+        dataMediator?.cellCapacity = capacity
+    }
+    
     // Call this method from the view controller to reload the data view.
     public func reloadData() {
         dataMediator?.reset()

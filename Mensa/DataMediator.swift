@@ -17,6 +17,8 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     typealias DisplayItemWithView = (Item, View) -> Void
     typealias HandleScrollEvent = (ScrollEvent) -> Void
     
+    var cellCapacity: Int?
+    
     private let sections: Sections
     private let variant: Variant
     private let displayItemWithView: DisplayItemWithView
@@ -34,6 +36,8 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private var sizes: [IndexPath: CGSize] = [:]
     private var prefetchedCells: [IndexPath: HostingCell]?
     private var prelayoutCellsSnapshotView: UIView?
+    private var cellQueues: [String: [UIView]] = [:]
+    private var cellCount = 0
     
     private weak var parentViewController: UIViewController!
     
@@ -118,16 +122,21 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         }
         
         let (item, variant, identifier) = info(for: indexPath)
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? HostingCell ?? {
+        let hostingCell: HostingCell? = tableView.dequeueReusableCell(withIdentifier: identifier) as? HostingCell ?? {
+            if cellCount == cellCapacity {
+                return nil
+            }
             let hostedViewController = viewController(for: item.dynamicType)
             let cell = TableViewCell<Item>(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant, reuseIdentifier: identifier)
             if let inset = tableViewCellSeparatorInset {
                 cell.separatorInset.left = inset
                 cell.layoutMargins.left = inset
             }
+            cellCount += 1
             return cell
         }()
         
+        guard let cell = hostingCell else { return UITableViewCell() }
         let view = cell.hostedViewController.view as! View
         displayItemWithView(item, view)
         cell.hostedViewController.update(with: item, variant: variant, displayed: true)
@@ -175,11 +184,21 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
             collectionView.register(CollectionViewCell<Item>.self, forCellWithReuseIdentifier: identifier)
         }
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CollectionViewCell<Item>
+        var cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CollectionViewCell<Item>
         if !cell.hostingContent {
-            let hostedViewController = viewController(for: item.dynamicType)
-            cell.setup(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant)
-            print("Setting up cell at \(indexPath) in \(hostedViewController.parent) for \(item.dynamicType).")
+            if cellCapacity == nil || cellCount < cellCapacity {
+                let hostedViewController = viewController(for: item.dynamicType)
+                cell.setup(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant)
+                cellCount += 1
+                print("Setting up cell at \(indexPath) in \(hostedViewController.parent) for \(item.dynamicType).")
+            } else {
+                cell = cellQueues[identifier]!.first as! CollectionViewCell<Item>
+            }
+        }
+        
+        if cellCapacity != nil {
+            cellQueues[identifier] = cellQueues[identifier].map { $0.filter { $0 !== cell } } ?? []
+            cellQueues[identifier]!.append(cell)
         }
         
         displayItemWithView(item, cell.hostedViewController.view as! View)
@@ -235,6 +254,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         handleScrollEvent(.didEndScrollingAnimation)
         if scrollView.isScrolledToTop {
+            handleScrollEvent(.didScrollToTop)
             prelayoutCellsSnapshotView?.removeFromSuperview()
             scrollView.isScrollEnabled = true
         } else {
