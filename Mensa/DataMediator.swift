@@ -36,6 +36,8 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private var sizes: [IndexPath: CGSize] = [:]
     private var prefetchedCells: [IndexPath: HostingCell]?
     private var prelayoutCellsSnapshotView: UIView?
+    private var prelayoutIndex: Int!
+    private var prelayoutIndexPaths: [IndexPath]!
     private var cellQueues: [String: [UIView]] = [:]
     private var cellCount = 0
     
@@ -88,12 +90,18 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         }
     }
     
-    func prelayoutCells(in scrollView: UIScrollView) {
+    func prelayoutCells(at indexPaths: [IndexPath], in scrollView: UIScrollView) {
         scrollView.isScrollEnabled = false
-        let indexPath = IndexPath(item: 0, section: sectionCount - 1)
         prelayoutCellsSnapshotView = scrollView.superview!.snapshotView(afterScreenUpdates: false)
         scrollView.superview!.addSubview(self.prelayoutCellsSnapshotView!)
-
+        
+        prelayoutIndex = 0
+        prelayoutIndexPaths = indexPaths
+        prelayoutCells(in: scrollView)
+    }
+    
+    func prelayoutCells(in scrollView: UIScrollView) {
+        let indexPath = prelayoutIndexPaths[prelayoutIndex]
         if let tableView = scrollView as? UITableView {
             tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         } else if let collectionView = scrollView as? UICollectionView {
@@ -253,12 +261,16 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) { handleScrollEvent(.didScrollToTop) }
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         handleScrollEvent(.didEndScrollingAnimation)
-        if scrollView.isScrolledToTop {
-            handleScrollEvent(.didScrollToTop)
-            prelayoutCellsSnapshotView?.removeFromSuperview()
-            scrollView.isScrollEnabled = true
-        } else {
-            scrollView.scrollToTop()
+        if prelayoutCellsSnapshotView != nil {
+            if prelayoutIndex < prelayoutIndexPaths.count - 1 {
+                prelayoutIndex = prelayoutIndex + 1
+                prelayoutCells(in: scrollView)
+            } else {
+                scrollView.scrollToTop(animated: false)
+                prelayoutCellsSnapshotView?.removeFromSuperview()
+                prelayoutCellsSnapshotView = nil
+                scrollView.isScrollEnabled = true
+            }
         }
     }
 }
