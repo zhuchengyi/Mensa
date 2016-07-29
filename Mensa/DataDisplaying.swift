@@ -204,6 +204,21 @@ extension DataDisplaying where Self: UIViewController {
         }
     }
     
+    public func insertSections(_ sections: IndexSet, animated: Bool = false) {
+        dataMediator?.reset()
+        if let tableView = dataView as? UITableView {
+            let animation: UITableViewRowAnimation = animated ? .fade : .none
+            tableView.insertSections(sections, with: animation)
+        } else if let collectionView = dataView as? UICollectionView {
+            let insert = { collectionView.insertSections(sections) }
+            if animated {
+                insert()
+            } else {
+                UIView.performWithoutAnimation(insert)
+            }
+        }
+    }
+    
     // Call this method from the view controller to remove items from the data view.
     public func removeItems(at indexPaths: [IndexPath], animated: Bool = false) {
         dataMediator?.reset()
