@@ -90,24 +90,16 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         }
     }
     
-    func prelayoutCells(at indexPaths: [IndexPath], in scrollView: UIScrollView) {
+    func prelayoutCells(to indexPath: IndexPath, in scrollView: UIScrollView) {
         scrollView.isScrollEnabled = false
         prelayoutCellsSnapshotView = scrollView.superview!.snapshotView(afterScreenUpdates: false)
         if let snapshotView = prelayoutCellsSnapshotView {
             scrollView.superview!.addSubview(snapshotView)
         }
-        
-        prelayoutIndex = 0
-        prelayoutIndexPaths = indexPaths
-        prelayoutCells(in: scrollView)
-    }
-    
-    func prelayoutCells(in scrollView: UIScrollView) {
-        let indexPath = prelayoutIndexPaths[prelayoutIndex]
         if let tableView = scrollView as? UITableView {
-            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         } else if let collectionView = scrollView as? UICollectionView {
-            collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+            collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
         }
     }
     
@@ -264,15 +256,10 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         handleScrollEvent(.didEndScrollingAnimation)
         if prelayoutCellsSnapshotView != nil {
-            if prelayoutIndex < prelayoutIndexPaths.count - 1 {
-                prelayoutIndex = prelayoutIndex + 1
-                prelayoutCells(in: scrollView)
-            } else {
-                scrollView.scrollToTop(animated: false)
-                prelayoutCellsSnapshotView?.removeFromSuperview()
-                prelayoutCellsSnapshotView = nil
-                scrollView.isScrollEnabled = true
-            }
+            scrollView.scrollToTop(animated: false)
+            prelayoutCellsSnapshotView?.removeFromSuperview()
+            prelayoutCellsSnapshotView = nil
+            scrollView.isScrollEnabled = true
         }
     }
 }
