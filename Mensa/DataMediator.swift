@@ -303,6 +303,29 @@ private extension DataMediator {
         if strategy.widthReference == .constraints || strategy.heightReference == .constraints {
             displayItemWithView(item, metricsView)
             metricsViewController.update(with: item, variant: variant, displayed: false)
+            
+            if strategy.heightReference == .constraints {
+                switch strategy.widthReference {
+                case .containerView:
+                    metricsView.frame.size.width = containerSize.width
+                case .scrollView:
+                    metricsView.frame.size.width = scrollViewSize.width
+                default:
+                    break
+                }
+            } else {
+                switch strategy.heightReference {
+                case .containerView:
+                    metricsView.frame.size.height = containerSize.height
+                case .scrollView:
+                    metricsView.frame.size.height = scrollViewSize.height
+                default:
+                    break
+                }
+            }
+            
+            metricsView.setNeedsLayout()
+            metricsView.layoutIfNeeded()
             fittedSize = metricsView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
         }
 
