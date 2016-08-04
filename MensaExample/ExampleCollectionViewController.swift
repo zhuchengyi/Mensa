@@ -23,7 +23,7 @@ class ExampleCollectionViewController: UIViewController {
         super.viewDidLoad()
         let layout = UICollectionViewFlowLayout()
         setDisplayContext(.collectionView(layout: layout))
-        view.backgroundColor = .black()
+        view.backgroundColor = .black
         setCellCapacity(43)
     }
 }

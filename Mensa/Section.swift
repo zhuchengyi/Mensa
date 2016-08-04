@@ -39,7 +39,7 @@ extension Section: Sequence {
     }
 }
 
-extension Section: ArrayLiteralConvertible {
+extension Section: ExpressibleByArrayLiteral {
     public init(arrayLiteral: Item...) {
         self.init(arrayLiteral)
     }

@@ -359,7 +359,7 @@ private extension UIViewController {
     static var viewType: UIView.Type {
         let name = String(self).replacingOccurrences(of: "ViewController", with: "View")
         let bundle = Bundle(for: self)
-        let namespace = bundle.objectForInfoDictionaryKey("CFBundleName") as! String
+        let namespace = bundle.object(forInfoDictionaryKey: "CFBundleName") as! String
         let className = "\(namespace).\(name)"
         return NSClassFromString(className) as! UIView.Type
     }
