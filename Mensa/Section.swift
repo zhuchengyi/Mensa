@@ -10,7 +10,7 @@
 public struct Section<Item> {
     let title: String? = nil
     let summary: String? = nil
-    private let items: [Item]
+    fileprivate let items: [Item]
     
     var count: Int {
         return items.count

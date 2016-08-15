@@ -56,7 +56,7 @@ public struct DefaultDisplayVariant: DisplayVariant {
 }
 
 // Globally register a view controller type to use to display an item type.
-public func globallyRegister<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
+public func globallyRegister<T, ViewController: UIViewController>(_ itemType: T.Type, with viewControllerType: ViewController.Type) where ViewController: ItemDisplaying, T == ViewController.Item {
     dataMediatorGloballyRegister(itemType, with: viewControllerType)
 }
 
@@ -150,7 +150,7 @@ extension DataDisplaying where Self: UIViewController {
     }
     
     // Register a view controller type to use to display an item type.
-    public func register<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
+    public func register<T, ViewController: UIViewController>(_ itemType: T.Type, with viewControllerType: ViewController.Type) where ViewController: ItemDisplaying, T == ViewController.Item {
         dataMediator?.register(itemType, with: viewControllerType)
     }
     

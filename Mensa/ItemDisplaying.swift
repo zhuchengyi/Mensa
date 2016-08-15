@@ -61,17 +61,18 @@ final class ItemDisplayingViewController: UIViewController {
     typealias View = UIView
 
     private let nib: UINib
-    private let update: (Any, DisplayVariant, Bool) -> Void
-    private let select: (Any) -> Void
-    private let setHighlighted: (Any, Bool) -> Void
-    private let itemSizingStrategy: (DisplayVariant) -> ItemSizingStrategy
+    
+    fileprivate let update: (Any, DisplayVariant, Bool) -> Void
+    fileprivate let select: (Any) -> Void
+    fileprivate let setHighlighted: (Any, Bool) -> Void
+    fileprivate let itemSizingStrategy: (DisplayVariant) -> ItemSizingStrategy
     
     private weak var viewController: UIViewController!
     
-    init<V: UIViewController where V: ItemDisplaying>(_ viewController: V) {
+    init<V: UIViewController>(_ viewController: V) where V: ItemDisplaying {
         self.viewController = viewController
         
-        let viewName = String(viewController.dynamicType).replacingOccurrences(of: "ViewController", with: "View")
+        let viewName = String(describing: type(of: viewController)).replacingOccurrences(of: "ViewController", with: "View")
         nib = nibs[viewName] ?? {
             let nib = UINib(nibName: viewName, bundle: Bundle.main)
             nibs[viewName] = nib

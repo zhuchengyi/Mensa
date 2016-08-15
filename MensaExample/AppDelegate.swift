@@ -9,10 +9,12 @@
 import Mensa
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder {
     var window: UIWindow?
+}
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+extension AppDelegate: UIApplicationDelegate {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         globallyRegister(Number.self, with: NumberViewController.self)
         globallyRegister(PrimeFlag.self, with: PrimeFlagViewController.self)
         return true

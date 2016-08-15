@@ -19,20 +19,22 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     var cellCapacity: Int?
     
+    fileprivate let variant: Variant
+    fileprivate let collectionViewSectionInsets: SectionInsets
+    fileprivate let displayItemWithView: DisplayItemWithView
+    
+    fileprivate var currentSections: [Section<Item>]
+    fileprivate var viewTypes: [String: View.Type] = [:]
+    fileprivate var viewControllerTypes: [String: () -> ItemDisplayingViewController] = globalViewControllerTypes
+    fileprivate var metricsViewControllers: [String: ItemDisplayingViewController] = [:]
+    
     private let sections: Sections
-    private let variant: Variant
-    private let displayItemWithView: DisplayItemWithView
     private let handleScrollEvent: HandleScrollEvent
     private let tableViewCellSeparatorInset: CGFloat?
     private let hidesLastTableViewCellSeparator: Bool
-    private let collectionViewSectionInsets: SectionInsets
     private let collectionViewSizeInsets: SizeInsets
     
-    private var currentSections: [Section<Item>]
     private var registeredIdentifiers = Set<String>()
-    private var viewTypes: [String: View.Type] = [:]
-    private var viewControllerTypes: [String: () -> ItemDisplayingViewController] = globalViewControllerTypes
-    private var metricsViewControllers: [String: ItemDisplayingViewController] = [:]
     private var sizes: [IndexPath: CGSize] = [:]
     private var prefetchedCells: [IndexPath: HostingCell]?
     private var prelayoutCellsSnapshotView: UIView?
@@ -68,8 +70,8 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         return currentSections.count
     }
     
-    func register<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
-        let key = String(itemType)
+    func register<T, ViewController: UIViewController>(_ itemType: T.Type, with viewControllerType: ViewController.Type) where ViewController: ItemDisplaying, T == ViewController.Item {
+        let key = String(describing: itemType)
         viewTypes[key] = viewControllerType.viewType as? View.Type
         viewControllerTypes[key] = {
             let viewController = viewControllerType.init()
@@ -128,7 +130,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
             if cellCount == cellCapacity {
                 return nil
             }
-            let hostedViewController = viewController(for: item.dynamicType)
+            let hostedViewController = viewController(for: type(of: item))
             let cell = TableViewCell<Item>(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant, reuseIdentifier: identifier)
             if let inset = tableViewCellSeparatorInset {
                 cell.separatorInset.left = inset
@@ -200,11 +202,11 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         
         var cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CollectionViewCell<Item>
         if !cell.hostingContent {
-            if cellCapacity == nil || cellCount < cellCapacity {
-                let hostedViewController = viewController(for: item.dynamicType)
+            if cellCapacity == nil || cellCount < cellCapacity! {
+                let hostedViewController = viewController(for: type(of: item))
                 cell.setup(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant)
                 cellCount += 1
-                print("Setting up cell at \(indexPath) in \(hostedViewController.parent) for \(item.dynamicType).")
+                print("Setting up cell at \(indexPath) in \(hostedViewController.parent) for \(type(of: item)).")
             } else {
                 cell = cellQueues[identifier]!.first as! CollectionViewCell<Item>
             }
@@ -290,16 +292,16 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
 }
 
 private extension DataMediator {
-    func info(for indexPath: NSIndexPath) -> (Item, DisplayVariant, String) {
+    func info(for indexPath: IndexPath) -> (Item, DisplayVariant, String) {
         let item = currentSections[indexPath.section][indexPath.row]
-        let key = String(item.dynamicType)
+        let key = String(describing: type(of: item))
         let variant = self.variant(item, viewTypes[key]!)
         let identifier = key + String(variant.rawValue)
         return (item, variant, identifier)
     }
     
     func viewController(for type: Item.Type) -> ItemDisplayingViewController {
-        let key = String(type)
+        let key = String(describing: type)
         return viewControllerTypes[key]!()
     }
     
@@ -311,10 +313,10 @@ private extension DataMediator {
         return collectionViewSectionInsets(section) ?? layout.sectionInset
     }
     
-    func viewSize(at indexPath: NSIndexPath, withContainerSize containerSize: CGSize, scrollViewSize: CGSize) -> CGSize {
+    func viewSize(at indexPath: IndexPath, withContainerSize containerSize: CGSize, scrollViewSize: CGSize) -> CGSize {
         let (item, variant, identifier) = info(for: indexPath)
         let metricsViewController = metricsViewControllers[identifier] ?? {
-            let viewController = self.viewController(for: item.dynamicType)
+            let viewController = self.viewController(for: type(of: item))
             viewController.loadViewFromNib(for: variant)
             metricsViewControllers[identifier] = viewController
             return viewController
@@ -382,7 +384,7 @@ private extension DataMediator {
 
 private extension UIViewController {
     static var viewType: UIView.Type {
-        let name = String(self).replacingOccurrences(of: "ViewController", with: "View")
+        let name = String(describing: self).replacingOccurrences(of: "ViewController", with: "View")
         let bundle = Bundle(for: self)
         let namespace = bundle.object(forInfoDictionaryKey: "CFBundleName") as! String
         let className = "\(namespace).\(name)"
@@ -390,8 +392,8 @@ private extension UIViewController {
     }
 }
 
-func dataMediatorGloballyRegister<T, ViewController: UIViewController where ViewController: ItemDisplaying, T == ViewController.Item>(_ itemType: T.Type, with viewControllerType: ViewController.Type) {
-    let key = String(itemType)
+func dataMediatorGloballyRegister<T, ViewController: UIViewController>(_ itemType: T.Type, with viewControllerType: ViewController.Type) where ViewController: ItemDisplaying, T == ViewController.Item {
+    let key = String(describing: itemType)
     globalViewTypes[key] = viewControllerType.viewType
     globalViewControllerTypes[key] = {
         let viewController = viewControllerType.init()

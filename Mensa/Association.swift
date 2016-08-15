@@ -7,11 +7,11 @@
 //
 
 extension NSObject {
-    func associatedObject(for key: UnsafePointer<Void>) -> AnyObject? {
+    func associatedObject(for key: UnsafeRawPointer) -> Any? {
         return objc_getAssociatedObject(self, key)
     }
     
-    func setAssociatedObject(_ object: AnyObject?, for key: UnsafePointer<Void>) {
+    func setAssociatedObject(_ object: Any?, for key: UnsafeRawPointer) {
         objc_setAssociatedObject(self, key, object, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
 }
