@@ -156,6 +156,18 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as? HostingCell
+        let (item, _, _) = info(for: indexPath)
+        cell?.hostedViewController.setItemHighlighted(item, highlighted: true)
+    }
+    
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as? HostingCell
+        let (item, _, _) = info(for: indexPath)
+        cell?.hostedViewController.setItemHighlighted(item, highlighted: false)
+    }
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = tableView.backgroundColor
         if hidesLastTableViewCellSeparator {
@@ -208,13 +220,26 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         return cell
     }
     
-    // MARK: UICollectionViewDelegateFlowLayout
+    // MARK: UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? HostingCell
         let (item, _, _) = info(for: indexPath)
         cell?.hostedViewController.selectItem(item)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? HostingCell
+        let (item, _, _) = info(for: indexPath)
+        cell?.hostedViewController.setItemHighlighted(item, highlighted: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? HostingCell
+        let (item, _, _) = info(for: indexPath)
+        cell?.hostedViewController.setItemHighlighted(item, highlighted: false)
+    }
+
+    // MARK: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var sectionInsets: UIEdgeInsets = .zero
         let defaultSize = CGSize(width: 50, height: 50)

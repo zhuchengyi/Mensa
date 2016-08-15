@@ -11,6 +11,7 @@ public protocol ItemDisplaying: Displaying {
     // TODO: Pass in variant?
     func update(with item: Item, variant: DisplayVariant, displayed: Bool)
     func selectItem(_ item: Item)
+    func setItemHighlighted(_ item: Item, highlighted: Bool)
     func itemSizingStrategy(displayedWith variant: DisplayVariant) -> ItemSizingStrategy
 }
 
@@ -33,6 +34,7 @@ public struct ItemSizingStrategy {
 
 extension ItemDisplaying {
     public func selectItem(_ item: Item) {}
+    public func setItemHighlighted(_ item: Item, highlighted: Bool) {}
     
     public func itemSizingStrategy(displayedWith variant: DisplayVariant) -> ItemSizingStrategy {
         return ItemSizingStrategy(widthReference: .constraints, heightReference: .constraints)
@@ -61,6 +63,7 @@ final class ItemDisplayingViewController: UIViewController {
     private let nib: UINib
     private let update: (Any, DisplayVariant, Bool) -> Void
     private let select: (Any) -> Void
+    private let setHighlighted: (Any, Bool) -> Void
     private let itemSizingStrategy: (DisplayVariant) -> ItemSizingStrategy
     
     private weak var viewController: UIViewController!
@@ -77,6 +80,7 @@ final class ItemDisplayingViewController: UIViewController {
         
         update = { viewController.update(with: $0 as! V.Item, variant: $1, displayed: $2) }
         select = { viewController.selectItem($0 as! V.Item) }
+        setHighlighted = { viewController.setItemHighlighted($0 as! V.Item, highlighted: $1) }
         itemSizingStrategy = { viewController.itemSizingStrategy(displayedWith: $0) }
         
         super.init(nibName: nil, bundle: nil)
@@ -111,6 +115,10 @@ extension ItemDisplayingViewController: ItemDisplaying {
     
     func selectItem(_ item: Any) {
         select(item)
+    }
+    
+    func setItemHighlighted(_ item: Item, highlighted: Bool) {
+        setHighlighted(item, highlighted)
     }
     
     func itemSizingStrategy(displayedWith variant: DisplayVariant) -> ItemSizingStrategy {
