@@ -25,10 +25,12 @@ public struct ItemSizingStrategy {
     
     let widthReference: DimensionReference
     let heightReference: DimensionReference
+    let maxContainerMargin: CGFloat?
     
-    public init(widthReference: DimensionReference, heightReference: DimensionReference) {
+    public init(widthReference: DimensionReference, heightReference: DimensionReference, maxContainerMargin: CGFloat? = nil) {
         self.widthReference = widthReference
         self.heightReference = heightReference
+        self.maxContainerMargin = maxContainerMargin
     }
 }
 

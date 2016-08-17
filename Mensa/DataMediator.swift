@@ -377,6 +377,10 @@ private extension DataMediator {
         case .template:
             size.height = metricsView.bounds.height
         }
+        
+        if let margin = strategy.maxContainerMargin {
+            size.width = min(size.width, containerSize.width - margin * 2)
+        }
 
         return size
     }
