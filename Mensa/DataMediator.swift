@@ -161,13 +161,14 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as? HostingCell
         let (item, _, _) = info(for: indexPath)
-        cell?.hostedViewController.setItemHighlighted(item, highlighted: true)
+        cell?.hostedViewController.setItemHighlighted(item, highlighted: true, animated: false)
     }
     
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as? HostingCell
         let (item, _, _) = info(for: indexPath)
-        cell?.hostedViewController.setItemHighlighted(item, highlighted: false)
+        let animated = !tableView.isTracking
+        cell?.hostedViewController.setItemHighlighted(item, highlighted: false, animated: animated)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -232,13 +233,14 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? HostingCell
         let (item, _, _) = info(for: indexPath)
-        cell?.hostedViewController.setItemHighlighted(item, highlighted: true)
+        cell?.hostedViewController.setItemHighlighted(item, highlighted: true, animated: false)
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? HostingCell
         let (item, _, _) = info(for: indexPath)
-        cell?.hostedViewController.setItemHighlighted(item, highlighted: false)
+        let animated = !collectionView.isTracking
+        cell?.hostedViewController.setItemHighlighted(item, highlighted: false, animated: animated)
     }
 
     // MARK: UICollectionViewDelegateFlowLayout

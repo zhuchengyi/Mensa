@@ -11,7 +11,7 @@ public protocol ItemDisplaying: Displaying {
     // TODO: Pass in variant?
     func update(with item: Item, variant: DisplayVariant, displayed: Bool)
     func selectItem(_ item: Item)
-    func setItemHighlighted(_ item: Item, highlighted: Bool)
+    func setItemHighlighted(_ item: Item, highlighted: Bool, animated: Bool)
     func itemSizingStrategy(displayedWith variant: DisplayVariant) -> ItemSizingStrategy
 }
 
@@ -36,7 +36,7 @@ public struct ItemSizingStrategy {
 
 extension ItemDisplaying {
     public func selectItem(_ item: Item) {}
-    public func setItemHighlighted(_ item: Item, highlighted: Bool) {}
+    public func setItemHighlighted(_ item: Item, highlighted: Bool, animated: Bool) {}
     
     public func itemSizingStrategy(displayedWith variant: DisplayVariant) -> ItemSizingStrategy {
         return ItemSizingStrategy(widthReference: .constraints, heightReference: .constraints)
@@ -66,7 +66,7 @@ final class ItemDisplayingViewController: UIViewController {
     
     fileprivate let update: (Any, DisplayVariant, Bool) -> Void
     fileprivate let select: (Any) -> Void
-    fileprivate let setHighlighted: (Any, Bool) -> Void
+    fileprivate let setHighlighted: (Any, Bool, Bool) -> Void
     fileprivate let itemSizingStrategy: (DisplayVariant) -> ItemSizingStrategy
     
     private weak var viewController: UIViewController!
@@ -83,7 +83,7 @@ final class ItemDisplayingViewController: UIViewController {
         
         update = { viewController.update(with: $0 as! V.Item, variant: $1, displayed: $2) }
         select = { viewController.selectItem($0 as! V.Item) }
-        setHighlighted = { viewController.setItemHighlighted($0 as! V.Item, highlighted: $1) }
+        setHighlighted = { viewController.setItemHighlighted($0 as! V.Item, highlighted: $1, animated: $2) }
         itemSizingStrategy = { viewController.itemSizingStrategy(displayedWith: $0) }
         
         super.init(nibName: nil, bundle: nil)
@@ -120,8 +120,8 @@ extension ItemDisplayingViewController: ItemDisplaying {
         select(item)
     }
     
-    func setItemHighlighted(_ item: Item, highlighted: Bool) {
-        setHighlighted(item, highlighted)
+    func setItemHighlighted(_ item: Item, highlighted: Bool, animated: Bool) {
+        setHighlighted(item, highlighted, animated)
     }
     
     func itemSizingStrategy(displayedWith variant: DisplayVariant) -> ItemSizingStrategy {
