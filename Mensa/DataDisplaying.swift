@@ -119,6 +119,7 @@ extension DataDisplaying where Self: UIViewController {
         if let dataView = dataView as? UIScrollView {
             view.addSubview(dataView)
             dataView.frame = view.bounds
+            dataView.delaysContentTouches = false
             dataView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             scrollViewSetup?(dataView)
         }
