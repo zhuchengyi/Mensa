@@ -32,7 +32,7 @@ public protocol DataDisplaying: Displaying {
 /// Context in which to display data. UITableView and UICollectionView are the default views used.
 public enum DataDisplayContext {
     case tableView(separatorInset: CGFloat?, separatorPlacement: SeparatorPlacement)
-    case collectionView(layout: UICollectionViewLayout)
+    case collectionView(collectionViewType: UICollectionView.Type, layout: UICollectionViewLayout)
 }
 
 public enum SeparatorPlacement {
@@ -107,8 +107,8 @@ extension DataDisplaying where Self: UIViewController {
                 tableView.tableFooterView = UIView()
             }
             dataView = tableView
-        case let .collectionView(layout):
-            let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        case let .collectionView(collectionViewType, layout):
+            let collectionView = collectionViewType.init(frame: .zero, collectionViewLayout: layout)
             collectionView.backgroundColor = .clear
             if #available (iOS 10, *) {
                 collectionView.isPrefetchingEnabled = false
