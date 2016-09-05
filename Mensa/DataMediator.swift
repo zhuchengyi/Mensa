@@ -93,6 +93,8 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     }
     
     func prelayoutCells(to indexPath: IndexPath, in scrollView: UIScrollView) {
+        guard prelayoutCellsSnapshotView == nil else { return }
+        
         scrollView.isScrollEnabled = false
         prelayoutCellsSnapshotView = scrollView.superview!.snapshotView(afterScreenUpdates: false)
         if let snapshotView = prelayoutCellsSnapshotView {
