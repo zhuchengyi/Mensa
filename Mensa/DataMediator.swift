@@ -70,9 +70,9 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         return currentSections.count
     }
     
-    func register<T, ViewController: UIViewController>(_ itemType: T.Type, with viewControllerType: ViewController.Type) where ViewController: ItemDisplaying, T == ViewController.Item {
+    func register<T, ViewController: UIViewController>(_ itemType: T.Type, with viewControllerType: ViewController.Type, forViewIn bundle: Bundle? = nil) where ViewController: ItemDisplaying, T == ViewController.Item {
         let key = String(describing: itemType)
-        viewTypes[key] = viewControllerType.viewType as? View.Type
+        viewTypes[key] = viewControllerType.viewType(in: bundle) as? View.Type
         viewControllerTypes[key] = {
             let viewController = viewControllerType.init()
             return ItemDisplayingViewController(viewController)
@@ -389,18 +389,17 @@ private extension DataMediator {
 }
 
 private extension UIViewController {
-    static var viewType: UIView.Type {
+    static func viewType(in bundle: Bundle?) -> UIView.Type {
         let name = String(describing: self).replacingOccurrences(of: "ViewController", with: "View")
-        let bundle = Bundle(for: self)
-        let namespace = bundle.object(forInfoDictionaryKey: "CFBundleName") as! String
+        let namespace = (bundle ?? Bundle(for: self)).object(forInfoDictionaryKey: "CFBundleName") as! String
         let className = "\(namespace).\(name)"
         return NSClassFromString(className) as! UIView.Type
     }
 }
 
-func dataMediatorGloballyRegister<T, ViewController: UIViewController>(_ itemType: T.Type, with viewControllerType: ViewController.Type) where ViewController: ItemDisplaying, T == ViewController.Item {
+func dataMediatorGloballyRegister<T, ViewController: UIViewController>(_ itemType: T.Type, with viewControllerType: ViewController.Type, forViewIn bundle: Bundle?) where ViewController: ItemDisplaying, T == ViewController.Item {
     let key = String(describing: itemType)
-    globalViewTypes[key] = viewControllerType.viewType
+    globalViewTypes[key] = viewControllerType.viewType(in: bundle)
     globalViewControllerTypes[key] = {
         let viewController = viewControllerType.init()
         return ItemDisplayingViewController(viewController)

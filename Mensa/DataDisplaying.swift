@@ -56,8 +56,8 @@ public struct DefaultDisplayVariant: DisplayVariant {
 }
 
 // Globally register a view controller type to use to display an item type.
-public func globallyRegister<T, ViewController: UIViewController>(_ itemType: T.Type, with viewControllerType: ViewController.Type) where ViewController: ItemDisplaying, T == ViewController.Item {
-    dataMediatorGloballyRegister(itemType, with: viewControllerType)
+public func globallyRegister<T, ViewController: UIViewController>(_ itemType: T.Type, with viewControllerType: ViewController.Type, forViewIn bundle: Bundle? = nil) where ViewController: ItemDisplaying, T == ViewController.Item {
+    dataMediatorGloballyRegister(itemType, with: viewControllerType, forViewIn: bundle)
 }
 
 private var dataViewKey = "displayViewKey"
