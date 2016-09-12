@@ -122,12 +122,14 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let (item, variant, identifier) = info(for: indexPath)
+        
         if let cell = prefetchedCells?[indexPath] as? UITableViewCell {
             prefetchedCells?[indexPath] = nil
+            displayItemWithView(item, (cell as! TableViewCell<Item>).hostedViewController.view as! View)
             return cell
         }
         
-        let (item, variant, identifier) = info(for: indexPath)
         let hostingCell: HostingCell? = tableView.dequeueReusableCell(withIdentifier: identifier) as? HostingCell ?? {
             if cellCount == cellCapacity {
                 return nil
@@ -193,12 +195,13 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let (item, variant, identifier) = info(for: indexPath)
         if let cell = prefetchedCells?[indexPath] as? UICollectionViewCell {
             prefetchedCells?[indexPath] = nil
+            displayItemWithView(item, (cell as! CollectionViewCell<Item>).hostedViewController.view as! View)
             return cell
         }
         
-        let (item, variant, identifier) = info(for: indexPath)
         if !registeredIdentifiers.contains(identifier) {
             collectionView.register(CollectionViewCell<Item>.self, forCellWithReuseIdentifier: identifier)
         }
