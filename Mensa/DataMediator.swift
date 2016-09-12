@@ -45,7 +45,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     private weak var parentViewController: UIViewController!
     
-    init(parentViewController: UIViewController, sections: Sections, variant: Variant, displayItemWithView: DisplayItemWithView, handleScrollEvent: HandleScrollEvent, tableViewCellSeparatorInset: CGFloat?, hidesLastTableViewCellSeparator: Bool, collectionViewSectionInsets: SectionInsets, collectionViewSizeInsets: SizeInsets) {
+    init(parentViewController: UIViewController, sections: @escaping Sections, variant: @escaping Variant, displayItemWithView: @escaping DisplayItemWithView, handleScrollEvent: @escaping HandleScrollEvent, tableViewCellSeparatorInset: CGFloat?, hidesLastTableViewCellSeparator: Bool, collectionViewSectionInsets: @escaping SectionInsets, collectionViewSizeInsets: @escaping SizeInsets) {
         self.parentViewController = parentViewController
         self.sections = sections
         self.variant = variant
