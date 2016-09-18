@@ -15,9 +15,9 @@ extension HostingCell {
     func hostContent(parentViewController: UIViewController, variant: DisplayVariant) {
         hostedViewController.loadViewFromNib(for: variant)
         parentViewController.addChildViewController(hostedViewController)
-        hostedViewController.didMove(toParentViewController: parentViewController)
         hostedViewController.view.frame = contentView.bounds
         contentView.addSubview(hostedViewController.view)
+        hostedViewController.didMove(toParentViewController: parentViewController)
         
         for attribute: NSLayoutAttribute in [.top, .left, .bottom, .right] {
             let constraint = NSLayoutConstraint(item: hostedViewController.view, attribute: attribute, relatedBy: .equal, toItem: contentView, attribute: attribute, multiplier: 1, constant: 0)
@@ -44,13 +44,21 @@ final class TableViewCell<Item>: UITableViewCell, HostingCell {
 
 final class CollectionViewCell<Item>: UICollectionViewCell, HostingCell {
     var hostedViewController: ItemDisplayingViewController!
+    var update: ((CollectionViewCell<Item>) -> Void)?
     private(set) var hostingContent = false
-
+    
     func setup(parentViewController: UIViewController, hostedViewController: ItemDisplayingViewController, variant: DisplayVariant) {
         guard !hostingContent else { return }
         self.hostedViewController = hostedViewController
         hostContent(parentViewController: parentViewController, variant: variant)
         hostingContent = true
+    }
+    
+    // MARK: UIView
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        update?(self)
+        update = nil
     }
 }
 

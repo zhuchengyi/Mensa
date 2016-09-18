@@ -101,8 +101,13 @@ final class ItemDisplayingViewController: UIViewController {
     
     // MARK: UIViewController
     override var view: UIView! {
-        get { return viewController.view }
-        set { viewController.view = newValue }
+        get {
+            return viewController.view
+        }
+        set {
+            viewController.view = newValue
+            viewController.viewDidLoad()
+        }
     }
     
     override func didMove(toParentViewController parent: UIViewController?) {

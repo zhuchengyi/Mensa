@@ -16,6 +16,7 @@ extension UITableView: DataView {}
 extension UICollectionView: DataView {}
 
 public enum ScrollEvent {
+    case canScroll
     case didScroll
     case willBeginDragging
     case willEndDragging(velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)

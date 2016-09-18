@@ -27,6 +27,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     fileprivate var viewTypes: [String: View.Type] = [:]
     fileprivate var viewControllerTypes: [String: () -> ItemDisplayingViewController] = globalViewControllerTypes
     fileprivate var metricsViewControllers: [String: ItemDisplayingViewController] = [:]
+    fileprivate var prelayoutIndexPaths: [IndexPath]!
     
     private let sections: Sections
     private let handleScrollEvent: HandleScrollEvent
@@ -37,9 +38,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     private var registeredIdentifiers = Set<String>()
     private var sizes: [IndexPath: CGSize] = [:]
     private var prefetchedCells: [IndexPath: HostingCell]?
-    private var prelayoutCellsSnapshotView: UIView?
-    private var prelayoutIndex: Int!
-    private var prelayoutIndexPaths: [IndexPath]!
+    private var prelayoutCellsSnapshotView: UIImageView?
     private var cellQueues: [String: [UIView]] = [:]
     private var cellCount = 0
     
@@ -92,19 +91,20 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         }
     }
     
-    func prelayoutCells(to indexPath: IndexPath, in scrollView: UIScrollView) {
-        guard prelayoutCellsSnapshotView == nil else { return }
+    func prelayoutCells(at indexPaths: [IndexPath], in scrollView: UIScrollView) {
+        guard prelayoutCellsSnapshotView == nil, indexPaths.count > 0 else { return }
         
+        let snapshotHostView = scrollView.superview!
         scrollView.isScrollEnabled = false
-        prelayoutCellsSnapshotView = scrollView.superview!.snapshotView(afterScreenUpdates: false)
-        if let snapshotView = prelayoutCellsSnapshotView {
-            scrollView.superview!.addSubview(snapshotView)
-        }
-        if let tableView = scrollView as? UITableView {
-            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        } else if let collectionView = scrollView as? UICollectionView {
-            collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-        }
+        prelayoutIndexPaths = indexPaths
+        
+        prelayoutCellsSnapshotView = UIImageView(frame: snapshotHostView.bounds)
+        UIGraphicsBeginImageContextWithOptions(snapshotHostView.bounds.size, true, 0.0)
+        snapshotHostView.drawHierarchy(in: snapshotHostView.bounds, afterScreenUpdates: false)
+        prelayoutCellsSnapshotView!.image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        scrollView.superview!.addSubview(prelayoutCellsSnapshotView!)
+        scrollToNextIndexPath(scrollView)
     }
     
     func reset() {
@@ -206,6 +206,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
             collectionView.register(CollectionViewCell<Item>.self, forCellWithReuseIdentifier: identifier)
         }
         
+        
         var cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CollectionViewCell<Item>
         if !cell.hostingContent {
             if cellCapacity == nil || cellCount < cellCapacity! {
@@ -224,7 +225,12 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
         }
         
         displayItemWithView(item, cell.hostedViewController.view as! View)
-        cell.hostedViewController.update(with: item, variant: variant, displayed: true)
+        let update: (CollectionViewCell<Item>) -> () = { cell in cell.hostedViewController.update(with: item, variant: variant, displayed: true) }
+        if cell.window == nil {
+            cell.update = update
+        } else {
+            update(cell)
+        }
         return cell
     }
     
@@ -288,12 +294,19 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool { handleScrollEvent(.willScrollToTop); return true }
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) { handleScrollEvent(.didScrollToTop) }
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        handleScrollEvent(.didEndScrollingAnimation)
         if prelayoutCellsSnapshotView != nil {
-            scrollView.scrollToTop(animated: false)
-            prelayoutCellsSnapshotView?.removeFromSuperview()
-            prelayoutCellsSnapshotView = nil
-            scrollView.isScrollEnabled = true
+            if prelayoutIndexPaths.count > 1 {
+                prelayoutIndexPaths = Array(prelayoutIndexPaths.dropFirst())
+                scrollToNextIndexPath(scrollView)
+            } else {
+                scrollView.scrollToTop(animated: false)
+                prelayoutCellsSnapshotView?.removeFromSuperview()
+                prelayoutCellsSnapshotView = nil
+                scrollView.isScrollEnabled = true
+                handleScrollEvent(.canScroll)
+            }
+        } else {
+            handleScrollEvent(.didEndScrollingAnimation)
         }
     }
 }
@@ -390,6 +403,14 @@ private extension DataMediator {
         }
 
         return size
+    }
+    
+    func scrollToNextIndexPath(_ scrollView: UIScrollView) {
+        if let tableView = scrollView as? UITableView {
+            tableView.scrollToRow(at: prelayoutIndexPaths.first!, at: .top, animated: true)
+        } else if let collectionView = scrollView as? UICollectionView {
+            collectionView.scrollToItem(at: prelayoutIndexPaths.first!, at: .top, animated: true)
+        }
     }
 }
 
