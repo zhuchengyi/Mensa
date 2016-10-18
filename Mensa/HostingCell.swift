@@ -14,10 +14,7 @@ protocol HostingCell {
 extension HostingCell {
     func hostContent(parentViewController: UIViewController, variant: DisplayVariant) {
         hostedViewController.loadViewFromNib(for: variant)
-        parentViewController.addChildViewController(hostedViewController)
-        hostedViewController.view.frame = contentView.bounds
-        contentView.addSubview(hostedViewController.view)
-        hostedViewController.didMove(toParentViewController: parentViewController)
+        hostedViewController.host(contentView, in: parentViewController)
         
         for attribute: NSLayoutAttribute in [.top, .left, .bottom, .right] {
             let constraint = NSLayoutConstraint(item: hostedViewController.view, attribute: attribute, relatedBy: .equal, toItem: contentView, attribute: attribute, multiplier: 1, constant: 0)

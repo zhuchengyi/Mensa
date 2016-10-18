@@ -63,13 +63,12 @@ final class ItemDisplayingViewController: UIViewController {
     typealias View = UIView
 
     private let nib: UINib
+    private weak var viewController: UIViewController!
     
     fileprivate let update: (Any, DisplayVariant, Bool) -> Void
     fileprivate let select: (Any) -> Void
     fileprivate let setHighlighted: (Any, Bool, Bool) -> Void
     fileprivate let itemSizingStrategy: (DisplayVariant) -> ItemSizingStrategy
-    
-    private weak var viewController: UIViewController!
     
     init<V: UIViewController>(_ viewController: V) where V: ItemDisplaying {
         self.viewController = viewController
@@ -99,6 +98,13 @@ final class ItemDisplayingViewController: UIViewController {
         view = views[index] as? View
     }
     
+    func host(_ contentView: UIView, in parentViewController: UIViewController) {
+        parentViewController.addChildViewController(viewController)
+        view.frame = contentView.bounds
+        contentView.addSubview(viewController.view)
+        viewController.didMove(toParentViewController: parentViewController)
+    }
+    
     // MARK: UIViewController
     override var view: UIView! {
         get {
@@ -110,11 +116,8 @@ final class ItemDisplayingViewController: UIViewController {
         }
     }
     
-    override func didMove(toParentViewController parent: UIViewController?) {
-        parent?.addChildViewController(viewController)
-        viewController.didMove(toParentViewController: parent)
-        willMove(toParentViewController: nil)
-        removeFromParentViewController()
+    override var parent: UIViewController? {
+        return viewController.parent
     }
 }
 
