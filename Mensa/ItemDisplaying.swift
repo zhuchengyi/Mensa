@@ -113,6 +113,8 @@ final class ItemDisplayingViewController: UIViewController {
     override func didMove(toParentViewController parent: UIViewController?) {
         parent?.addChildViewController(viewController)
         viewController.didMove(toParentViewController: parent)
+        willMove(toParentViewController: nil)
+        removeFromParentViewController()
     }
 }
 
