@@ -95,7 +95,7 @@ extension DataDisplaying where Self: UIViewController {
     }
     
     // Call this method to set up a display context in a view controller by adding an appropriate data view as a subview.
-    public func setDisplayContext(_ context: DataDisplayContext, scrollViewSetup: ((UIScrollView) -> Void)? = nil) {
+    public func setDisplayContext(_ context: DataDisplayContext, scrollViewSetup: ((UIScrollView) -> Void) = {_ in }) {
         var tableViewCellSeparatorInset: CGFloat? = nil
         var hidesLastTableViewCellSeparator = false
         switch context {
@@ -120,7 +120,7 @@ extension DataDisplaying where Self: UIViewController {
             view.addSubview(dataView)
             dataView.frame = view.bounds
             dataView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            scrollViewSetup?(dataView)
+            scrollViewSetup(dataView)
         }
         
         let dataMediator = DataMediator(
