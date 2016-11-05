@@ -17,8 +17,6 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     typealias DisplayItemWithView = (Item, View) -> Void
     typealias HandleScrollEvent = (ScrollEvent) -> Void
     
-    var cellCapacity: Int?
-    
     fileprivate let variant: Variant
     fileprivate let collectionViewSectionInsets: SectionInsets
     fileprivate let displayItemWithView: DisplayItemWithView
@@ -36,7 +34,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     private var registeredIdentifiers = Set<String>()
     private var sizes: [IndexPath: CGSize] = [:]
-    
+    private var prefetchedCells: [IndexPath: HostingCell]?
     private weak var parentViewController: UIViewController!
     
     init(parentViewController: UIViewController, sections: @escaping Sections, variant: @escaping Variant, displayItemWithView: @escaping DisplayItemWithView, handleScrollEvent: @escaping HandleScrollEvent, tableViewCellSeparatorInset: CGFloat?, hidesLastTableViewCellSeparator: Bool, collectionViewSectionInsets: @escaping SectionInsets, collectionViewSizeInsets: @escaping SizeInsets) {
@@ -72,6 +70,19 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
             return ItemDisplayingViewController(viewController)
         }
     }
+    
+    func prefetchContent(at indexPaths: [IndexPath], in scrollView: UIScrollView) {
+        if prefetchedCells == nil {
+            prefetchedCells = [:]
+            for indexPath in indexPaths {
+                if let tableView = scrollView as? UITableView {
+                    prefetchedCells?[indexPath] = self.tableView(tableView, cellForRowAt: indexPath) as? HostingCell
+                } else if let collectionView = scrollView as? UICollectionView {
+                    prefetchedCells?[indexPath] = self.collectionView(collectionView, cellForItemAt: indexPath) as? HostingCell
+                }
+            }
+        }
+    }
 
     func reset() {
         sizes = [:]
@@ -89,6 +100,12 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let (item, variant, identifier) = info(for: indexPath)
+        if let cell = prefetchedCells?[indexPath] as? UITableViewCell {
+            prefetchedCells?[indexPath] = nil
+            displayItemWithView(item, (cell as! TableViewCell<Item>).hostedViewController.view as! View)
+            return cell
+        }
+        
         let hostingCell: HostingCell? = tableView.dequeueReusableCell(withIdentifier: identifier) as? HostingCell ?? {
             let hostedViewController = viewController(for: type(of: item))
             let cell = TableViewCell<Item>(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant, reuseIdentifier: identifier)
@@ -151,6 +168,12 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let (item, variant, identifier) = info(for: indexPath)
+        if let cell = prefetchedCells?[indexPath] as? UICollectionViewCell {
+            prefetchedCells?[indexPath] = nil
+            displayItemWithView(item, (cell as! CollectionViewCell<Item>).hostedViewController.view as! View)
+            return cell
+        }
+        
         if !registeredIdentifiers.contains(identifier) {
             collectionView.register(CollectionViewCell<Item>.self, forCellWithReuseIdentifier: identifier)
         }

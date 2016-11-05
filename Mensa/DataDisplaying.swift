@@ -154,14 +154,18 @@ extension DataDisplaying where Self: UIViewController {
         dataMediator?.register(itemType, with: viewControllerType)
     }
     
-    public func setCellCapacity(_ capacity: Int) {
-        dataMediator?.cellCapacity = capacity
+    public func prefetchContent(at indexPaths: [IndexPath]) {
+        DispatchQueue.main.async {
+            self.dataMediator?.prefetchContent(at: indexPaths, in: self.scrollView)
+        }
     }
     
     // Call this method from the view controller to reload the data view.
     public func reloadData() {
         dataMediator?.reset()
-        dataView?.reloadData()
+        DispatchQueue.main.async {
+            self.dataView?.reloadData()
+        }
     }
     
     // Call this method from the view controller to reload the data at specific index paths in the data view.
