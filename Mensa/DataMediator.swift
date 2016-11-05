@@ -27,7 +27,6 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     fileprivate var viewTypes: [String: View.Type] = [:]
     fileprivate var viewControllerTypes: [String: () -> ItemDisplayingViewController] = globalViewControllerTypes
     fileprivate var metricsViewControllers: [String: ItemDisplayingViewController] = [:]
-    fileprivate var prelayoutIndexPaths: [IndexPath]!
     
     private let sections: Sections
     private let handleScrollEvent: HandleScrollEvent
@@ -37,10 +36,6 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     private var registeredIdentifiers = Set<String>()
     private var sizes: [IndexPath: CGSize] = [:]
-    private var prefetchedCells: [IndexPath: HostingCell]?
-    private var prelayoutCellsSnapshotView: UIImageView?
-    private var cellQueues: [String: [UIView]] = [:]
-    private var cellCount = 0
     
     private weak var parentViewController: UIViewController!
     
@@ -77,36 +72,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
             return ItemDisplayingViewController(viewController)
         }
     }
-    
-    func prefetchContent(at indexPaths: [IndexPath], in scrollView: UIScrollView) {
-        if prefetchedCells == nil {
-            prefetchedCells = [:]
-            for indexPath in indexPaths {
-                if let tableView = scrollView as? UITableView {
-                    prefetchedCells?[indexPath] = self.tableView(tableView, cellForRowAt: indexPath) as? HostingCell
-                } else if let collectionView = scrollView as? UICollectionView {
-                    prefetchedCells?[indexPath] = self.collectionView(collectionView, cellForItemAt: indexPath) as? HostingCell
-                }
-            }
-        }
-    }
-    
-    func prelayoutCells(at indexPaths: [IndexPath], in scrollView: UIScrollView) {
-        guard prelayoutCellsSnapshotView == nil, indexPaths.count > 0 else { return }
-        
-        let snapshotHostView = scrollView.superview!
-        scrollView.isScrollEnabled = false
-        prelayoutIndexPaths = indexPaths
-        
-        prelayoutCellsSnapshotView = UIImageView(frame: snapshotHostView.bounds)
-        UIGraphicsBeginImageContextWithOptions(snapshotHostView.bounds.size, true, 0.0)
-        snapshotHostView.drawHierarchy(in: snapshotHostView.bounds, afterScreenUpdates: false)
-        prelayoutCellsSnapshotView!.image = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        scrollView.superview!.addSubview(prelayoutCellsSnapshotView!)
-        scrollToNextIndexPath(scrollView)
-    }
-    
+
     func reset() {
         sizes = [:]
         currentSections = sections()
@@ -123,24 +89,13 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let (item, variant, identifier) = info(for: indexPath)
-        
-        if let cell = prefetchedCells?[indexPath] as? UITableViewCell {
-            prefetchedCells?[indexPath] = nil
-            displayItemWithView(item, (cell as! TableViewCell<Item>).hostedViewController.view as! View)
-            return cell
-        }
-        
         let hostingCell: HostingCell? = tableView.dequeueReusableCell(withIdentifier: identifier) as? HostingCell ?? {
-            if cellCount == cellCapacity {
-                return nil
-            }
             let hostedViewController = viewController(for: type(of: item))
             let cell = TableViewCell<Item>(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant, reuseIdentifier: identifier)
             if let inset = tableViewCellSeparatorInset {
                 cell.separatorInset.left = inset
                 cell.layoutMargins.left = inset
             }
-            cellCount += 1
             return cell
         }()
         
@@ -196,34 +151,17 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let (item, variant, identifier) = info(for: indexPath)
-        if let cell = prefetchedCells?[indexPath] as? UICollectionViewCell {
-            prefetchedCells?[indexPath] = nil
-            displayItemWithView(item, (cell as! CollectionViewCell<Item>).hostedViewController.view as! View)
-            return cell
-        }
-        
         if !registeredIdentifiers.contains(identifier) {
             collectionView.register(CollectionViewCell<Item>.self, forCellWithReuseIdentifier: identifier)
         }
         
-        
-        var cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CollectionViewCell<Item>
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! CollectionViewCell<Item>
         if !cell.hostingContent {
-            if cellCapacity == nil || cellCount < cellCapacity! {
-                let hostedViewController = viewController(for: type(of: item))
-                cell.setup(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant)
-                cellCount += 1
-                print("Setting up cell at \(indexPath) in \(hostedViewController.parent) for \(type(of: item)).")
-            } else {
-                cell = cellQueues[identifier]!.first as! CollectionViewCell<Item>
-            }
+            let hostedViewController = viewController(for: type(of: item))
+            cell.setup(parentViewController: parentViewController, hostedViewController: hostedViewController, variant: variant)
+            print("Setting up cell at \(indexPath) in \(hostedViewController.parent) for \(type(of: item)).")
         }
-        
-        if cellCapacity != nil {
-            cellQueues[identifier] = cellQueues[identifier].map { $0.filter { $0 !== cell } } ?? []
-            cellQueues[identifier]!.append(cell)
-        }
-        
+
         displayItemWithView(item, cell.hostedViewController.view as! View)
         let update: (CollectionViewCell<Item>) -> () = { cell in cell.hostedViewController.update(with: item, variant: variant, displayed: true) }
         if cell.window == nil {
@@ -293,22 +231,7 @@ final class DataMediator<Item, View: UIView>: NSObject, UITableViewDataSource, U
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) { handleScrollEvent(.didEndDecelerating) }
     func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool { handleScrollEvent(.willScrollToTop); return true }
     func scrollViewDidScrollToTop(_ scrollView: UIScrollView) { handleScrollEvent(.didScrollToTop) }
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        if prelayoutCellsSnapshotView != nil {
-            if prelayoutIndexPaths.count > 1 {
-                prelayoutIndexPaths = Array(prelayoutIndexPaths.dropFirst())
-                scrollToNextIndexPath(scrollView)
-            } else {
-                scrollView.scrollToTop(animated: false)
-                prelayoutCellsSnapshotView?.removeFromSuperview()
-                prelayoutCellsSnapshotView = nil
-                scrollView.isScrollEnabled = true
-                handleScrollEvent(.canScroll)
-            }
-        } else {
-            handleScrollEvent(.didEndScrollingAnimation)
-        }
-    }
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) { handleScrollEvent(.didEndScrollingAnimation) }
 }
 
 private extension DataMediator {
@@ -403,14 +326,6 @@ private extension DataMediator {
         }
 
         return size
-    }
-    
-    func scrollToNextIndexPath(_ scrollView: UIScrollView) {
-        if let tableView = scrollView as? UITableView {
-            tableView.scrollToRow(at: prelayoutIndexPaths.first!, at: .top, animated: true)
-        } else if let collectionView = scrollView as? UICollectionView {
-            collectionView.scrollToItem(at: prelayoutIndexPaths.first!, at: .top, animated: true)
-        }
     }
 }
 

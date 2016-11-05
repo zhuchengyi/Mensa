@@ -154,14 +154,6 @@ extension DataDisplaying where Self: UIViewController {
         dataMediator?.register(itemType, with: viewControllerType)
     }
     
-    public func prefetchContent(at indexPaths: [IndexPath]) {
-        dataMediator?.prefetchContent(at: indexPaths, in: scrollView)
-    }
-    
-    public func prelayoutCells(at indexPaths: [IndexPath]) {
-        dataMediator?.prelayoutCells(at: indexPaths, in: scrollView)
-    }
-    
     public func setCellCapacity(_ capacity: Int) {
         dataMediator?.cellCapacity = capacity
     }
